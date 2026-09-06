@@ -400,10 +400,6 @@ tailwind.config = {
       </div>
     </div>
     <div class="flex items-center gap-2">
-      <button onclick="showApiKeyModal()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container-low text-label-sm font-label-sm text-on-surface transition-colors" title="Manage API Key">
-        <span class="material-symbols-outlined text-[16px] text-primary">vpn_key</span>
-        <span class="hidden sm:inline">API Key</span>
-      </button>
       <button onclick="clearChat()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant hover:text-error transition-colors" title="Clear Conversation">
         <span class="material-symbols-outlined text-[16px]">restart_alt</span>
         <span class="hidden sm:inline">Clear</span>
@@ -475,10 +471,7 @@ tailwind.config = {
 <div class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none pb-4 pt-6 bg-gradient-to-t from-background via-background/95 to-transparent">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-auto">
     <form id="chat-input-form" class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl shadow-[0_8px_30px_-4px_rgba(0,0,0,0.12),0_2px_6px_-1px_rgba(0,0,0,0.06)] focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/10 transition-all p-2 flex items-center gap-2" onsubmit="event.preventDefault();sendChatMessage();">
-      <button onclick="showApiKeyModal()" class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors shrink-0" type="button" title="Configure Groq API">
-        <span class="material-symbols-outlined text-[20px]">tune</span>
-      </button>
-      <input id="chat-user-input" class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-2 py-2" placeholder="Ask about Section 3(p), 3(e), TKDL prior art, or ABS compliance..." type="text" autocomplete="off"/>
+      <input id="chat-user-input" class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-3 py-2" placeholder="Ask about Section 3(p), 3(e), TKDL prior art, or ABS compliance..." type="text" autocomplete="off"/>
       <button id="chat-send-btn" class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" type="submit">
         <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
       </button>
@@ -1875,58 +1868,7 @@ function clearChat() {
   showToast('Chat history cleared', 'info');
 }
 
-function showApiKeyModal() {
-  const currentKey = GROQ_CONFIG.apiKey || '';
-  const currentModel = GROQ_CONFIG.model || 'qwen/qwen3.8-27b';
-  
-  showModal('Groq Cloud LLM Configuration', `
-    <div class="space-y-4 text-body-md font-body-md text-on-surface">
-      <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-900 leading-relaxed flex items-start gap-2.5">
-        <span class="material-symbols-outlined text-emerald-700 text-lg shrink-0 mt-0.5">verified</span>
-        <div>
-          <strong class="font-semibold text-emerald-950">Statutory RAG Active:</strong> Queries are augmented with authoritative Indian Patents Act (1970), BDA (2002), and CSIR-TKDL prior art references before dispatch to Groq LLM.
-        </div>
-      </div>
-      
-      <div class="space-y-1.5">
-        <label class="block text-label-md font-label-md text-on-surface font-medium">Groq API Key</label>
-        <div class="relative">
-          <input id="groq-api-key-input" type="password" value="${currentKey}" class="w-full h-11 px-3.5 pr-10 text-body-md font-mono text-sm bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" placeholder="gsk_..."/>
-          <button type="button" onclick="const i=document.getElementById('groq-api-key-input');i.type=i.type==='password'?'text':'password';" class="absolute right-2.5 top-2.5 text-outline hover:text-on-surface">
-            <span class="material-symbols-outlined text-[18px]">visibility</span>
-          </button>
-        </div>
-        <p class="text-[11px] text-outline">Stored securely in your browser's localStorage.</p>
-      </div>
 
-      <div class="space-y-1.5">
-        <label class="block text-label-md font-label-md text-on-surface font-medium">Model</label>
-        <select id="groq-model-select" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:border-primary-container focus:ring-2 focus:ring-primary-container/10">
-          <option value="qwen/qwen3.8-27b" ${currentModel==='qwen/qwen3.8-27b'?'selected':''}>qwen/qwen3.8-27b (Fast &amp; High Accuracy - Recommended)</option>
-          <option value="openai/gpt-oss-120b" ${currentModel==='openai/gpt-oss-120b'?'selected':''}>openai/gpt-oss-120b (Deep Reasoning)</option>
-          <option value="openai/gpt-oss-20b" ${currentModel==='openai/gpt-oss-20b'?'selected':''}>openai/gpt-oss-20b (Lightweight)</option>
-        </select>
-      </div>
-    </div>`,
-    `<button onclick="closeModal()" class="px-4 h-10 rounded-lg text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">Cancel</button>
-     <button onclick="saveGroqConfig()" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-semibold hover:bg-primary transition-all shadow-sm">Save Configuration</button>`
-  );
-}
-
-function saveGroqConfig() {
-  const key = document.getElementById('groq-api-key-input')?.value?.trim();
-  const model = document.getElementById('groq-model-select')?.value;
-  if (!key) {
-    showToast('Please enter a valid Groq API key', 'warning');
-    return;
-  }
-  GROQ_CONFIG.apiKey = key;
-  GROQ_CONFIG.model = model || 'qwen/qwen3.8-27b';
-  localStorage.setItem('ipsakti_groq_key', key);
-  localStorage.setItem('ipsakti_groq_model', GROQ_CONFIG.model);
-  closeModal();
-  showToast(`Groq configuration saved (${GROQ_CONFIG.model})`, 'success');
-}
 
 async function generateAiHypothesis() {
   const btn = document.getElementById('btn-draft-hypothesis');
