@@ -76,6 +76,32 @@ tailwind.config = {
   /* Checkbox toggle styling */
   .check-toggle { cursor:pointer; transition: all 0.2s; }
   .check-toggle:hover { background-color: #f4f4f2; }
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.25); border-radius: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(150, 150, 150, 0.45); }
+  /* DARK MODE STYLES & OVERRIDES */
+  html.dark { color-scheme: dark; }
+  html.dark body { background-color: #0c0e12; color: #f1f5f9; }
+  html.dark #app-header { background-color: #11141a; border-bottom: 1px solid #1e2430; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.4); }
+  html.dark .bg-surface, html.dark .bg-surface-bright, html.dark .bg-background { background-color: #0c0e12 !important; }
+  html.dark .bg-surface-container-lowest { background-color: #131720 !important; }
+  html.dark .bg-surface-container-low { background-color: #181d28 !important; }
+  html.dark .bg-surface-container { background-color: #1e2432 !important; }
+  html.dark .bg-surface-container-high, html.dark .bg-surface-container-highest { background-color: #242c3d !important; }
+  html.dark .text-on-surface { color: #f1f5f9 !important; }
+  html.dark .text-on-surface-variant { color: #94a3b8 !important; }
+  html.dark .text-outline { color: #64748b !important; }
+  html.dark .border-outline-variant, html.dark .border-surface-container-highest, html.dark .border-surface-container-high, html.dark .border-surface-container { border-color: #222938 !important; }
+  html.dark .text-primary { color: #34d399 !important; }
+  html.dark .prose { color: #cbd5e1 !important; }
+  html.dark .prose strong { color: #f8fafc !important; }
+  html.dark .prose h1, html.dark .prose h2, html.dark .prose h3 { color: #f8fafc !important; }
+  html.dark #chat-sidebar { background-color: #11141a !important; border-color: #1e2430 !important; }
+  html.dark #chat-main-area { background-color: #0c0e12 !important; }
+  html.dark .chat-card-feature { background-color: #131720 !important; border-color: #222938 !important; }
+  html.dark .chat-card-feature:hover { background-color: #1a202c !important; border-color: #34d399 !important; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
@@ -102,6 +128,9 @@ tailwind.config = {
       <span>Docket #2024-IN-09</span>
     </div>
     <div class="flex items-center gap-2">
+      <button aria-label="Toggle Dark/Light Theme" onclick="toggleTheme()" class="p-1.5 rounded-lg border border-outline-variant/50 hover:bg-surface-container text-on-surface-variant hover:text-primary transition-all active:scale-95" title="Toggle Dark/Light Mode">
+        <span class="theme-toggle-icon material-symbols-outlined text-[20px]">dark_mode</span>
+      </button>
       <button aria-label="Help" class="p-1 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">help_outline</span></button>
       <button aria-label="Account" onclick="navigate('roles')" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface hover:bg-surface-container-low transition-all duration-150 text-label-md font-label-md text-on-surface">
         <span class="material-symbols-outlined text-[20px] text-primary">account_circle</span>
@@ -251,94 +280,357 @@ tailwind.config = {
 </div>
 </div>
 
-<!-- ===== MY DOSSIERS ===== -->
+<!-- ===== RESULTS DASHBOARD (MY DOSSIERS & EVIDENCE) ===== -->
 <div id="page-dossiers" class="page-section">
-<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10">
-  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8 border-b border-surface-container">
-    <div>
-      <div class="flex items-center gap-2 mb-1.5"><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">TKDL REGISTERED REGIME</span><span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span><span class="font-label-sm text-label-sm text-surface-tint">Active Workspace</span></div>
-      <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">My Dossiers</h1>
-      <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-xl">Manage active formulation assessments, IP readiness, and statutory dossiers.</p>
+  <!-- Sub-Header Journey Tab Navigation -->
+  <section class="bg-surface-bright border-b border-surface-container">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 pt-4 pb-0">
+      <div class="flex items-center space-x-1 sm:space-x-2 overflow-x-auto no-scrollbar pb-px">
+        <button type="button" onclick="switchResultsTab('overview')" id="tab-results-overview" class="results-subtab px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap rounded-t-lg">
+          Overview
+        </button>
+        <button type="button" onclick="switchResultsTab('iproute')" id="tab-results-iproute" class="results-subtab px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap rounded-t-lg">
+          IP Route
+        </button>
+        <button type="button" onclick="switchResultsTab('evidence')" id="tab-results-evidence" class="results-subtab px-4 py-2.5 font-label-md text-label-md text-primary font-semibold border-b-2 border-primary whitespace-nowrap flex items-center gap-1.5 rounded-t-lg bg-surface-container-lowest/70 shadow-sm">
+          <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">balance</span>
+          <span>Evidence</span>
+          <span class="ml-1 px-1.5 py-0.2 bg-primary text-on-primary rounded-full text-label-sm font-label-sm">3</span>
+        </button>
+        <button type="button" onclick="switchResultsTab('jurisdiction')" id="tab-results-jurisdiction" class="results-subtab px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap rounded-t-lg">
+          Jurisdiction
+        </button>
+        <button type="button" onclick="navigate('ask-ai')" class="px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap rounded-t-lg flex items-center gap-1">
+          <span class="material-symbols-outlined text-[16px]">arrow_back_ios_new</span>
+          <span>AI Assistant</span>
+        </button>
+      </div>
     </div>
-    <div class="flex items-center gap-3 self-start sm:self-auto">
-      <button onclick="toggleDossierView()" class="px-3.5 h-10 rounded-lg border border-surface-container bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:text-primary-container hover:bg-surface-container-low transition-colors duration-150 flex items-center gap-2" id="viewToggleBtn"><span class="material-symbols-outlined text-outline">view_agenda</span><span id="toggleBtnLabel">Simulate Empty State</span></button>
-      <button onclick="navigate('intake-2')" class="h-10 px-5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ New Dossier</span></button>
-    </div>
-  </div>
-  <div class="py-4 flex flex-wrap items-center justify-between gap-4">
-    <div class="flex items-center gap-6">
-      <span class="font-label-md text-label-md text-on-surface-variant">Showing <span class="font-medium text-on-surface">3 active formulations</span></span>
-      <span class="h-3.5 w-px bg-surface-container"></span>
-      <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> TKDL Engine v4.2 Synchronized</span>
-    </div>
-  </div>
-  <!-- Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="dossiersGrid">
-    <div onclick="navigate('tkdl')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+  </section>
+
+  <!-- TAB 1: OVERVIEW (Active Formulations Grid) -->
+  <div id="results-view-overview" class="hidden w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10">
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8 border-b border-surface-container">
       <div>
-        <div class="flex items-start justify-between gap-3 mb-4">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-7821</span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed border border-primary-fixed-dim/40"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Ready for Filing</span>
-        </div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Ashwagandha Vitality Elixir</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Standardized withanolide glycoside extract matrix. Botanical reference: <em>Withania somnifera</em> root extract.</p>
-        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Novel Excipient</span>
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">IPO Section 3(p) Cleared</span>
-        </div>
+        <div class="flex items-center gap-2 mb-1.5"><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">TKDL REGISTERED REGIME</span><span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span><span class="font-label-sm text-label-sm text-surface-tint">Active Workspace</span></div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">My Dossiers</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-xl">Manage active formulation assessments, IP readiness, and statutory dossiers.</p>
       </div>
-      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
-        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 2 days ago</span>
-        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      <div class="flex items-center gap-3 self-start sm:self-auto">
+        <button onclick="toggleDossierView()" class="px-3.5 h-10 rounded-lg border border-surface-container bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:text-primary-container hover:bg-surface-container-low transition-colors duration-150 flex items-center gap-2" id="viewToggleBtn"><span class="material-symbols-outlined text-outline">view_agenda</span><span id="toggleBtnLabel">Simulate Empty State</span></button>
+        <button onclick="navigate('intake-2')" class="h-10 px-5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ New Dossier</span></button>
       </div>
     </div>
-    <div onclick="navigate('abs')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
-      <div>
-        <div class="flex items-start justify-between gap-3 mb-4">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-6340</span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-secondary-container/20 text-on-secondary-container border border-secondary-container/40"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Review Recommended</span>
-        </div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Triphala Digestive Tonic</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.</p>
-        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Citation Match Flagged</span>
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">TKDL Prior Art v1.8</span>
-        </div>
-      </div>
-      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
-        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 4 hours ago</span>
-        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+    <div class="py-4 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <span class="font-label-md text-label-md text-on-surface-variant">Showing <span class="font-medium text-on-surface">3 active formulations</span></span>
+        <span class="h-3.5 w-px bg-surface-container"></span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> TKDL Engine v4.2 Synchronized</span>
       </div>
     </div>
-    <div onclick="navigate('escalation')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
-      <div>
-        <div class="flex items-start justify-between gap-3 mb-4">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-9014</span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/50"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Prior-Art Clear</span>
+    <!-- Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="dossiersGrid">
+      <div onclick="navigate('tkdl')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-7821</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed border border-primary-fixed-dim/40"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Ready for Filing</span>
+          </div>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Ashwagandha Vitality Elixir</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Standardized withanolide glycoside extract matrix. Botanical reference: <em>Withania somnifera</em> root extract.</p>
+          <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Novel Excipient</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">IPO Section 3(p) Cleared</span>
+          </div>
         </div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Curcumin Bio-Enhanced Extract</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.</p>
-        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">PCT Global Ready</span>
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">USPTO Class 424</span>
+        <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 2 days ago</span>
+          <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
         </div>
       </div>
-      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
-        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 5 days ago</span>
-        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      <div onclick="navigate('abs')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-6340</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-secondary-container/20 text-on-secondary-container border border-secondary-container/40"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Review Recommended</span>
+          </div>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Triphala Digestive Tonic</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.</p>
+          <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Citation Match Flagged</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">TKDL Prior Art v1.8</span>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 4 hours ago</span>
+          <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+        </div>
+      </div>
+      <div onclick="navigate('escalation')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+        <div>
+          <div class="flex items-start justify-between gap-3 mb-4">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-9014</span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/50"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Prior-Art Clear</span>
+          </div>
+          <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Curcumin Bio-Enhanced Extract</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.</p>
+          <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">PCT Global Ready</span>
+            <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">USPTO Class 424</span>
+          </div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+          <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 5 days ago</span>
+          <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+        </div>
+      </div>
+    </div>
+    <!-- Empty State -->
+    <div class="hidden my-12 bg-surface-container-lowest rounded-2xl border border-surface-container p-12 md:p-16 elevation-ambient text-center max-w-2xl mx-auto" id="dossiersEmptyState">
+      <div class="w-16 h-16 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center mx-auto mb-5"><span class="material-symbols-outlined text-[32px]">local_florist</span></div>
+      <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">No dossiers created yet</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-md mx-auto">Begin your first formulation assessment. Cross-reference classical Ayurvedic texts, verify Section 3(p) compliance, and generate filing-ready dossiers.</p>
+      <div class="mt-7"><button onclick="navigate('intake-2')" class="h-10 px-6 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] inline-flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ Create First Dossier</span></button></div>
+    </div>
+    <div class="mt-12 bg-surface-container-low rounded-xl border border-surface-container p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container mt-0.5">verified_user</span><div><h4 class="font-label-md text-label-md font-medium text-on-surface">Central Council for Research in Ayurvedic Sciences (CCRAS) Verification</h4><p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">All docket claims are dynamically validated against 519,000+ formulations from ancient foundational treatises via CSIR-TKDL.</p></div></div>
+      <a class="font-label-sm text-label-sm text-primary-container font-medium hover:underline self-start md:self-center shrink-0 cursor-pointer">Review Compliance Registry →</a>
+    </div>
+  </div>
+
+  <!-- TAB 2: EVIDENCE (Grounded Legal & Classical Sources Accordion) -->
+  <div id="results-view-evidence" class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10">
+    <!-- Screen Header -->
+    <div class="max-w-3xl mb-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low text-secondary font-label-sm text-label-sm border border-outline-variant/30 mb-4">
+        <span class="material-symbols-outlined text-[14px]">verified</span>
+        <span>Statutory &amp; Prior Art Provenance</span>
+      </div>
+      <h1 class="font-headline-lg text-headline-lg lg:text-display lg:font-display text-primary tracking-tight mb-3">
+        Grounded Legal &amp; Classical Sources
+      </h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+        Every recommendation is directly anchored in statutory gazettes and classical pharmacopoeias.
+      </p>
+    </div>
+
+    <!-- Singular Focus: Expandable Evidence Cards -->
+    <div class="max-w-4xl space-y-6" id="evidence-accordion">
+      <!-- Card 1: Expanded (Primary Active Focus) -->
+      <article class="bg-surface-container-lowest rounded-2xl border border-surface-container-highest p-6 sm:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all duration-300">
+        <!-- Header row -->
+        <div class="flex items-start justify-between gap-4 cursor-pointer select-none" onclick="toggleCard('card-1-content', 'card-1-icon')">
+          <div class="space-y-2">
+            <!-- Authority Badge -->
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+              <span>Statutory Law • Controller General of Patents</span>
+            </div>
+            <!-- Title -->
+            <h2 class="font-headline-sm text-headline-sm text-primary font-semibold">
+              The Patents Act, 1970 — Section 3(p)
+            </h2>
+          </div>
+          <!-- Collapse button -->
+          <button aria-expanded="true" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" type="button">
+            <span class="material-symbols-outlined text-[20px] transition-transform duration-200 rotate-180" id="card-1-icon">expand_more</span>
+          </button>
+        </div>
+        <!-- Expanded Content Body -->
+        <div class="mt-6 pt-6 border-t border-surface-container-low space-y-6" id="card-1-content">
+          <!-- Plain English Summary -->
+          <div class="space-y-1.5">
+            <h3 class="font-label-sm text-label-sm text-outline tracking-wider uppercase">Plain English Summary</h3>
+            <p class="text-on-surface font-body-md text-body-md leading-relaxed">
+              Bars patentability of traditional knowledge or mere aggregations of known properties of traditional plants.
+            </p>
+          </div>
+          <!-- Official Excerpt Box -->
+          <div class="bg-surface-container-low rounded-xl p-5 border-l-4 border-primary space-y-2">
+            <div class="flex items-center justify-between text-on-surface-variant font-label-sm text-label-sm">
+              <span class="flex items-center gap-1 font-medium text-primary">
+                <span class="material-symbols-outlined text-[16px]">format_quote</span>
+                Official Statutory Excerpt
+              </span>
+              <span class="text-outline">Cl. (p), amended Act 38 of 2002</span>
+            </div>
+            <blockquote class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+              “An invention which in effect is traditional knowledge or which is an aggregation or duplication of known properties of traditionally known component...”
+            </blockquote>
+          </div>
+          <!-- Key Legal Grounding Context (Bento Micro-Grid) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+            <div class="p-4 rounded-xl bg-surface border border-surface-container">
+              <div class="flex items-center gap-2 text-label-sm font-label-sm text-primary mb-1">
+                <span class="material-symbols-outlined text-[16px]">gavel</span>
+                <span>Legal Applicability</span>
+              </div>
+              <p class="text-on-surface-variant font-body-md text-body-md text-sm">
+                Mandatory non-patentability ground raised in First Statement of Objections (FER) for formulation patents.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-surface border border-surface-container">
+              <div class="flex items-center gap-2 text-label-sm font-label-sm text-secondary mb-1">
+                <span class="material-symbols-outlined text-[16px]">shield_with_heart</span>
+                <span>Safe Harbour Route</span>
+              </div>
+              <p class="text-on-surface-variant font-body-md text-body-md text-sm">
+                Synergistic proof of novel efficacy or specialized delivery matrix compliant with TKDL cross-indexing.
+              </p>
+            </div>
+          </div>
+          <!-- Action Link -->
+          <div class="pt-2 flex items-center justify-between">
+            <a class="inline-flex items-center gap-1.5 text-primary font-label-md text-label-md font-semibold hover:underline group" href="#">
+              <span>View Official Gazette Entry ↗</span>
+            </a>
+            <span class="text-label-sm font-label-sm text-outline">Verified Gazette Source: 2002-IN-CGPDTM</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2: Collapsed -->
+      <article class="bg-surface-container-lowest rounded-2xl border border-surface-container-highest p-6 sm:p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:border-outline-variant/60 transition-all duration-200">
+        <div class="flex items-start justify-between gap-4 cursor-pointer select-none" onclick="toggleCard('card-2-content', 'card-2-icon')">
+          <div class="space-y-2 flex-grow">
+            <!-- Authority Badge -->
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              <span>Classical Treatise • CSIR Traditional Knowledge Digital Library</span>
+            </div>
+            <!-- Title -->
+            <h2 class="font-headline-sm text-headline-sm text-primary font-semibold">
+              Charaka Samhita, Chikitsasthana 1.2:14 (TKDL ID: AK/8412)
+            </h2>
+            <!-- One-line preview -->
+            <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1 pt-1">
+              Documents synergy of Withania decoctions with milk for age-related rejuvenation.
+            </p>
+          </div>
+          <!-- Expand icon -->
+          <button aria-expanded="false" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" type="button">
+            <span class="material-symbols-outlined text-[20px] transition-transform duration-200" id="card-2-icon">expand_more</span>
+          </button>
+        </div>
+        <!-- Hidden drawer for micro-interaction -->
+        <div class="hidden mt-6 pt-6 border-t border-surface-container-low space-y-4" id="card-2-content">
+          <div class="bg-surface-container-low rounded-xl p-5 border-l-4 border-secondary space-y-2">
+            <span class="font-label-sm text-label-sm text-secondary font-medium">Pharmacopoeial Shloka Translation</span>
+            <blockquote class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+              “Regular processing of Ashwagandha roots infused in lipid substrates yields longevity and cellular vitality...”
+            </blockquote>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <a class="inline-flex items-center gap-1.5 text-primary font-label-md text-label-md font-semibold hover:underline" href="#">
+              <span>Inspect CSIR Accession Record ↗</span>
+            </a>
+            <span class="text-label-sm font-label-sm text-outline">Access Level: Tier-1 Regulatory</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3: Collapsed -->
+      <article class="bg-surface-container-lowest rounded-2xl border border-surface-container-highest p-6 sm:p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:border-outline-variant/60 transition-all duration-200">
+        <div class="flex items-start justify-between gap-4 cursor-pointer select-none" onclick="toggleCard('card-3-content', 'card-3-icon')">
+          <div class="space-y-2 flex-grow">
+            <!-- Authority Badge -->
+            <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span>
+              <span>National Biodiversity Authority</span>
+            </div>
+            <!-- Title -->
+            <h2 class="font-headline-sm text-headline-sm text-primary font-semibold">
+              Biological Diversity Act, 2002 — Section 7 &amp; ABS Guidelines
+            </h2>
+            <!-- One-line preview -->
+            <p class="font-body-md text-body-md text-on-surface-variant line-clamp-1 pt-1">
+              Requires commercial intimation to State Biodiversity Board for biological resource access.
+            </p>
+          </div>
+          <!-- Expand icon -->
+          <button aria-expanded="false" class="mt-1 w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" type="button">
+            <span class="material-symbols-outlined text-[20px] transition-transform duration-200" id="card-3-icon">expand_more</span>
+          </button>
+        </div>
+        <!-- Hidden drawer for micro-interaction -->
+        <div class="hidden mt-6 pt-6 border-t border-surface-container-low space-y-4" id="card-3-content">
+          <div class="bg-surface-container-low rounded-xl p-5 border-l-4 border-surface-tint space-y-2">
+            <span class="font-label-sm text-label-sm text-primary font-medium">Access &amp; Benefit Sharing (ABS) Rule</span>
+            <blockquote class="font-body-md text-body-md text-on-surface italic leading-relaxed">
+              “No person who is a citizen of India or a body corporate registered in India shall obtain any biological resource for commercial utilisation except after giving prior intimation to the State Biodiversity Board concerned...”
+            </blockquote>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <a class="inline-flex items-center gap-1.5 text-primary font-label-md text-label-md font-semibold hover:underline" href="#">
+              <span>View NBA Compliance Form 1 ↗</span>
+            </a>
+            <span class="text-label-sm font-label-sm text-outline">Mandatory for IP filing under Sec 6</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Botanical Intelligence Note / Calming Assurance -->
+    <div class="max-w-4xl mt-12 p-6 rounded-2xl bg-surface-container-low border border-surface-container flex items-center gap-4">
+      <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+        <span class="material-symbols-outlined text-[20px]">auto_stories</span>
+      </div>
+      <div class="space-y-0.5">
+        <h4 class="font-label-md text-label-md text-primary font-semibold">Immutable Provenance Chain</h4>
+        <p class="font-body-md text-body-md text-on-surface-variant text-sm">
+          All references carry verified hash signatures linked to the National Informatics Centre (NIC) gazette mirrors and CSIR-TKDL repository archives.
+        </p>
       </div>
     </div>
   </div>
-  <!-- Empty State -->
-  <div class="hidden my-12 bg-surface-container-lowest rounded-2xl border border-surface-container p-12 md:p-16 elevation-ambient text-center max-w-2xl mx-auto" id="dossiersEmptyState">
-    <div class="w-16 h-16 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center mx-auto mb-5"><span class="material-symbols-outlined text-[32px]">local_florist</span></div>
-    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">No dossiers created yet</h3>
-    <p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-md mx-auto">Begin your first formulation assessment. Cross-reference classical Ayurvedic texts, verify Section 3(p) compliance, and generate filing-ready dossiers.</p>
-    <div class="mt-7"><button onclick="navigate('intake-2')" class="h-10 px-6 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] inline-flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ Create First Dossier</span></button></div>
+
+  <!-- TAB 3: IP ROUTE -->
+  <div id="results-view-iproute" class="hidden w-full max-w-7xl mx-auto px-6 lg:px-12 py-10">
+    <div class="max-w-3xl mb-8">
+      <h2 class="text-headline-lg font-headline-lg text-primary tracking-tight font-semibold">Statutory IP &amp; Regulatory Filing Route</h2>
+      <p class="text-body-md text-on-surface-variant mt-1">Recommended patent filing hierarchy, timeline projections, and prior-art risk mitigations.</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container space-y-3">
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed">Phase 1: Provisional Filing</span>
+        <h3 class="text-base font-semibold text-on-surface">Indian Patent Office (CGPDTM)</h3>
+        <p class="text-xs text-on-surface-variant">Lock priority date with full specification of standardized extracts and therapeutic indication.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container space-y-3">
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant">Phase 2: Biodiversity Clearance</span>
+        <h3 class="text-base font-semibold text-on-surface">NBA Form-3 &amp; SBB Form-1</h3>
+        <p class="text-xs text-on-surface-variant">Obtain mandatory permissions under Section 6 &amp; 7 of Biological Diversity Act before patent grant.</p>
+      </div>
+      <div class="p-6 rounded-2xl bg-surface-container-lowest border border-surface-container space-y-3">
+        <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface">Phase 3: Global PCT Track</span>
+        <h3 class="text-base font-semibold text-on-surface">International Phase (WIPO)</h3>
+        <p class="text-xs text-on-surface-variant">File PCT application within 12 months with Section 39 Foreign Filing License clearance.</p>
+      </div>
+    </div>
   </div>
-  <div class="mt-12 bg-surface-container-low rounded-xl border border-surface-container p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
-    <div class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container mt-0.5">verified_user</span><div><h4 class="font-label-md text-label-md font-medium text-on-surface">Central Council for Research in Ayurvedic Sciences (CCRAS) Verification</h4><p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">All docket claims are dynamically validated against 519,000+ formulations from ancient foundational treatises via CSIR-TKDL.</p></div></div>
-    <a class="font-label-sm text-label-sm text-primary-container font-medium hover:underline self-start md:self-center shrink-0 cursor-pointer">Review Compliance Registry →</a>
+
+  <!-- TAB 4: JURISDICTION -->
+  <div id="results-view-jurisdiction" class="hidden w-full max-w-7xl mx-auto px-6 lg:px-12 py-10">
+    <div class="max-w-3xl mb-8">
+      <h2 class="text-headline-lg font-headline-lg text-primary tracking-tight font-semibold">Territorial Clearance &amp; Regulatory Standards</h2>
+      <p class="text-body-md text-on-surface-variant mt-1">Sovereign compliance across India IPO, USPTO Botanical Drug guidelines, and European Herbal Monographs (EMA/HMPC).</p>
+    </div>
+    <div class="space-y-4 max-w-4xl">
+      <div class="p-5 rounded-xl bg-surface-container-lowest border border-surface-container flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-semibold text-on-surface">Republic of India (CGPDTM / BDA)</h3>
+          <p class="text-xs text-on-surface-variant">Section 3(p) clearance required · Form 1/3 compliance mandatory</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold border border-emerald-200">Cleared for Filing</span>
+      </div>
+      <div class="p-5 rounded-xl bg-surface-container-lowest border border-surface-container flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-semibold text-on-surface">United States (USPTO / US FDA)</h3>
+          <p class="text-xs text-on-surface-variant">Botanical Drug Guidance for Industry · 35 U.S.C. 101/103 novelty standard</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant text-xs font-medium">Ready for PCT Entry</span>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -383,132 +675,247 @@ tailwind.config = {
 </div>
 </div>
 
-<!-- ===== ASK AI ===== -->
+<!-- ===== ASK AI (TWO-PANEL WORKSPACE WITH SIDEBAR & SUN/MOON THEMES) ===== -->
 <div id="page-ask-ai" class="page-section">
-<section class="w-full bg-surface-container-lowest/80 border-b border-surface-container-highest backdrop-blur-md sticky top-16 z-20">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
-    <div class="flex items-center gap-3">
-      <div class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></div>
-      <div>
-        <div class="flex items-center gap-2">
-          <h1 class="text-headline-sm font-headline-sm text-primary font-semibold tracking-tight text-base sm:text-lg">Statutory Legal Assistant</h1>
-          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs font-medium">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Groq LLM Active
-          </span>
-        </div>
-        <p class="text-label-sm font-label-sm text-on-surface-variant text-xs">Evidence-grounded RAG: Indian Patents Act, BDA 2002 &amp; CSIR-TKDL</p>
-      </div>
-    </div>
-    <div class="flex items-center gap-2">
-      <!-- Sovereign Indian Language Selector -->
-      <div class="relative inline-block text-left" id="lang-selector-container">
-        <button id="lang-selector-btn" onclick="toggleLanguageMenu()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low text-xs font-semibold text-on-surface transition-all shadow-sm active:scale-[0.98]" title="Select Indian Language for AI Copilot">
-          <span class="material-symbols-outlined text-[16px] text-primary">translate</span>
-          <span id="current-lang-label">English</span>
-          <span class="material-symbols-outlined text-[14px] text-outline">arrow_drop_down</span>
-        </button>
-        <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-1.5 w-52 max-h-72 overflow-y-auto bg-surface-container-lowest border border-surface-container-highest rounded-xl shadow-2xl py-1 z-50 divide-y divide-surface-container-low">
-          <!-- Populated by initLanguageSelector() -->
-        </div>
-      </div>
-      <button onclick="startNewChat()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-xs font-semibold shadow-sm transition-all active:scale-[0.98]" title="Start a fresh conversation">
-        <span class="material-symbols-outlined text-[16px]">add_comment</span>
-        <span class="hidden sm:inline">New Chat</span>
-      </button>
-      <button onclick="clearChat()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant hover:text-error transition-colors" title="Clear Conversation">
-        <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
-        <span class="hidden sm:inline">Clear</span>
-      </button>
-    </div>
-  </div>
-</section>
+<div class="flex h-[calc(100vh-4rem)] w-full overflow-hidden bg-surface dark:bg-[#0c0e12] text-on-surface">
 
-<div class="w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-40 flex flex-col justify-start">
-  <!-- Quick Suggestion Chips -->
-  <div class="mb-6">
-    <div class="text-label-sm text-outline mb-2.5 font-medium flex items-center gap-1.5">
-      <span class="material-symbols-outlined text-[16px] text-secondary">tips_and_updates</span>
-      <span id="suggestion-header-text">Suggested Inquiries (Statutory &amp; Platform Grounding):</span>
-    </div>
-    <div id="chat-suggestion-chips" class="flex flex-wrap gap-2">
-      <button type="button" onclick="sendQuickPrompt('How do I overcome Section 3(p) rejection for an Ayurvedic herbal formulation?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
-        § 3(p) Traditional Knowledge Bar
-      </button>
-      <button type="button" onclick="sendQuickPrompt('What quantitative evidence proves synergistic efficacy under Section 3(e)?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
-        § 3(e) Synergistic Admixture Test
-      </button>
-      <button type="button" onclick="sendQuickPrompt('When is SBB Form-1 intimation mandatory under the Biological Diversity Act?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
-        BDA Form-1 SBB Clearance
-      </button>
-      <button type="button" onclick="sendQuickPrompt('How does CSIR-TKDL concordance affect Indian &amp; international patent filings?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
-        CSIR-TKDL Prior Art Concordance
-      </button>
-      <button type="button" onclick="sendQuickPrompt('What does the IP-SAKTI Sahayak platform do and how does the 5-step Intake Wizard work?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
-        🌐 About Platform &amp; 5-Step Intake Wizard
-      </button>
-    </div>
-  </div>
-
-  <!-- Messages List -->
-  <div id="chat-messages" class="space-y-6 flex flex-col w-full">
-    <!-- Initial Greeting -->
-    <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8">
-      <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-        <span class="material-symbols-outlined text-[18px]">verified_user</span>
-      </div>
-      <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
-        <div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-3">
-          <div class="flex items-center gap-2">
-            <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence
-            </span>
-            <span class="text-outline text-label-sm">•</span>
-            <span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Powered by Groq RAG</span>
+  <!-- LEFT COLLAPSIBLE SIDEBAR -->
+  <aside id="chat-sidebar" class="w-64 sm:w-72 bg-surface-container-lowest dark:bg-[#11141a] border-r border-surface-container-highest dark:border-[#1e2430] flex flex-col justify-between shrink-0 transition-all duration-300 z-10">
+    <!-- Sidebar Top Area -->
+    <div class="flex flex-col p-3 sm:p-4 space-y-3 overflow-hidden flex-1">
+      <!-- App / Copilot Branding & Collapse Toggle -->
+      <div class="flex items-center justify-between pb-1">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-8 h-8 rounded-lg bg-primary dark:bg-emerald-600 text-on-primary flex items-center justify-center font-bold text-xs shrink-0 shadow-sm tracking-wider">
+            IS
           </div>
-          <span class="text-label-sm text-outline">Statutory Engine v2.6</span>
+          <div class="min-w-0">
+            <h2 class="text-sm font-bold text-on-surface truncate leading-tight">IP-SAKTI</h2>
+            <p class="text-[11px] text-on-surface-variant truncate">Sahayak</p>
+          </div>
         </div>
-        <p class="text-body-md font-body-md text-on-surface leading-relaxed">
-          Welcome. I am your statutory IP &amp; regulatory copilot, dynamically connected to <strong>Groq Cloud LLM</strong> with real-time RAG grounding in the <strong>Indian Patents Act, 1970</strong>, <strong>Biological Diversity Act, 2002</strong>, and <strong>CSIR-TKDL classical gazetteers</strong>.
-        </p>
-        <div class="mt-3.5 p-3 rounded-lg bg-surface-container-low border border-surface-container text-label-sm font-label-sm text-on-surface-variant space-y-1">
-          <p class="font-medium text-primary">Ask me about:</p>
-          <ul class="list-disc list-inside space-y-0.5 text-xs text-on-surface-variant">
-            <li>Section 3(p) prior art bars &amp; overcoming strategies</li>
-            <li>Section 3(e) synergistic combinations &amp; quantitative proof requirements</li>
-            <li>Section 3(d) therapeutic efficacy validation for enriched phyto-fractions</li>
-            <li>Mandatory SBB Form-1 and NBA Form-3 Access &amp; Benefit Sharing (ABS) clearances</li>
-            <li>Strategic patent claim drafting vs. Trade Secret protection</li>
-          </ul>
+        <button type="button" onclick="toggleChatSidebar()" class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-[#1e2432] transition-colors" title="Collapse sidebar">
+          <span id="sidebar-toggle-icon" class="material-symbols-outlined text-[18px]">chevron_left</span>
+        </button>
+      </div>
+
+      <!-- + New Chat Button -->
+      <button type="button" onclick="startNewChatSession()" class="w-full h-10 px-3.5 rounded-xl bg-primary hover:bg-primary-container dark:bg-emerald-600 dark:hover:bg-emerald-700 text-on-primary font-semibold text-xs flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98]">
+        <span class="material-symbols-outlined text-[18px]">add</span>
+        <span>New chat</span>
+      </button>
+
+      <!-- Search Sessions Bar -->
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-2.5 top-2.5 text-[16px] text-outline">search</span>
+        <input id="chat-search-input" oninput="filterChatSessions(this.value)" type="text" placeholder="Search" class="w-full pl-8 pr-3 py-1.5 text-xs bg-surface-container-low dark:bg-[#181d28] border border-surface-container dark:border-[#222938] rounded-lg text-on-surface placeholder:text-outline focus:outline-none focus:border-primary dark:focus:border-emerald-500 transition-colors"/>
+      </div>
+
+      <!-- Recent Sessions List -->
+      <div class="flex-1 flex flex-col min-h-0 pt-1">
+        <div class="text-[11px] font-semibold text-outline uppercase tracking-wider px-1 pb-1.5 flex items-center justify-between">
+          <span>Recent</span>
+          <span id="session-count-badge" class="text-[10px] text-outline font-normal"></span>
+        </div>
+        <div id="chat-sessions-list" class="flex-1 overflow-y-auto custom-scrollbar space-y-1 pr-1">
+          <!-- Populated by renderChatSessions() -->
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- Floating Responsive Input Bar with Microphone Voice Input -->
-<div class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none pb-4 pt-6 bg-gradient-to-t from-background via-background/95 to-transparent">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-auto">
-    <form id="chat-input-form" class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl shadow-[0_8px_30px_-4px_rgba(0,0,0,0.12),0_2px_6px_-1px_rgba(0,0,0,0.06)] focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/10 transition-all p-2 flex items-center gap-2" onsubmit="event.preventDefault();sendChatMessage();">
-      <input id="chat-user-input" class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-3 py-2" placeholder="Ask about Section 3(p), 3(e), TKDL prior art, or ABS compliance..." type="text" autocomplete="off"/>
-      <button id="chat-mic-btn" type="button" onclick="toggleSpeechRecognition()" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-outline-variant/50 hover:bg-surface-container-low text-on-surface-variant hover:text-primary transition-all active:scale-[0.95]" title="Speak inquiry (Voice Input)">
-        <span id="mic-icon" class="material-symbols-outlined text-[20px]">mic</span>
-      </button>
-      <button id="chat-send-btn" class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" type="submit" title="Send message">
-        <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
-      </button>
-    </form>
-    <!-- Voice Listening Active Indicator -->
-    <div id="voice-listening-banner" class="hidden text-center mt-1.5 flex items-center justify-center gap-2 text-xs text-rose-600 font-medium">
-      <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
-      <span id="voice-listening-text">🎙️ Listening... Speak now</span>
-      <button type="button" onclick="stopSpeechRecognition()" class="ml-2 underline text-outline hover:text-on-surface text-[11px]">Cancel</button>
+    <!-- Sidebar Bottom Footer -->
+    <div class="p-3.5 border-t border-surface-container-highest dark:border-[#1e2430] space-y-2 bg-surface-container-lowest/80 dark:bg-[#11141a]">
+      <div class="flex items-center gap-2 text-xs">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span class="font-semibold text-on-surface text-xs">Local storage</span>
+      </div>
+      <p class="text-[11px] text-outline leading-tight">
+        Chats are saved in this browser only.
+      </p>
+      <div class="flex items-center justify-between pt-1">
+        <div class="flex items-center gap-2 text-[10px] text-outline">
+          <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-primary dark:bg-emerald-500"></span>Primary</span>
+          <span class="flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Gazette</span>
+        </div>
+        <button type="button" onclick="clearAllChatSessions()" class="text-[11px] text-outline hover:text-rose-500 transition-colors" title="Clear all local chat data">Clear All</button>
+      </div>
     </div>
-    <div class="text-center mt-2">
-      <p class="text-label-sm font-label-sm text-outline text-[11px]">
-        Grounded in Patents Act 1970 (§3p, §3e, §3d), BD Act 2002 &amp; CSIR-TKDL Gazette · Powered by Groq AI · Not formal legal counsel.
+  </aside>
+
+  <!-- RIGHT CHAT MAIN AREA -->
+  <main id="chat-main-area" class="flex-1 flex flex-col h-full bg-background dark:bg-[#0c0e12] overflow-hidden relative">
+
+    <!-- Top Workspace Bar -->
+    <header class="h-14 px-4 sm:px-6 border-b border-surface-container-highest dark:border-[#1e2430] bg-surface-container-lowest/90 dark:bg-[#11141a]/90 backdrop-blur-md flex items-center justify-between shrink-0 z-10">
+      <div class="flex items-center gap-3 min-w-0">
+        <button id="sidebar-open-btn" onclick="toggleChatSidebar()" class="hidden p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-[#1e2432] transition-colors" title="Open sidebar">
+          <span class="material-symbols-outlined text-[20px]">menu</span>
+        </button>
+        <div class="min-w-0">
+          <h2 id="chat-session-title" class="text-xs sm:text-sm font-semibold text-on-surface truncate">New Chat</h2>
+          <p class="text-[11px] text-on-surface-variant truncate">IP-SAKTI Sahayak · Sovereign Botanical Intelligence</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <!-- Jurisdiction Pill Dropdown -->
+        <div class="relative">
+          <button id="jurisdiction-btn" onclick="toggleJurisdictionMenu()" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg border border-outline-variant/60 dark:border-[#222938] bg-surface-container-lowest dark:bg-[#131720] text-xs font-medium text-on-surface hover:bg-surface-container-low dark:hover:bg-[#1e2432] transition-all">
+            <span class="material-symbols-outlined text-[14px] text-secondary">location_on</span>
+            <span id="current-jurisdiction-label">Jurisdiction: India</span>
+            <span class="material-symbols-outlined text-[14px] text-outline">expand_more</span>
+          </button>
+          <div id="jurisdiction-menu" class="hidden absolute right-0 mt-1.5 w-48 bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#222938] rounded-xl shadow-xl py-1 z-50 text-xs">
+            <button type="button" onclick="setJurisdiction('India')" class="w-full text-left px-3 py-2 hover:bg-surface-container dark:hover:bg-[#1e2432] flex items-center justify-between text-on-surface">
+              <span>Republic of India (IPO / BDA)</span>
+              <span class="material-symbols-outlined text-[14px] text-primary dark:text-emerald-400">check</span>
+            </button>
+            <button type="button" onclick="setJurisdiction('PCT Global')" class="w-full text-left px-3 py-2 hover:bg-surface-container dark:hover:bg-[#1e2432] text-on-surface">
+              <span>PCT Global Track (WIPO)</span>
+            </button>
+            <button type="button" onclick="setJurisdiction('United States')" class="w-full text-left px-3 py-2 hover:bg-surface-container dark:hover:bg-[#1e2432] text-on-surface">
+              <span>United States (USPTO / FDA)</span>
+            </button>
+            <button type="button" onclick="setJurisdiction('Europe')" class="w-full text-left px-3 py-2 hover:bg-surface-container dark:hover:bg-[#1e2432] text-on-surface">
+              <span>Europe (EPO / EMA-HMPC)</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Sun & Moon Theme Toggle -->
+        <button type="button" onclick="toggleTheme()" class="w-8 h-8 rounded-lg border border-outline-variant/60 dark:border-[#222938] bg-surface-container-lowest dark:bg-[#131720] hover:bg-surface-container-low dark:hover:bg-[#1e2432] text-on-surface-variant hover:text-primary dark:hover:text-emerald-400 flex items-center justify-center transition-all active:scale-95" title="Toggle Sun (Light) / Moon (Dark) theme">
+          <span class="theme-toggle-icon material-symbols-outlined text-[18px]">dark_mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Workspace Body: Scrollable Area -->
+    <div id="chat-scroll-container" class="flex-1 overflow-y-auto custom-scrollbar px-4 sm:px-8 py-6 flex flex-col justify-between">
+      
+      <!-- EMPTY STATE: "What are you working on?" (shown when no messages in session) -->
+      <div id="chat-empty-state" class="my-auto max-w-3xl mx-auto w-full py-6 flex flex-col items-center text-center">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-primary dark:bg-emerald-600 text-on-primary flex items-center justify-center font-bold text-sm shadow-md">
+            IS
+          </div>
+          <span class="text-base font-semibold text-primary dark:text-emerald-400 tracking-tight">IP-SAKTI</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-headline-lg text-on-surface font-bold tracking-tight mb-8">
+          What are you working on?
+        </h1>
+
+        <!-- 2x2 Feature Cards Grid matching user screenshot -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full text-left mb-6">
+          <!-- Card 1: Classify formulation -->
+          <div onclick="sendQuickPrompt('Classify my Ayurvedic formulation under AYUSH guidelines and determine statutory regulatory requirements.')" class="chat-card-feature cursor-pointer p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] hover:border-primary dark:hover:border-emerald-500 hover:shadow-md transition-all duration-200 group">
+            <div class="w-9 h-9 rounded-xl bg-surface-container-low dark:bg-[#1a202c] text-primary dark:text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-[22px]">science</span>
+            </div>
+            <h3 class="text-sm font-semibold text-on-surface group-hover:text-primary dark:group-hover:text-emerald-400 transition-colors">Classify my formulation</h3>
+            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">Find the AYUSH category and what it requires.</p>
+          </div>
+
+          <!-- Card 2: Protect traditional knowledge -->
+          <div onclick="sendQuickPrompt('How can I protect traditional knowledge and what are the defensive disclosure options under CSIR-TKDL?')" class="chat-card-feature cursor-pointer p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] hover:border-primary dark:hover:border-emerald-500 hover:shadow-md transition-all duration-200 group">
+            <div class="w-9 h-9 rounded-xl bg-surface-container-low dark:bg-[#1a202c] text-primary dark:text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-[22px]">menu_book</span>
+            </div>
+            <h3 class="text-sm font-semibold text-on-surface group-hover:text-primary dark:group-hover:text-emerald-400 transition-colors">Protect traditional knowledge</h3>
+            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">TK, prior art and defensive options.</p>
+          </div>
+
+          <!-- Card 3: Patent my innovation -->
+          <div onclick="sendQuickPrompt('What counts as patentable for an Ayurvedic botanical innovation under Section 3(p), Section 3(e), and Section 3(d), and what evidence should I prepare?')" class="chat-card-feature cursor-pointer p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] hover:border-primary dark:hover:border-emerald-500 hover:shadow-md transition-all duration-200 group">
+            <div class="w-9 h-9 rounded-xl bg-surface-container-low dark:bg-[#1a202c] text-primary dark:text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-[22px]">description</span>
+            </div>
+            <h3 class="text-sm font-semibold text-on-surface group-hover:text-primary dark:group-hover:text-emerald-400 transition-colors">Patent my innovation</h3>
+            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">What counts as patentable and what to prepare.</p>
+          </div>
+
+          <!-- Card 4: Check ABS requirements -->
+          <div onclick="sendQuickPrompt('When are SBB Form-1 and NBA Form-3 Access & Benefit Sharing (ABS) permissions mandatory under Biological Diversity Act 2002?')" class="chat-card-feature cursor-pointer p-5 rounded-2xl bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] hover:border-primary dark:hover:border-emerald-500 hover:shadow-md transition-all duration-200 group">
+            <div class="w-9 h-9 rounded-xl bg-surface-container-low dark:bg-[#1a202c] text-primary dark:text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-105 transition-transform">
+              <span class="material-symbols-outlined text-[22px]">verified_user</span>
+            </div>
+            <h3 class="text-sm font-semibold text-on-surface group-hover:text-primary dark:group-hover:text-emerald-400 transition-colors">Check ABS requirements</h3>
+            <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">When benefit-sharing and permissions apply.</p>
+          </div>
+        </div>
+
+        <p class="text-xs text-outline tracking-wide">Chats stay on this device.</p>
+      </div>
+
+      <!-- ACTIVE MESSAGES CONTAINER (shown when session has messages) -->
+      <div id="chat-messages-wrapper" class="hidden max-w-3xl mx-auto w-full space-y-6 pb-4">
+        <div id="chat-messages" class="space-y-6 flex flex-col w-full"></div>
+      </div>
+
+      <!-- TYPING INDICATOR -->
+      <div id="chat-typing" class="hidden max-w-3xl mx-auto w-full pl-2 sm:pl-4 mb-3">
+        <div class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] text-xs text-on-surface-variant shadow-sm">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="ml-1 text-outline font-mono text-[11px]">Consulting Ayurvedic Pharmacopoeia &amp; Patents Act...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCKED BOTTOM INPUT CARD matching user screenshot -->
+    <div class="shrink-0 p-3 sm:p-5 max-w-3xl w-full mx-auto">
+      <form id="chat-input-form" onsubmit="event.preventDefault();sendChatMessage();" class="w-full bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] rounded-2xl p-2.5 sm:p-3 shadow-md focus-within:border-primary dark:focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-primary/10 transition-all flex flex-col gap-2">
+        <!-- Textarea input -->
+        <textarea id="chat-user-input" rows="2" placeholder="Ask a question..." class="w-full bg-transparent border-none text-on-surface placeholder:text-outline text-xs sm:text-sm font-body-md focus:outline-none focus:ring-0 resize-none px-2 pt-1" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChatMessage();}"></textarea>
+        
+        <!-- Bottom controls inside input card -->
+        <div class="flex items-center justify-between pt-1 border-t border-surface-container-low dark:border-[#1a202c]">
+          <!-- Left: Attachment + Sovereign Language Pill -->
+          <div class="flex items-center gap-1.5">
+            <button type="button" onclick="showToast('Attachment feature: link formulation dockets or PDF specifications in Intake Wizard.', 'info')" class="p-1.5 rounded-lg text-outline hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-[#1a202c] transition-colors" title="Attach file or reference">
+              <span class="material-symbols-outlined text-[18px]">attach_file</span>
+            </button>
+
+            <!-- Language Pill Dropdown -->
+            <div class="relative">
+              <button id="lang-selector-btn" type="button" onclick="toggleLanguageMenu()" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium text-on-surface hover:bg-surface-container-low dark:hover:bg-[#1a202c] border border-outline-variant/40 dark:border-[#222938] transition-colors" title="Change Language">
+                <span class="material-symbols-outlined text-[15px] text-primary dark:text-emerald-400">translate</span>
+                <span id="current-lang-label">English</span>
+                <span class="material-symbols-outlined text-[13px] text-outline">expand_more</span>
+              </button>
+              <div id="lang-dropdown-menu" class="hidden absolute bottom-full mb-2 left-0 w-52 max-h-60 overflow-y-auto bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#222938] rounded-xl shadow-2xl py-1 z-50 divide-y divide-surface-container-low dark:divide-[#1e2430]">
+                <!-- Populated by initLanguageSelector() -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Mic + Send Button -->
+          <div class="flex items-center gap-1.5">
+            <!-- Microphone Voice Input -->
+            <button id="chat-mic-btn" type="button" onclick="toggleSpeechRecognition()" class="p-2 rounded-xl border border-outline-variant/50 dark:border-[#222938] text-on-surface-variant hover:text-primary dark:hover:text-emerald-400 hover:bg-surface-container-low dark:hover:bg-[#1a202c] transition-all active:scale-95" title="Voice Input (Speak your inquiry)">
+              <span id="mic-icon" class="material-symbols-outlined text-[18px]">mic</span>
+            </button>
+
+            <!-- Send Button -->
+            <button id="chat-send-btn" type="submit" class="h-9 px-3.5 rounded-xl bg-primary hover:bg-primary-container dark:bg-emerald-600 dark:hover:bg-emerald-700 text-on-primary font-semibold text-xs flex items-center gap-1.5 shadow-sm transition-all active:scale-[0.98]">
+              <span>Send</span>
+              <span class="material-symbols-outlined text-[16px]">send</span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <!-- Voice Listening Active Indicator -->
+      <div id="voice-listening-banner" class="hidden text-center mt-1.5 flex items-center justify-center gap-2 text-xs text-rose-600 font-medium">
+        <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
+        <span id="voice-listening-text">🎙️ Listening... Speak now</span>
+        <button type="button" onclick="stopSpeechRecognition()" class="ml-2 underline text-outline hover:text-on-surface text-[11px]">Cancel</button>
+      </div>
+
+      <p class="text-center text-[11px] text-outline mt-1.5">
+        Grounded in Patents Act 1970 (§3p, §3e, §3d), BD Act 2002 &amp; CSIR-TKDL Gazette · Not formal legal counsel.
       </p>
     </div>
-  </div>
+  </main>
 </div>
 </div>
 
@@ -1270,7 +1677,7 @@ function navigate(page) {
   history.replaceState(null, '', '#' + page);
   
   // Dynamic rendering for certain pages
-  if(page === 'dossiers') renderDossiers();
+  if(page === 'dossiers') { renderDossiers(); if(typeof switchResultsTab === 'function') switchResultsTab(window.currentResultsTab || 'evidence'); }
   if(page === 'admin') renderAdminStats();
   if(page === 'users') renderUsers();
   if(page === 'corpus') renderCorpus();
@@ -1328,6 +1735,56 @@ function toggleDossierView() {
   const label = document.getElementById('toggleBtnLabel');
   if (showingEmpty) { grid.classList.add('hidden'); empty.classList.remove('hidden'); label.innerText='Show Active Dossiers'; }
   else { grid.classList.remove('hidden'); empty.classList.add('hidden'); label.innerText='Simulate Empty State'; renderDossiers(); }
+}
+
+window.currentResultsTab = 'evidence';
+
+function switchResultsTab(tab) {
+  window.currentResultsTab = tab;
+  const views = {
+    overview: document.getElementById('results-view-overview'),
+    evidence: document.getElementById('results-view-evidence'),
+    iproute: document.getElementById('results-view-iproute'),
+    jurisdiction: document.getElementById('results-view-jurisdiction')
+  };
+  const tabBtns = {
+    overview: document.getElementById('tab-results-overview'),
+    evidence: document.getElementById('tab-results-evidence'),
+    iproute: document.getElementById('tab-results-iproute'),
+    jurisdiction: document.getElementById('tab-results-jurisdiction')
+  };
+
+  Object.entries(views).forEach(([key, el]) => {
+    if (el) {
+      if (key === tab) el.classList.remove('hidden');
+      else el.classList.add('hidden');
+    }
+  });
+
+  Object.entries(tabBtns).forEach(([key, btn]) => {
+    if (btn) {
+      if (key === tab) {
+        btn.className = 'results-subtab px-4 py-2.5 font-label-md text-label-md text-primary font-semibold border-b-2 border-primary whitespace-nowrap flex items-center gap-1.5 rounded-t-lg bg-surface-container-lowest/70 shadow-sm transition-all';
+      } else {
+        btn.className = 'results-subtab px-4 py-2.5 font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap flex items-center gap-1.5 rounded-t-lg';
+      }
+    }
+  });
+}
+
+function toggleCard(contentId, iconId) {
+  const content = document.getElementById(contentId);
+  const icon = document.getElementById(iconId);
+  if (!content || !icon) return;
+
+  const isHidden = content.classList.contains('hidden');
+  if (isHidden) {
+    content.classList.remove('hidden');
+    icon.classList.add('rotate-180');
+  } else {
+    content.classList.add('hidden');
+    icon.classList.remove('rotate-180');
+  }
 }
 
 // =============================================
@@ -1689,29 +2146,8 @@ function formatMarkdown(text) {
 }
 
 function getLocalRAGResponse(query, sources) {
-  const q = (query || '').toLowerCase();
-  
-  if (q.includes('platform') || q.includes('ipsakti') || q.includes('sahayak') || q.includes('about') || q.includes('website') || q.includes('what is')) {
-    return `### IP-SAKTI Sahayak Sovereign Platform Overview\n\n**IP-SAKTI Sahayak** is a sovereign IP & regulatory intelligence platform for Indian botanical innovation.\n\n**Core Capabilities:**\n- **5-Step Intake Wizard (#intake-1 to #intake-5)**: Structured guidance from classical botanical identity to multi-jurisdiction patent filing scope.\n- **CSIR-TKDL Concordance (#tkdl)**: Prior-art search against 430,000+ classical formulations across Charaka, Sushruta, and Ashtanga Hridaya.\n- **ABS Biodiversity Clearance (#abs)**: Verification checklist and 1-click generation of statutory SBB Form-1 intimations under BDA 2002.\n- **Statutory Legal Assistant (#ask-ai)**: Grounded AI copilot trained on Indian Patents Act 1970 (§§ 3p, 3e, 3d, 10, 39) and biological diversity jurisprudence.\n- **Escalation to Empaneled Counsel (#escalation)**: Formal docket referral to Adv. K. Ramanathan under a 48-hour SLA with SHA-256 sealed audit trails.`;
-  }
-
-  if (q.includes('wizard') || q.includes('step 1') || q.includes('step 2') || q.includes('step 3') || q.includes('step 4') || q.includes('step 5') || q.includes('how to intake')) {
-    return `### The 5-Step Formulation Intake Wizard\n\nThe Intake Wizard guides innovators through sovereign patent and regulatory clearance:\n\n1. **Step 1: Botanical Identity (#intake-1)**: Formulation commercial name, canonical Sanskrit reference, AYUSH traditional system (Ayurveda, Siddha, Unani, Sowa-Rigpa), delivery vehicle (Kashaya, Churna, Vati, Phytosome), authoritative text (Charaka Samhita, Sushruta Samhita, AFI), and regulatory track (Classical Rule 158B vs Proprietary APM).\n2. **Step 2: Formulation & Ingredients (#intake-2)**: Multi-ingredient botanical taxonomy, plant anatomical parts (Radix, Caulis, Leaf, Fruit), and provenance (Cultivated, Wild-harvested, APMC Commodity).\n3. **Step 3: Core Claims & Synergy (#intake-3)**: Marketing label claims, scientific basis, and AI-assisted drafting of Section 3(e) synergistic hypotheses.\n4. **Step 4: Biological Source (#intake-4)**: Harvest location (state/region), collection method, and APMC commercial invoices.\n5. **Step 5: Target Market & Review (#intake-5)**: Jurisdictional filing scope (India IPO, PCT Global, USPTO, EPO) and full dossier review prior to classification.`;
-  }
-
-  if (q.includes('3(p)') || q.includes('3p') || q.includes('traditional') || q.includes('classical')) {
-    return `### Section 3(p) Analysis & Statutory Overcoming Strategy\n\nUnder **Section 3(p) of the Indian Patents Act, 1970**, an invention which in effect is traditional knowledge or an aggregation of known properties of traditionally known components is barred from patentability.\n\n**To successfully overcome Section 3(p):**\n- **Establish Section 3(e) Synergy**: Demonstrate quantitative non-obvious synergistic interaction between the components (e.g., Combination Index < 1 using Chou-Talalay method).\n- **Standardize Enriched Phyto-fractions**: File claims directed to enriched, isolated bio-active fractions (e.g., specific standardized withanolide or polysaccharide ratios) rather than crude water extracts.\n- **Novel Delivery Systems**: Develop and claim novel delivery matrices (liposomal encapsulation, phytosomal complexes, nano-emulsions) exhibiting statistically significant bioavailability enhancement.\n- **Trade Secret Alternative**: Keep precise extraction temperatures, chromatographic parameters, and solvent yield ratios as proprietary Trade Secrets.`;
-  }
-  
-  if (q.includes('3(e)') || q.includes('3e') || q.includes('synerg') || q.includes('admixture')) {
-    return `### Section 3(e) Synergistic Efficacy Requirements\n\n**Section 3(e)** of the Patents Act, 1970 bars substances obtained by *mere admixture* resulting only in the aggregation of properties.\n\n**Mandatory Quantitative Evidence Required by CGPDTM:**\n1. **Supra-additive Therapeutic Data**: In vitro / in vivo assays demonstrating that the combined biological response exceeds the additive sum of individual constituents ($E_{AB} > E_A + E_B$).\n2. **Combination Index (CI)**: Statistical proof showing synergistic interaction indices ($CI < 0.8$) across multiple dosage ratios.\n3. **Comparative Bioavailability**: Bio-equivalence data proving enhanced cellular uptake or peak plasma concentration ($C_{max}$) compared to raw classical formulations.`;
-  }
-  
-  if (q.includes('abs') || q.includes('biodiversity') || q.includes('form-1') || q.includes('form 1') || q.includes('form-3') || q.includes('form 3') || q.includes('sbb') || q.includes('nba')) {
-    return `### Access & Benefit Sharing (ABS) Dual-Clearance Workflow\n\nUnder the **Biological Diversity Act, 2002 (amended 2023)**:\n\n1. **SBB Form-1 Intimation (Section 7)**:\n   - Mandatory for Indian commercial entities accessing wild-harvested biological resources from Indian natural habitats.\n   - Must be submitted to the State Biodiversity Board prior to commercial utilization.\n2. **NBA Form-3 Patent Approval (Section 6)**:\n   - Mandatory prior approval from the National Biodiversity Authority (NBA) before grant of any patent based on biological resources or associated knowledge obtained from India.\n3. **Exemptions**:\n   - Cultivated medicinal plants and normally traded commodities (Section 40 NTAC list) have specific exemptions, provided strict provenance documentation is maintained.`;
-  }
-
-  return `### IP-SAKTI Sovereign Regulatory Assessment\n\nBased on your query regarding Indian IP and biodiversity compliance:\n\n- **Statutory Framework**: Indian Patents Act 1970 (§§ 3(p), 3(e), 3(d), 10, 39) alongside Biological Diversity Act 2002.\n- **Prior Art Check**: Cross-referenced with CSIR-TKDL database (430,000+ classical formulations across Charaka, Sushruta, and Ashtanga Hridaya).\n- **Strategic Recommendation**: If combining classical botanicals, ensure you prepare empirical synergistic data under Section 3(e), maintain APMC procurement invoices for ABS compliance, and request NBA Form-3 clearance prior to patent grant.`;
+  const sourceCitations = (sources || []).map(s => `- **${s.title}**: ${s.citation}`).join('\n');
+  return `### Live AI Engine Notice\n\nThe live Groq AI model could not be reached (offline or network error). Please ensure your server and network connection are active.\n\n**Retrieved Statutory & Classical References for your query:**\n${sourceCitations || '- Indian Patents Act 1970 (§§ 3(p), 3(e), 3(d))\n- Biological Diversity Act 2002 (ABS Rules)\n- CSIR-TKDL Classical Knowledge Repository'}`;
 }
 
 // =============================================
@@ -2020,23 +2456,25 @@ function stopSpeechRecognition() {
 // =============================================
 function analyzeQueryComplexity(query) {
   const q = (query || '').toLowerCase().trim();
+  const isScientificOrClinical = /(cancer|tumor|arbuda|granthi|treatment|ayurved|herb|botanical|extract|disease|synerg|pharma|bioavail|dosage|rasayana|formulation)/i.test(q);
   const complexTriggers = [
     'draft', 'hypothesis', 'strategy', 'compare', 'difference between', 'distinguish',
     'step by step', 'procedure', 'complete', 'comprehensive', 'in detail', 'detailed',
     'checklist', 'requirements', 'workflow', 'all steps', 'how to overcome', 'overcoming'
   ];
   const isDirectQuestion = (
-    q.length < 45 ||
-    /^(what is|who is|which is|define|meaning of|when is|where is|tell me about|is it|can i|kya hai|kise kehte)/i.test(q) ||
-    q.includes('short') || q.includes('brief') || q.includes('summary') || q.includes('in short')
+    !isScientificOrClinical &&
+    (q.length < 35 ||
+    /^(what is|who is|which is|define|meaning of|when is|where is|is it|can i|kya hai|kise kehte)/i.test(q) ||
+    q.includes('short') || q.includes('brief') || q.includes('summary') || q.includes('in short'))
   );
-  const isComplex = complexTriggers.some(trigger => q.includes(trigger)) && !q.includes('short') && !q.includes('brief');
+  const isComplex = (isScientificOrClinical || complexTriggers.some(trigger => q.includes(trigger))) && !q.includes('short') && !q.includes('brief');
 
   if (isComplex) {
     return {
       mode: 'comprehensive',
       maxTokens: 580,
-      instruction: 'COMPREHENSIVE MANDATE: The user query requires an in-depth strategic analysis. Provide a structured response with clear statutory headings, empirical proof requirements, and actionable next steps.'
+      instruction: 'COMPREHENSIVE & BALANCED MANDATE: The user query requires rigorous, in-depth analysis. When addressing traditional medical or botanical domains (e.g., cancer, diabetes, formulations), first present authentic classical Ayurvedic science (classical pathology like Arbuda/Granthi, treatises like Sushruta & Charaka Samhita, Tridoshas, and specific botanicals like Ashwagandha, Curcuma, Kanchnar). Then transition into sovereign IP translation (Section 3p/3e/3d patentability proof, standardizing synergistic fractions, and BDA ABS clearance). Provide clear, authoritative structure.'
     };
   } else if (isDirectQuestion) {
     return {
@@ -2047,8 +2485,8 @@ function analyzeQueryComplexity(query) {
   } else {
     return {
       mode: 'balanced',
-      maxTokens: 380,
-      instruction: 'BALANCED MANDATE: Provide a clear, structured answer focusing strictly on the essential statutory rules and practical guidance without repetitive filler.'
+      maxTokens: 420,
+      instruction: 'BALANCED MANDATE: Provide a structured, informative response covering both classical Ayurvedic scientific context and practical statutory IP guidance.'
     };
   }
 }
@@ -2067,12 +2505,15 @@ async function callGroqRAG(userQuery) {
     langInstruction = `\nCRITICAL LANGUAGE MANDATE: You MUST respond entirely and fluently in ${lang.name} (${lang.native}). Retain standard statutory legal citations (e.g., Section 3(p), Section 3(e), Section 3(d), SBB Form-1, NBA Form-3, CSIR-TKDL, Chou-Talalay CI) in Latin notation alongside descriptive translations in ${lang.native}.`;
   }
 
-  const systemPrompt = `You are "IP-SAKTI Sahayak", an authoritative sovereign IP & regulatory AI copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), CSIR-TKDL prior-art concordance, and the IP-SAKTI platform itself.
+  const systemPrompt = `You are "IP-SAKTI Sahayak", an authoritative sovereign IP & regulatory AI copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), CSIR-TKDL prior-art concordance, classical Ayurvedic science, and the IP-SAKTI platform itself.
 
 YOUR MANDATE:
-1. Provide legally precise, evidence-grounded answers.
-2. Directly address statutory hurdles under Section 3(p) (traditional knowledge bar), Section 3(e) (synergistic admixture standard), Section 3(d) (therapeutic efficacy bar), Section 10(4)(ii)(D) (disclosure of biological origin), and Section 39 (foreign filing permission).
-3. If asked about the platform or website, explain the 5-step Intake Wizard (#intake-1 to #intake-5), TKDL search (#tkdl), ABS compliance (#abs), user roles (Researcher, Facilitator, Admin), and escalation to Empaneled Counsel.
+1. Provide legally precise, scientifically grounded, and evidence-anchored answers.
+2. SCHOLARSHIP HARMONY: When asked about clinical diseases or classical formulations (e.g., cancer treatments, rasayanas, metabolic disorders):
+   - First, explain the classical Ayurvedic medical understanding with authentic scholarly depth: cite classical terminology (e.g., Arbuda / Granthi for neoplasms), foundational treatises (*Sushruta Samhita*, *Charaka Samhita*), Tridoshic pathology (Kapha-Vata aggravation, Rakta/Mamsa Dhatus), and classical botanicals (*Withania somnifera* / Ashwagandha with withaferin A, *Curcuma longa* / Haridra with curcuminoids, *Bauhinia variegata* / Kanchnar Guggulu).
+   - Second, explain the statutory IP translation under Indian Patents Act 1970: how classical recipes are barred under Section 3(p) as traditional knowledge, but can be patented if formulated as standardized enriched fractions proving non-obvious synergy under Section 3(e) (CI < 0.8) or significantly enhanced therapeutic bioavailability under Section 3(d) via novel delivery systems (phytosomes, liposomes).
+   - Third, highlight mandatory regulatory compliance: CSIR-TKDL prior-art search and Biological Diversity Act 2002 clearance (SBB Form-1 intimation and NBA Form-3 approval).
+3. If asked about the platform or website, explain the 5-step Intake Wizard (#intake-1 to #intake-5), TKDL search (#tkdl), ABS compliance (#abs), and escalation to Empaneled Counsel (#escalation).
 4. ${complexity.instruction}
 ${langInstruction}
 
@@ -2153,32 +2594,286 @@ ${contextText}`;
   };
 }
 
-// LocalStorage chat persistence key
-const CHAT_STORAGE_KEY = 'ipsakti_chat_history';
-
-function loadChatHistory() {
-  try {
-    const raw = localStorage.getItem(CHAT_STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    return [];
+// =============================================
+// SUN & MOON (DARK / LIGHT) THEME MANAGEMENT
+// =============================================
+function initTheme() {
+  const saved = localStorage.getItem('ipsakti_theme');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (saved === 'dark' || (!saved && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
   }
+  updateThemeIcons();
 }
 
-function saveChatHistory(history) {
+function toggleTheme() {
+  const isDark = document.documentElement.classList.toggle('dark');
+  localStorage.setItem('ipsakti_theme', isDark ? 'dark' : 'light');
+  updateThemeIcons();
+  showToast(isDark ? 'Dark mode enabled 🌙' : 'Light mode enabled ☀️', 'info');
+}
+
+function updateThemeIcons() {
+  const isDark = document.documentElement.classList.contains('dark');
+  document.querySelectorAll('.theme-toggle-icon').forEach(icon => {
+    icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+  });
+}
+
+// =============================================
+// MULTI-SESSION CHAT & LOCAL STORAGE MANAGEMENT
+// =============================================
+const SESSIONS_STORAGE_KEY = 'ipsakti_chat_sessions_v2';
+const ACTIVE_SESSION_ID_KEY = 'ipsakti_active_session_id_v2';
+
+function loadChatSessions() {
   try {
-    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(history));
+    const raw = localStorage.getItem(SESSIONS_STORAGE_KEY);
+    const list = raw ? JSON.parse(raw) : [];
+    if (Array.isArray(list) && list.length > 0) return list;
+  } catch (e) {}
+
+  const defaultSession = {
+    id: 'session_' + Date.now(),
+    title: 'New Chat',
+    timestamp: Date.now(),
+    jurisdiction: 'India',
+    messages: []
+  };
+  saveChatSessions([defaultSession]);
+  localStorage.setItem(ACTIVE_SESSION_ID_KEY, defaultSession.id);
+  return [defaultSession];
+}
+
+function saveChatSessions(sessions) {
+  try {
+    localStorage.setItem(SESSIONS_STORAGE_KEY, JSON.stringify(sessions));
   } catch (e) {}
 }
 
+function getActiveSession() {
+  const sessions = loadChatSessions();
+  const activeId = localStorage.getItem(ACTIVE_SESSION_ID_KEY);
+  let session = sessions.find(s => s.id === activeId);
+  if (!session) {
+    session = sessions[0];
+    localStorage.setItem(ACTIVE_SESSION_ID_KEY, session.id);
+  }
+  return session;
+}
+
+function formatRelativeTime(timestamp) {
+  if (!timestamp) return 'recently';
+  const diffMs = Date.now() - timestamp;
+  const diffMins = Math.floor(diffMs / 60000);
+  if (diffMins < 1) return 'just now';
+  if (diffMins < 60) return `${diffMins}m ago`;
+  const diffHours = Math.floor(diffMins / 60);
+  if (diffHours < 24) return `about ${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  const diffDays = Math.floor(diffHours / 24);
+  return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+}
+
+function renderChatSessions(filterText = '') {
+  const listEl = document.getElementById('chat-sessions-list');
+  const countBadge = document.getElementById('session-count-badge');
+  if (!listEl) return;
+
+  const sessions = loadChatSessions();
+  const activeId = localStorage.getItem(ACTIVE_SESSION_ID_KEY);
+  const q = (filterText || '').toLowerCase().trim();
+  const filtered = q ? sessions.filter(s => s.title.toLowerCase().includes(q)) : sessions;
+
+  if (countBadge) countBadge.textContent = `${sessions.length}`;
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="p-3 text-center text-xs text-outline">No chats found</div>`;
+    return;
+  }
+
+  listEl.innerHTML = filtered.map(s => {
+    const isActive = s.id === activeId;
+    const timeStr = formatRelativeTime(s.timestamp);
+    const activeClasses = isActive
+      ? 'bg-surface-container-low dark:bg-[#1e2432] border-primary/40 dark:border-emerald-500/40 font-semibold'
+      : 'hover:bg-surface-container-low dark:hover:bg-[#181d28] border-transparent text-on-surface-variant';
+
+    return `
+      <div onclick="switchChatSession('${s.id}')" class="group cursor-pointer p-2 rounded-xl border flex items-start justify-between gap-2 transition-all duration-150 ${activeClasses}">
+        <div class="flex items-start gap-2 min-w-0 flex-1">
+          <span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary dark:group-hover:text-emerald-400 shrink-0 mt-0.5">chat_bubble_outline</span>
+          <div class="min-w-0 flex-1">
+            <h4 class="text-xs text-on-surface truncate leading-tight font-medium">${s.title || 'New Chat'}</h4>
+            <p class="text-[10px] text-outline truncate mt-0.5">${timeStr} · ${s.jurisdiction || 'India'}</p>
+          </div>
+        </div>
+        ${sessions.length > 1 ? `
+          <button type="button" onclick="deleteChatSession('${s.id}', event)" class="opacity-0 group-hover:opacity-100 p-1 rounded hover:text-rose-500 text-outline transition-all" title="Delete chat">
+            <span class="material-symbols-outlined text-[14px]">delete</span>
+          </button>` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+function startNewChatSession() {
+  const sessions = loadChatSessions();
+  const newSession = {
+    id: 'session_' + Date.now(),
+    title: 'New Chat',
+    timestamp: Date.now(),
+    jurisdiction: window.currentJurisdiction || 'India',
+    messages: []
+  };
+  sessions.unshift(newSession);
+  saveChatSessions(sessions);
+  localStorage.setItem(ACTIVE_SESSION_ID_KEY, newSession.id);
+  
+  renderChatSessions();
+  updateChatView();
+  showToast('✨ Started new chat session', 'success');
+  const input = document.getElementById('chat-user-input');
+  if (input) { input.value = ''; input.focus(); }
+}
+
+function switchChatSession(sessionId) {
+  localStorage.setItem(ACTIVE_SESSION_ID_KEY, sessionId);
+  renderChatSessions();
+  updateChatView();
+}
+
+function deleteChatSession(sessionId, event) {
+  if (event) event.stopPropagation();
+  let sessions = loadChatSessions();
+  if (sessions.length <= 1) {
+    clearAllChatSessions();
+    return;
+  }
+  sessions = sessions.filter(s => s.id !== sessionId);
+  saveChatSessions(sessions);
+  const activeId = localStorage.getItem(ACTIVE_SESSION_ID_KEY);
+  if (activeId === sessionId) {
+    localStorage.setItem(ACTIVE_SESSION_ID_KEY, sessions[0].id);
+  }
+  renderChatSessions();
+  updateChatView();
+  showToast('Chat deleted', 'info');
+}
+
+function clearAllChatSessions() {
+  const freshSession = {
+    id: 'session_' + Date.now(),
+    title: 'New Chat',
+    timestamp: Date.now(),
+    jurisdiction: window.currentJurisdiction || 'India',
+    messages: []
+  };
+  saveChatSessions([freshSession]);
+  localStorage.setItem(ACTIVE_SESSION_ID_KEY, freshSession.id);
+  renderChatSessions();
+  updateChatView();
+  showToast('All local chat sessions cleared', 'info');
+}
+
+function filterChatSessions(text) {
+  renderChatSessions(text);
+}
+
+function toggleChatSidebar() {
+  const sidebar = document.getElementById('chat-sidebar');
+  const openBtn = document.getElementById('sidebar-open-btn');
+  if (!sidebar) return;
+  const isHidden = sidebar.classList.contains('hidden');
+  if (isHidden) {
+    sidebar.classList.remove('hidden');
+    if (openBtn) openBtn.classList.add('hidden');
+  } else {
+    sidebar.classList.add('hidden');
+    if (openBtn) openBtn.classList.remove('hidden');
+  }
+}
+
+window.currentJurisdiction = 'India';
+
+function toggleJurisdictionMenu() {
+  const menu = document.getElementById('jurisdiction-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+
+function setJurisdiction(jurisdiction) {
+  window.currentJurisdiction = jurisdiction;
+  const label = document.getElementById('current-jurisdiction-label');
+  if (label) label.textContent = `Jurisdiction: ${jurisdiction}`;
+  const menu = document.getElementById('jurisdiction-menu');
+  if (menu) menu.classList.add('hidden');
+  
+  const activeSession = getActiveSession();
+  activeSession.jurisdiction = jurisdiction;
+  const sessions = loadChatSessions();
+  const idx = sessions.findIndex(s => s.id === activeSession.id);
+  if (idx !== -1) { sessions[idx] = activeSession; saveChatSessions(sessions); }
+  renderChatSessions();
+  showToast(`Jurisdiction set to ${jurisdiction}`, 'info');
+}
+
+// Global click listener for closing dropdown menus
+document.addEventListener('click', (e) => {
+  const jBtn = document.getElementById('jurisdiction-btn');
+  const jMenu = document.getElementById('jurisdiction-menu');
+  if (jBtn && jMenu && !jBtn.contains(e.target) && !jMenu.contains(e.target)) {
+    jMenu.classList.add('hidden');
+  }
+  const lBtn = document.getElementById('lang-selector-btn');
+  const lMenu = document.getElementById('lang-dropdown-menu');
+  if (lBtn && lMenu && !lBtn.contains(e.target) && !lMenu.contains(e.target)) {
+    lMenu.classList.add('hidden');
+  }
+});
+
+function updateChatView() {
+  const session = getActiveSession();
+  const titleEl = document.getElementById('chat-session-title');
+  if (titleEl) titleEl.textContent = session.title || 'New Chat';
+
+  const emptyState = document.getElementById('chat-empty-state');
+  const msgWrapper = document.getElementById('chat-messages-wrapper');
+  const chatContainer = document.getElementById('chat-messages');
+
+  if (!session.messages || session.messages.length === 0) {
+    if (emptyState) emptyState.classList.remove('hidden');
+    if (msgWrapper) msgWrapper.classList.add('hidden');
+    if (chatContainer) chatContainer.innerHTML = '';
+  } else {
+    if (emptyState) emptyState.classList.add('hidden');
+    if (msgWrapper) msgWrapper.classList.remove('hidden');
+    if (chatContainer) {
+      chatContainer.innerHTML = '';
+      session.messages.forEach(m => renderChatMessage(m));
+    }
+  }
+
+  const scrollContainer = document.getElementById('chat-scroll-container');
+  if (scrollContainer) {
+    setTimeout(() => { scrollContainer.scrollTop = scrollContainer.scrollHeight; }, 50);
+  }
+}
+
+function initChatHistory() {
+  initLanguageSelector();
+  renderChatSessions();
+  updateChatView();
+}
+
 function renderChatMessage(msg) {
-  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6');
+  const chatContainer = document.getElementById('chat-messages');
   if (!chatContainer) return;
 
   if (msg.role === 'user') {
     chatContainer.innerHTML += `
       <div class="chat-msg flex justify-end w-full pl-6 sm:pl-16 animate-[fadeIn_0.2s_ease-out]">
-        <div class="max-w-[88%] sm:max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-4 sm:px-5 py-3.5 shadow-sm">
+        <div class="max-w-[88%] sm:max-w-xl bg-surface-container-low dark:bg-[#181d28] border border-surface-container-highest dark:border-[#222938] text-on-surface rounded-2xl rounded-tr-sm px-4 sm:px-5 py-3.5 shadow-sm">
           <p class="text-body-md font-body-md leading-relaxed text-on-surface text-sm sm:text-base">${msg.text}</p>
           <div class="flex items-center justify-end gap-1.5 mt-2">
             <span class="text-label-sm font-label-sm text-outline text-xs">${msg.time || ''}</span>
@@ -2190,33 +2885,33 @@ function renderChatMessage(msg) {
     const formattedContent = formatMarkdown(msg.text);
     const sourcesList = (msg.sources || []).map(s => `
       <div class="text-xs text-on-surface-variant flex items-start gap-1.5">
-        <span class="material-symbols-outlined text-[14px] text-primary shrink-0 mt-0.5">menu_book</span>
-        <div><strong class="text-primary font-medium">${s.title}:</strong> ${s.citation}</div>
+        <span class="material-symbols-outlined text-[14px] text-primary dark:text-emerald-400 shrink-0 mt-0.5">menu_book</span>
+        <div><strong class="text-primary dark:text-emerald-400 font-medium">${s.title}:</strong> ${s.citation}</div>
       </div>`).join('');
 
     chatContainer.innerHTML += `
       <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8 animate-[fadeIn_0.25s_ease-out]">
-        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+        <div class="w-8 h-8 rounded-lg bg-primary dark:bg-emerald-600 text-on-primary flex items-center justify-center font-bold text-xs shrink-0 mt-1 shadow-sm">
+          IS
         </div>
-        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden">
-          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-surface-container-low mb-3">
+        <div class="flex-1 bg-surface-container-lowest dark:bg-[#131720] border border-surface-container-highest dark:border-[#1e2430] rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-sm overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-surface-container-low dark:border-[#1a202c] mb-3">
             <div class="flex items-center gap-2">
-              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Legal Intelligence
+              <span class="text-label-md font-label-md font-semibold text-primary dark:text-emerald-400 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-primary dark:bg-emerald-400"></span>IP-SAKTI Legal Intelligence
               </span>
               <span class="text-outline text-xs">•</span>
-              <span class="text-xs text-on-surface-variant font-mono bg-surface-container px-2 py-0.5 rounded">${msg.model || 'qwen/qwen3.8-27b'}</span>
+              <span class="text-xs text-on-surface-variant font-mono bg-surface-container dark:bg-[#1e2432] px-2 py-0.5 rounded">${msg.model || 'qwen/qwen3.8-27b'}</span>
             </div>
             <span class="text-xs text-outline font-medium">${msg.time || ''}</span>
           </div>
           
-          <div class="prose prose-sm max-w-none text-on-surface space-y-2">
+          <div class="prose prose-sm max-w-none text-on-surface space-y-2 leading-relaxed">
             ${formattedContent}
           </div>
 
           ${sourcesList ? `
-            <div class="mt-4 pt-3 border-t border-surface-container-low bg-surface-container-low/60 rounded-lg p-3 space-y-1.5">
+            <div class="mt-4 pt-3 border-t border-surface-container-low dark:border-[#1a202c] bg-surface-container-low/60 dark:bg-[#181d28]/60 rounded-lg p-3 space-y-1.5">
               <div class="text-[11px] font-semibold tracking-wider uppercase text-outline flex items-center gap-1">
                 <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
                 <span>Statutory &amp; Platform Authorities Cited (RAG)</span>
@@ -2224,9 +2919,9 @@ function renderChatMessage(msg) {
               <div class="space-y-1">${sourcesList}</div>
             </div>` : ''}
 
-          <div class="mt-3 flex items-center justify-between pt-2 text-xs text-outline border-t border-surface-container-low/50">
+          <div class="mt-3 flex items-center justify-between pt-2 text-xs text-outline border-t border-surface-container-low/50 dark:border-[#1a202c]">
             <span>Evidence-grounded statutory analysis</span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.chat-msg').querySelector('.prose').innerText);showToast('Response copied to clipboard','success');" class="hover:text-primary transition-colors flex items-center gap-1 text-[11px]">
+            <button onclick="navigator.clipboard.writeText(this.closest('.chat-msg').querySelector('.prose').innerText);showToast('Response copied to clipboard','success');" class="hover:text-primary dark:hover:text-emerald-400 transition-colors flex items-center gap-1 text-[11px]">
               <span class="material-symbols-outlined text-[13px]">content_copy</span>Copy
             </button>
           </div>
@@ -2235,91 +2930,46 @@ function renderChatMessage(msg) {
   }
 }
 
-function initChatHistory() {
-  initLanguageSelector();
-  const history = loadChatHistory();
-  appState.chatHistory = history;
-  const chatContainer = document.getElementById('chat-messages');
-  if (!chatContainer) return;
-
-  if (history.length === 0) {
-    chatContainer.innerHTML = `
-      <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8">
-        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">verified_user</span>
-        </div>
-        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
-          <div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence
-              </span>
-              <span class="text-outline text-label-sm">•</span>
-              <span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Groq RAG Active</span>
-            </div>
-            <span class="text-label-sm text-outline">Statutory Engine v2.6</span>
-          </div>
-          <p class="text-body-md font-body-md text-on-surface leading-relaxed">
-            Welcome. I am your sovereign statutory &amp; regulatory copilot, dynamically connected to <strong>Groq Cloud LLM</strong> with real-time RAG grounding in the <strong>Indian Patents Act 1970</strong>, <strong>Biological Diversity Act 2002</strong>, <strong>CSIR-TKDL</strong>, and the <strong>IP-SAKTI Sahayak platform</strong>.
-          </p>
-          <div class="mt-3.5 p-3 rounded-lg bg-surface-container-low border border-surface-container text-label-sm font-label-sm text-on-surface-variant space-y-1">
-            <p class="font-medium text-primary">Ask me about:</p>
-            <ul class="list-disc list-inside space-y-0.5 text-xs text-on-surface-variant">
-              <li>How the 5-Step Intake Wizard structures classical formulations</li>
-              <li>Section 3(p) prior art bars &amp; overcoming strategies</li>
-              <li>Section 3(e) synergistic combinations &amp; quantitative proof requirements</li>
-              <li>Mandatory SBB Form-1 and NBA Form-3 Access &amp; Benefit Sharing (ABS) clearances</li>
-              <li>How to search TKDL citations or escalate dockets to Empaneled Counsel</li>
-            </ul>
-          </div>
-        </div>
-      </div>`;
-  } else {
-    chatContainer.innerHTML = '';
-    history.forEach(m => renderChatMessage(m));
-  }
-}
-
 async function sendChatMessage() {
-  const input = document.getElementById('chat-user-input') || document.querySelector('#page-ask-ai input[type="text"]');
-  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6');
+  const input = document.getElementById('chat-user-input');
   const sendBtn = document.getElementById('chat-send-btn');
-  if (!input || !chatContainer || !input.value.trim()) return;
+  const emptyState = document.getElementById('chat-empty-state');
+  const msgWrapper = document.getElementById('chat-messages-wrapper');
+  const typingEl = document.getElementById('chat-typing');
+  const scrollContainer = document.getElementById('chat-scroll-container');
+
+  if (!input || !input.value.trim()) return;
 
   const userMsg = input.value.trim();
   input.value = '';
-  input.focus();
+  input.style.height = 'auto';
 
+  const session = getActiveSession();
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
+  // Update session title if default
+  if (!session.title || session.title === 'New Chat') {
+    session.title = userMsg.length > 32 ? userMsg.slice(0, 32) + '...' : userMsg;
+    const titleEl = document.getElementById('chat-session-title');
+    if (titleEl) titleEl.textContent = session.title;
+  }
+  session.timestamp = Date.now();
+
   const userItem = { role: 'user', text: userMsg, time: timeStr };
+  session.messages.push(userItem);
+
+  if (emptyState) emptyState.classList.add('hidden');
+  if (msgWrapper) msgWrapper.classList.remove('hidden');
+
   renderChatMessage(userItem);
-
-  const typingId = 'typing-indicator-' + Date.now();
-  chatContainer.innerHTML += `
-    <div id="${typingId}" class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8 animate-[fadeIn_0.2s_ease-out]">
-      <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-        <span class="material-symbols-outlined text-[18px]">verified_user</span>
-      </div>
-      <div class="px-5 py-4 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm shadow-sm">
-        <div class="flex items-center gap-3">
-          <div class="flex gap-1.5">
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-            <span class="typing-dot"></span>
-          </div>
-          <span class="text-label-sm text-outline text-xs">Retrieving statutory &amp; website corpora &amp; querying Groq LLM...</span>
-        </div>
-      </div>
-    </div>`;
-
-  window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  if (typingEl) typingEl.classList.remove('hidden');
+  if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
   if (sendBtn) sendBtn.disabled = true;
 
   try {
     const result = await callGroqRAG(userMsg);
-    document.getElementById(typingId)?.remove();
+    if (typingEl) typingEl.classList.add('hidden');
 
     const assistantItem = {
       role: 'assistant',
@@ -2328,24 +2978,29 @@ async function sendChatMessage() {
       sources: result.sources,
       model: result.model
     };
+    session.messages.push(assistantItem);
+
+    // Save updated session to sessions list
+    const sessions = loadChatSessions();
+    const idx = sessions.findIndex(s => s.id === session.id);
+    if (idx !== -1) sessions[idx] = session;
+    else sessions.unshift(session);
+    saveChatSessions(sessions);
+
     renderChatMessage(assistantItem);
-
-    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-
-    appState.chatHistory.push(userItem);
-    appState.chatHistory.push(assistantItem);
-    saveChatHistory(appState.chatHistory);
-    saveState();
+    renderChatSessions();
+    if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
   } catch (error) {
-    document.getElementById(typingId)?.remove();
-    showToast(`Notice: Grounded in offline statutory knowledge base`, 'info');
+    if (typingEl) typingEl.classList.add('hidden');
+    showToast('Notice: Grounded in offline statutory knowledge base', 'info');
   } finally {
     if (sendBtn) sendBtn.disabled = false;
+    input.focus();
   }
 }
 
 function sendQuickPrompt(promptText) {
-  const input = document.getElementById('chat-user-input') || document.querySelector('#page-ask-ai input[type="text"]');
+  const input = document.getElementById('chat-user-input');
   if (input) {
     input.value = promptText;
     sendChatMessage();
@@ -2353,17 +3008,11 @@ function sendQuickPrompt(promptText) {
 }
 
 function startNewChat() {
-  appState.chatHistory = [];
-  localStorage.removeItem(CHAT_STORAGE_KEY);
-  saveState();
-  initChatHistory();
-  showToast('✨ Started a new conversation', 'success');
-  const input = document.getElementById('chat-user-input');
-  if (input) input.focus();
+  startNewChatSession();
 }
 
 function clearChat() {
-  startNewChat();
+  clearAllChatSessions();
 }
 
 
@@ -2619,6 +3268,9 @@ document.addEventListener('click', e => {
 // INIT
 // =============================================
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  initChatHistory();
+
   // Ingredient add button
   const addBtn = document.getElementById('add-ingredient-btn');
   if (addBtn) {
