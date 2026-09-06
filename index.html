@@ -400,9 +400,20 @@ tailwind.config = {
       </div>
     </div>
     <div class="flex items-center gap-2">
+      <!-- Sovereign Indian Language Selector -->
+      <div class="relative inline-block text-left" id="lang-selector-container">
+        <button id="lang-selector-btn" onclick="toggleLanguageMenu()" class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface-container-lowest hover:bg-surface-container-low text-xs font-semibold text-on-surface transition-all shadow-sm active:scale-[0.98]" title="Select Indian Language for AI Copilot">
+          <span class="material-symbols-outlined text-[16px] text-primary">translate</span>
+          <span id="current-lang-label">English</span>
+          <span class="material-symbols-outlined text-[14px] text-outline">arrow_drop_down</span>
+        </button>
+        <div id="lang-dropdown-menu" class="hidden absolute right-0 mt-1.5 w-52 max-h-72 overflow-y-auto bg-surface-container-lowest border border-surface-container-highest rounded-xl shadow-2xl py-1 z-50 divide-y divide-surface-container-low">
+          <!-- Populated by initLanguageSelector() -->
+        </div>
+      </div>
       <button onclick="startNewChat()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-xs font-semibold shadow-sm transition-all active:scale-[0.98]" title="Start a fresh conversation">
         <span class="material-symbols-outlined text-[16px]">add_comment</span>
-        <span>New Chat</span>
+        <span class="hidden sm:inline">New Chat</span>
       </button>
       <button onclick="clearChat()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant hover:text-error transition-colors" title="Clear Conversation">
         <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
@@ -417,9 +428,9 @@ tailwind.config = {
   <div class="mb-6">
     <div class="text-label-sm text-outline mb-2.5 font-medium flex items-center gap-1.5">
       <span class="material-symbols-outlined text-[16px] text-secondary">tips_and_updates</span>
-      <span>Suggested Inquiries (Statutory &amp; Platform Grounding):</span>
+      <span id="suggestion-header-text">Suggested Inquiries (Statutory &amp; Platform Grounding):</span>
     </div>
-    <div class="flex flex-wrap gap-2">
+    <div id="chat-suggestion-chips" class="flex flex-wrap gap-2">
       <button type="button" onclick="sendQuickPrompt('How do I overcome Section 3(p) rejection for an Ayurvedic herbal formulation?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
         § 3(p) Traditional Knowledge Bar
       </button>
@@ -474,15 +485,24 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- Floating Responsive Input Bar -->
+<!-- Floating Responsive Input Bar with Microphone Voice Input -->
 <div class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none pb-4 pt-6 bg-gradient-to-t from-background via-background/95 to-transparent">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 pointer-events-auto">
     <form id="chat-input-form" class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl shadow-[0_8px_30px_-4px_rgba(0,0,0,0.12),0_2px_6px_-1px_rgba(0,0,0,0.06)] focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/10 transition-all p-2 flex items-center gap-2" onsubmit="event.preventDefault();sendChatMessage();">
       <input id="chat-user-input" class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-3 py-2" placeholder="Ask about Section 3(p), 3(e), TKDL prior art, or ABS compliance..." type="text" autocomplete="off"/>
-      <button id="chat-send-btn" class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" type="submit">
+      <button id="chat-mic-btn" type="button" onclick="toggleSpeechRecognition()" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border border-outline-variant/50 hover:bg-surface-container-low text-on-surface-variant hover:text-primary transition-all active:scale-[0.95]" title="Speak inquiry (Voice Input)">
+        <span id="mic-icon" class="material-symbols-outlined text-[20px]">mic</span>
+      </button>
+      <button id="chat-send-btn" class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" type="submit" title="Send message">
         <span class="material-symbols-outlined text-[18px]">arrow_upward</span>
       </button>
     </form>
+    <!-- Voice Listening Active Indicator -->
+    <div id="voice-listening-banner" class="hidden text-center mt-1.5 flex items-center justify-center gap-2 text-xs text-rose-600 font-medium">
+      <span class="inline-block w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
+      <span id="voice-listening-text">🎙️ Listening... Speak now</span>
+      <button type="button" onclick="stopSpeechRecognition()" class="ml-2 underline text-outline hover:text-on-surface text-[11px]">Cancel</button>
+    </div>
     <div class="text-center mt-2">
       <p class="text-label-sm font-label-sm text-outline text-[11px]">
         Grounded in Patents Act 1970 (§3p, §3e, §3d), BD Act 2002 &amp; CSIR-TKDL Gazette · Powered by Groq AI · Not formal legal counsel.
@@ -1694,12 +1714,358 @@ function getLocalRAGResponse(query, sources) {
   return `### IP-SAKTI Sovereign Regulatory Assessment\n\nBased on your query regarding Indian IP and biodiversity compliance:\n\n- **Statutory Framework**: Indian Patents Act 1970 (§§ 3(p), 3(e), 3(d), 10, 39) alongside Biological Diversity Act 2002.\n- **Prior Art Check**: Cross-referenced with CSIR-TKDL database (430,000+ classical formulations across Charaka, Sushruta, and Ashtanga Hridaya).\n- **Strategic Recommendation**: If combining classical botanicals, ensure you prepare empirical synergistic data under Section 3(e), maintain APMC procurement invoices for ABS compliance, and request NBA Form-3 clearance prior to patent grant.`;
 }
 
+// =============================================
+// SOVEREIGN MULTI-LINGUAL SUPPORT (9 INDIAN LANGUAGES)
+// =============================================
+const SUPPORTED_LANGUAGES = [
+  {
+    code: 'en',
+    name: 'English',
+    native: 'English',
+    speechCode: 'en-IN',
+    placeholder: 'Ask about Section 3(p), 3(e), TKDL prior art, or ABS compliance...',
+    chips: [
+      { text: 'How do I overcome Section 3(p) rejection for an Ayurvedic herbal formulation?', label: '§ 3(p) Traditional Knowledge Bar' },
+      { text: 'What quantitative evidence proves synergistic efficacy under Section 3(e)?', label: '§ 3(e) Synergistic Admixture Test' },
+      { text: 'When is SBB Form-1 intimation mandatory under the Biological Diversity Act?', label: 'BDA Form-1 SBB Clearance' },
+      { text: 'How does CSIR-TKDL concordance affect patent filings?', label: 'CSIR-TKDL Prior Art' },
+      { text: 'What does the IP-SAKTI Sahayak platform do and how does the 5-step Intake Wizard work?', label: '🌐 About Platform & Wizard' }
+    ]
+  },
+  {
+    code: 'hi',
+    name: 'Hindi',
+    native: 'हिन्दी',
+    speechCode: 'hi-IN',
+    placeholder: 'धारा 3(p), 3(e), टीकेडीएल या एबीएस अनुपालन के बारे में पूछें...',
+    chips: [
+      { text: 'आयुर्वेदिक फॉर्मूलेशन के लिए धारा 3(p) के आक्षेप को कैसे दूर करें?', label: '§ 3(p) पारंपरिक ज्ञान अपवाद' },
+      { text: 'धारा 3(e) के तहत सहक्रियात्मक प्रभाव (Synergy) सिद्ध करने के लिए क्या प्रमाण चाहिए?', label: '§ 3(e) सिनर्जी परीक्षण' },
+      { text: 'जैव विविधता अधिनियम के तहत एसबीबी फॉर्म-1 (SBB Form-1) कब अनिवार्य है?', label: 'एसबीबी फॉर्म-1 मंजूरी' },
+      { text: 'सीएसआईआर-टीकेडीएल पेटेंट आवेदन को कैसे प्रभावित करता है?', label: 'सीएसआईआर-टीकेडीएल पूर्व कला' },
+      { text: 'आईपी-शक्ति सहायक प्लेटफॉर्म क्या है और 5-चरणीय इनटेक विज़ार्ड कैसे काम करता है?', label: '🌐 प्लेटफॉर्म व 5-चरणीय विज़ार्ड' }
+    ]
+  },
+  {
+    code: 'ta',
+    name: 'Tamil',
+    native: 'தமிழ்',
+    speechCode: 'ta-IN',
+    placeholder: 'பிரிவு 3(p), 3(e), டிகேடிஎல் அல்லது ஏபிஎஸ் பற்றி கேட்கவும்...',
+    chips: [
+      { text: 'பாரம்பரிய ஆயுர்வேத மருந்துகளுக்கு பிரிவு 3(p) தடையை எவ்வாறு சமாளிப்பது?', label: '§ 3(p) மரபறிவு தடை' },
+      { text: 'பிரிவு 3(e) சினெர்ஜி (Synergy) நிரூபிக்க என்ன சான்றுகள் தேவை?', label: '§ 3(e) கூட்டாற்றல் சோதனை' },
+      { text: 'பல்லுயிர் சட்டம் 2002-ன் கீழ் படிவம்-1 (SBB Form-1) எப்போது கட்டாயம்?', label: 'எஸ்.பி.பி படிவம்-1 அனுமதி' },
+      { text: 'CSIR-TKDL முந்தைய அறிவு காப்புரிமையை எவ்வாறு பாதிக்கிறது?', label: 'டிகேடிஎல் முன்னறிக்கை' },
+      { text: 'ஐபி-சக்தி தளம் என்ன செய்கிறது மற்றும் 5-படிவ வழிகாட்டி எவ்வாறு செயல்படுகிறது?', label: '🌐 தளம் & 5-படி வழிகாட்டி' }
+    ]
+  },
+  {
+    code: 'te',
+    name: 'Telugu',
+    native: 'తెలుగు',
+    speechCode: 'te-IN',
+    placeholder: 'సెక్షన్ 3(p), 3(e), టికెడిఎల్ లేదా ఎబిఎస్ గురించి అడగండి...',
+    chips: [
+      { text: 'ఆయుర్వేద ఫార్ములేషన్లకు సెక్షన్ 3(p) అభ్యంతరాన్ని ఎలా అధిగమించాలి?', label: '§ 3(p) సాంప్రదాయ జ్ఞాన నిషేధం' },
+      { text: 'సెక్షన్ 3(e) సినర్జీని నిరూపించడానికి అవసరమైన ఆధారాలు ఏమిటి?', label: '§ 3(e) సినర్జిస్టిక్ మిశ్రమ పరీక్ష' },
+      { text: 'జీవ వైవిధ్య చట్టం ప్రకారం ఎస్.బి.బి ఫారం-1 ఎప్పుడు తప్పనిసరి?', label: 'ఎస్.బి.బి ఫారం-1 అనుమతి' },
+      { text: 'సి.ఎస్.ఐ.ఆర్-టికెడిఎల్ పేటెంట్ దాఖలును ఎలా ప్రభావితం చేస్తుంది?', label: 'టికెడిఎల్ పూర్వ కళ' },
+      { text: 'ఐపి-శక్తి ప్లాట్‌ఫారమ్ మరియు 5-దశల ఇన్‌టేక్ విజార్డ్ ఎలా పనిచేస్తుంది?', label: '🌐 ప్లాట్‌ఫారమ్ & 5-దశల విజార్డ్' }
+    ]
+  },
+  {
+    code: 'kn',
+    name: 'Kannada',
+    native: 'ಕನ್ನಡ',
+    speechCode: 'kn-IN',
+    placeholder: 'ಸೆಕ್ಷನ್ 3(p), 3(e), ಟಿಕೆಡಿಎಲ್ ಅಥವಾ ಎಬಿಎಸ್ ಬಗ್ಗೆ ಕೇಳಿ...',
+    chips: [
+      { text: 'ಆಯುರ್ವೇದ ಸೂತ್ರೀಕರಣಗಳಿಗೆ ಸೆಕ್ಷನ್ 3(p) ತಿರಸ್ಕಾರವನ್ನು ಹೇಗೆ ನಿವಾರಿಸುವುದು?', label: '§ 3(p) ಸಾಂಪ್ರದಾಯಿಕ ಜ್ಞಾನ ತಡೆ' },
+      { text: 'ಸೆಕ್ಷನ್ 3(e) ಅಡಿಯಲ್ಲಿ ಸಿನರ್ಜಿಯನ್ನು ಸಾಬೀತುಪಡಿಸಲು ಯಾವ ಪುರಾವೆ ಬೇಕು?', label: '§ 3(e) ಸಿನರ್ಜಿ ಪರೀಕ್ಷೆ' },
+      { text: 'ಜೈವಿಕ ವೈವಿಧ್ಯ ಕಾಯಿದೆಯಡಿ ಎಸ್.ಬಿ.ಬಿ ಫಾರ್ಮ್-1 ಯಾವಾಗ ಕಡ್ಡಾಯ?', label: 'ಎಸ್.ಬಿ.ಬಿ ಫಾರ್ಮ್-1 ಮಂಜೂರಾತಿ' },
+      { text: 'ಸಿಎಸ್ಐಆರ್-ಟಿಕೆಡಿಎಲ್ ಪೇಟೆಂಟ್ ಅರ್ಜಿಗಳ ಮೇಲೆ ಹೇಗೆ ಪರಿಣಾಮ ಬೀರುತ್ತದೆ?', label: 'ಟಿಕೆಡಿಎಲ್ ಪೂರ್ವ ಕಲೆ' },
+      { text: 'ಐಪಿ-ಶಕ್ತಿ ವೇದಿಕೆ ಮತ್ತು 5-ಹಂತದ ಇಂಟೇಕ್ ವಿಝಾರ್ಡ್ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?', label: '🌐 ವೇದಿಕೆ ಮತ್ತು 5-ಹಂತದ ವಿಝಾರ್ಡ್' }
+    ]
+  },
+  {
+    code: 'ml',
+    name: 'Malayalam',
+    native: 'മലയാളം',
+    speechCode: 'ml-IN',
+    placeholder: 'സെക്ഷൻ 3(p), 3(e), ടികെഡിഎൽ അല്ലെങ്കിൽ എബിഎസ് കുറിച്ച് ചോദിക്കുക...',
+    chips: [
+      { text: 'ആയുർവേദ ഫോർമുലേഷനുകൾക്ക് സെക്ഷൻ 3(p) തടസ്സം എങ്ങനെ മറികടക്കാം?', label: '§ 3(p) പരമ്പരാഗത വിജ്ഞാന തടസ്സം' },
+      { text: 'സെക്ഷൻ 3(e) സിനർജി തെളിയിക്കാൻ ആവശ്യമായ തെളിവുകൾ എന്തൊക്കെയാണ്?', label: '§ 3(e) സിനർജി പരിശോധന' },
+      { text: 'ജൈവവൈവിധ്യ നിയമപ്രകാരം എസ്.ബി.ബി ഫോം-1 എപ്പോഴാണ് നിർബന്ധം?', label: 'എസ്.ബി.ബി ഫോം-1 ക്ലിയറൻസ്' },
+      { text: 'സി.എസ്.ഐ.ആർ-ടികെഡിഎൽ പേറ്റന്റിനെ എങ്ങനെ ബാധിക്കുന്നു?', label: 'ടികെഡിഎൽ മുൻകാല അറിവ്' },
+      { text: 'ഐപി-ശക്തി പ്ലാറ്റ്‌ഫോമും 5-ഘട്ട ഇൻടേക്ക് വിസാർഡും എങ്ങനെ പ്രവർത്തിക്കുന്നു?', label: '🌐 പ്ലാറ്റ്‌ഫോമും 5-ഘട്ട വിസാർഡും' }
+    ]
+  },
+  {
+    code: 'bn',
+    name: 'Bengali',
+    native: 'বাংলা',
+    speechCode: 'bn-IN',
+    placeholder: 'ধারা 3(p), 3(e), টিকেডিএল বা এবিএস সম্পর্কে জিজ্ঞাসা করুন...',
+    chips: [
+      { text: 'আয়ুর্বেদিক ফর্মুলেশনের জন্য ধারা 3(p) প্রত্যাখ্যান কীভাবে কাটিয়ে উঠবেন?', label: '§ 3(p) ঐতিহ্যবাহী জ্ঞান বাধা' },
+      { text: 'ধারা 3(e) এর অধীনে সিনার্জি প্রমাণ করার জন্য কী প্রমাণ প্রয়োজন?', label: '§ 3(e) সিনারজিস্টিক পরীক্ষা' },
+      { text: 'বায়োডাইভারসিটি আইনের অধীনে এসবিবি ফর্ম-১ কখন বাধ্যতামূলক?', label: 'এসবিবি ফর্ম-১ ছাড়পত্র' },
+      { text: 'সিএসআইআর-টিকেডিএল পেটেন্ট ফাইলিংকে কীভাবে প্রভাবিত করে?', label: 'টিকেডিএল পূর্ববর্তী তথ্য' },
+      { text: 'আইপি-শক্তি প্ল্যাটফর্ম এবং ৫-ধাপের ইনটেক উইজার্ড কীভাবে কাজ করে?', label: '🌐 প্ল্যাটফর্ম ও ৫-ধাপের উইজার্ড' }
+    ]
+  },
+  {
+    code: 'mr',
+    name: 'Marathi',
+    native: 'मराठी',
+    speechCode: 'mr-IN',
+    placeholder: 'कलम 3(p), 3(e), टीकेडीएल किंवा एबीएस बद्दल विचारा...',
+    chips: [
+      { text: 'आयुर्वेदिक सूत्रीकरणासाठी कलम 3(p) आक्षेप कसा दूर करावा?', label: '§ 3(p) पारंपरिक ज्ञान मर्यादा' },
+      { text: 'कलम 3(e) अंतर्गत सिनर्जी सिद्ध करण्यासाठी कोणते पुरावे आवश्यक आहेत?', label: '§ 3(e) सिनर्जी चाचणी' },
+      { text: 'जैविविधता कायद्यानुसार एसबीबी फॉर्म-१ कधी अनिवार्य आहे?', label: 'एसबीबी फॉर्म-१ मंजुरी' },
+      { text: 'सीएसआयआर-टीकेडीएल पेटंटवर कसा परिणाम करते?', label: 'टीकेडीएल पूर्व ज्ञान' },
+      { text: 'आयपी-शक्ती प्लॅटफॉर्म आणि ५-टप्प्यांचा इनटेक विझार्ड कसा काम करतो?', label: '🌐 प्लॅटफॉर्म व ५-टप्प्यांचा विझार्ड' }
+    ]
+  },
+  {
+    code: 'gu',
+    name: 'Gujarati',
+    native: 'ગુજરાતી',
+    speechCode: 'gu-IN',
+    placeholder: 'કલમ 3(p), 3(e), ટીકેડીએલ અથવા એબીએસ વિશે પૂછો...',
+    chips: [
+      { text: 'આયુર્વેદિક ફોર્મ્યુલેશન માટે કલમ 3(p) ના વાંધાને કેવી રીતે દૂર કરવો?', label: '§ 3(p) પરંપરાગત જ્ઞાન અવરોધ' },
+      { text: 'કલમ 3(e) હેઠળ સિનર્જી સાબિત કરવા માટે કયા પુરાવા જોઈએ?', label: '§ 3(e) સિનર્જી ટેસ્ટ' },
+      { text: 'જૈવવિવિધતા કાયદા હેઠળ એસબીબી ફોર્મ-1 ક્યારે ફરજિયાત છે?', label: 'એસબીબી ફોર્મ-1 મંજૂરી' },
+      { text: 'સીએસઆઈઆર-ટીકેડીએલ પેટન્ટ અરજીઓને કેવી રીતે અસર કરે છે?', label: 'ટીકેડીએલ પૂર્વ જ્ઞાન' },
+      { text: 'આઈપી-શક્તિ પ્લેટફોર્મ અને 5-પગલાંનું ઇનટેક વિઝાર્ડ કેવી રીતે કાર્ય કરે છે?', label: '🌐 પ્લેટફોર્મ & 5-પગલાંનું વિઝાર્ડ' }
+    ]
+  }
+];
+
+function initLanguageSelector() {
+  const currentCode = localStorage.getItem('ipsakti_chat_lang') || 'en';
+  appState.chatLanguage = currentCode;
+  const currentLang = SUPPORTED_LANGUAGES.find(l => l.code === currentCode) || SUPPORTED_LANGUAGES[0];
+
+  const label = document.getElementById('current-lang-label');
+  if (label) label.textContent = `${currentLang.native}`;
+
+  const menu = document.getElementById('lang-dropdown-menu');
+  if (menu) {
+    menu.innerHTML = SUPPORTED_LANGUAGES.map(l => `
+      <button type="button" onclick="setChatLanguage('${l.code}')" class="w-full text-left px-3.5 py-2 hover:bg-surface-container flex items-center justify-between transition-colors ${l.code === currentCode ? 'bg-primary-container/10 font-semibold text-primary' : 'text-on-surface'}">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-medium">${l.native}</span>
+          <span class="text-[11px] text-outline font-normal">(${l.name})</span>
+        </div>
+        ${l.code === currentCode ? '<span class="material-symbols-outlined text-[16px] text-primary">check</span>' : ''}
+      </button>
+    `).join('');
+  }
+
+  const input = document.getElementById('chat-user-input');
+  if (input) input.placeholder = currentLang.placeholder;
+
+  renderLocalizedSuggestions(currentCode);
+}
+
+function setChatLanguage(langCode) {
+  const lang = SUPPORTED_LANGUAGES.find(l => l.code === langCode) || SUPPORTED_LANGUAGES[0];
+  appState.chatLanguage = lang.code;
+  localStorage.setItem('ipsakti_chat_lang', lang.code);
+  closeLanguageMenu();
+  initLanguageSelector();
+  showToast(`Language set to ${lang.native} (${lang.name})`, 'success');
+}
+
+function toggleLanguageMenu() {
+  const menu = document.getElementById('lang-dropdown-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+
+function closeLanguageMenu() {
+  const menu = document.getElementById('lang-dropdown-menu');
+  if (menu) menu.classList.add('hidden');
+}
+
+// Close language dropdown if clicking outside
+document.addEventListener('click', (e) => {
+  const container = document.getElementById('lang-selector-container');
+  if (container && !container.contains(e.target)) {
+    closeLanguageMenu();
+  }
+});
+
+function renderLocalizedSuggestions(langCode) {
+  const lang = SUPPORTED_LANGUAGES.find(l => l.code === langCode) || SUPPORTED_LANGUAGES[0];
+  const chipsContainer = document.getElementById('chat-suggestion-chips');
+  if (!chipsContainer || !lang.chips) return;
+
+  chipsContainer.innerHTML = lang.chips.map(chip => `
+    <button type="button" onclick="sendQuickPrompt('${chip.text.replace(/'/g, "\\'")}')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
+      ${chip.label}
+    </button>
+  `).join('');
+}
+
+// =============================================
+// SPEECH RECOGNITION (VOICE INPUT / MIC)
+// =============================================
+let speechRecognitionInstance = null;
+let isRecordingAudio = false;
+
+function toggleSpeechRecognition() {
+  if (isRecordingAudio) {
+    stopSpeechRecognition();
+  } else {
+    startSpeechRecognition();
+  }
+}
+
+function startSpeechRecognition() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    showToast('Voice input requires Google Chrome, Microsoft Edge, or a Web Speech enabled browser.', 'warning');
+    return;
+  }
+
+  const currentLang = SUPPORTED_LANGUAGES.find(l => l.code === (appState.chatLanguage || 'en')) || SUPPORTED_LANGUAGES[0];
+
+  try {
+    const recognition = new SpeechRecognition();
+    speechRecognitionInstance = recognition;
+    recognition.lang = currentLang.speechCode;
+    recognition.interimResults = true;
+    recognition.continuous = false;
+
+    const micBtn = document.getElementById('chat-mic-btn');
+    const micIcon = document.getElementById('mic-icon');
+    const banner = document.getElementById('voice-listening-banner');
+    const bannerText = document.getElementById('voice-listening-text');
+    const input = document.getElementById('chat-user-input');
+
+    recognition.onstart = () => {
+      isRecordingAudio = true;
+      if (micBtn) {
+        micBtn.classList.add('bg-rose-600', 'text-white', 'ring-4', 'ring-rose-400/30', 'animate-pulse');
+        micBtn.classList.remove('text-on-surface-variant', 'border-outline-variant/50');
+      }
+      if (micIcon) micIcon.textContent = 'mic';
+      if (banner) {
+        banner.classList.remove('hidden');
+        if (bannerText) bannerText.textContent = `🎙️ Listening in ${currentLang.native} (${currentLang.name})... Speak now`;
+      }
+    };
+
+    recognition.onresult = (event) => {
+      let interimTranscript = '';
+      let finalTranscript = '';
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          interimTranscript += event.results[i][0].transcript;
+        }
+      }
+      if (input) {
+        input.value = finalTranscript || interimTranscript;
+      }
+    };
+
+    recognition.onerror = (event) => {
+      console.warn('Speech recognition error:', event.error);
+      stopSpeechRecognition();
+      if (event.error !== 'no-speech' && event.error !== 'aborted') {
+        showToast('Voice recognition: ' + event.error, 'warning');
+      }
+    };
+
+    recognition.onend = () => {
+      stopSpeechRecognition();
+      if (input && input.value.trim()) {
+        input.focus();
+        showToast('Voice captured! Click send or press Enter.', 'success');
+      }
+    };
+
+    recognition.start();
+  } catch (err) {
+    console.error('Speech recognition exception:', err);
+    stopSpeechRecognition();
+    showToast('Failed to access microphone: ' + err.message, 'error');
+  }
+}
+
+function stopSpeechRecognition() {
+  isRecordingAudio = false;
+  if (speechRecognitionInstance) {
+    try { speechRecognitionInstance.stop(); } catch(e){}
+    speechRecognitionInstance = null;
+  }
+  const micBtn = document.getElementById('chat-mic-btn');
+  const banner = document.getElementById('voice-listening-banner');
+  if (micBtn) {
+    micBtn.classList.remove('bg-rose-600', 'text-white', 'ring-4', 'ring-rose-400/30', 'animate-pulse');
+    micBtn.classList.add('text-on-surface-variant', 'border-outline-variant/50');
+  }
+  if (banner) banner.classList.add('hidden');
+}
+
+// =============================================
+// ADAPTIVE RESPONSE LENGTH & DYNAMIC TOKEN BUDGETING
+// =============================================
+function analyzeQueryComplexity(query) {
+  const q = (query || '').toLowerCase().trim();
+  const complexTriggers = [
+    'draft', 'hypothesis', 'strategy', 'compare', 'difference between', 'distinguish',
+    'step by step', 'procedure', 'complete', 'comprehensive', 'in detail', 'detailed',
+    'checklist', 'requirements', 'workflow', 'all steps', 'how to overcome', 'overcoming'
+  ];
+  const isDirectQuestion = (
+    q.length < 45 ||
+    /^(what is|who is|which is|define|meaning of|when is|where is|tell me about|is it|can i|kya hai|kise kehte)/i.test(q) ||
+    q.includes('short') || q.includes('brief') || q.includes('summary') || q.includes('in short')
+  );
+  const isComplex = complexTriggers.some(trigger => q.includes(trigger)) && !q.includes('short') && !q.includes('brief');
+
+  if (isComplex) {
+    return {
+      mode: 'comprehensive',
+      maxTokens: 580,
+      instruction: 'COMPREHENSIVE MANDATE: The user query requires an in-depth strategic analysis. Provide a structured response with clear statutory headings, empirical proof requirements, and actionable next steps.'
+    };
+  } else if (isDirectQuestion) {
+    return {
+      mode: 'concise',
+      maxTokens: 220,
+      instruction: 'CONCISENESS MANDATE: The user query is a direct inquiry. Provide a crisp, high-impact answer in 2–3 short bullet points. Do NOT include unnecessary greeting, preamble, or verbose filler. Conserve response length.'
+    };
+  } else {
+    return {
+      mode: 'balanced',
+      maxTokens: 380,
+      instruction: 'BALANCED MANDATE: Provide a clear, structured answer focusing strictly on the essential statutory rules and practical guidance without repetitive filler.'
+    };
+  }
+}
+
 // Multi-model cascade: fast, intelligent, zero-cost (includes groq/compound-mini with 70,000 TPM limit)
 const MODEL_CASCADE = ['qwen/qwen3.8-27b', 'groq/compound-mini', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.6-27b'];
 
 async function callGroqRAG(userQuery) {
   const { contextText, sources } = retrieveContext(userQuery);
   const apiKey = GROQ_CONFIG.apiKey;
+  const lang = SUPPORTED_LANGUAGES.find(l => l.code === (appState.chatLanguage || 'en')) || SUPPORTED_LANGUAGES[0];
+  const complexity = analyzeQueryComplexity(userQuery);
+
+  let langInstruction = '';
+  if (lang.code !== 'en') {
+    langInstruction = `\nCRITICAL LANGUAGE MANDATE: You MUST respond entirely and fluently in ${lang.name} (${lang.native}). Retain standard statutory legal citations (e.g., Section 3(p), Section 3(e), Section 3(d), SBB Form-1, NBA Form-3, CSIR-TKDL, Chou-Talalay CI) in Latin notation alongside descriptive translations in ${lang.native}.`;
+  }
 
   const systemPrompt = `You are "IP-SAKTI Sahayak", an authoritative sovereign IP & regulatory AI copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), CSIR-TKDL prior-art concordance, and the IP-SAKTI platform itself.
 
@@ -1707,7 +2073,8 @@ YOUR MANDATE:
 1. Provide legally precise, evidence-grounded answers.
 2. Directly address statutory hurdles under Section 3(p) (traditional knowledge bar), Section 3(e) (synergistic admixture standard), Section 3(d) (therapeutic efficacy bar), Section 10(4)(ii)(D) (disclosure of biological origin), and Section 39 (foreign filing permission).
 3. If asked about the platform or website, explain the 5-step Intake Wizard (#intake-1 to #intake-5), TKDL search (#tkdl), ABS compliance (#abs), user roles (Researcher, Facilitator, Admin), and escalation to Empaneled Counsel.
-4. Keep answers concise, highly legible, structured with bold headings and clean bullet points.
+4. ${complexity.instruction}
+${langInstruction}
 
 STATUTORY & PLATFORM KNOWLEDGE BASE (RETRIEVED VIA RAG):
 ${contextText}`;
@@ -1733,7 +2100,7 @@ ${contextText}`;
     };
   }
 
-  // Multi-model retry cascade with safe token limit (600 max_tokens to strictly honor 1000 OTPM limit)
+  // Multi-model retry cascade with dynamic adaptive token limit (220-580 max_tokens to strictly honor OTPM limit and avoid token waste)
   for (let model of MODEL_CASCADE) {
     try {
       const response = await fetch(GROQ_CONFIG.endpoint, {
@@ -1746,7 +2113,7 @@ ${contextText}`;
           model: model,
           messages: messages,
           temperature: 0.2,
-          max_tokens: 600
+          max_tokens: complexity.maxTokens
         })
       });
 
@@ -1869,6 +2236,7 @@ function renderChatMessage(msg) {
 }
 
 function initChatHistory() {
+  initLanguageSelector();
   const history = loadChatHistory();
   appState.chatHistory = history;
   const chatContainer = document.getElementById('chat-messages');
