@@ -44,6 +44,38 @@ tailwind.config = {
   .font-tabular { font-variant-numeric: tabular-nums; }
   .elevation-ambient { box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 1px 3px 0 rgba(0,0,0,0.02); }
   .elevation-hover { box-shadow: 0 12px 28px -6px rgba(0,0,0,0.07), 0 2px 8px -2px rgba(0,0,0,0.03); }
+  /* Toast Notifications */
+  #toast-container { position:fixed; top:80px; right:20px; z-index:9999; display:flex; flex-direction:column; gap:8px; pointer-events:none; }
+  .toast { pointer-events:auto; padding:12px 20px; border-radius:12px; font-family:'Inter',sans-serif; font-size:13px; font-weight:500; color:#fff; display:flex; align-items:center; gap:8px; min-width:280px; max-width:420px; box-shadow:0 8px 30px -4px rgba(0,0,0,0.15); animation: toastIn 0.3s ease-out forwards; }
+  .toast.removing { animation: toastOut 0.25s ease-in forwards; }
+  .toast-success { background:#1f3d2e; }
+  .toast-warning { background:#835400; }
+  .toast-error { background:#ba1a1a; }
+  .toast-info { background:#2f3130; }
+  @keyframes toastIn { from{opacity:0;transform:translateX(40px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes toastOut { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(40px)} }
+  /* Modal */
+  .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); display:flex; align-items:center; justify-content:center; padding:16px; animation:fadeIn 0.2s ease-out; }
+  .modal-content { background:#fff; border-radius:16px; max-width:560px; width:100%; max-height:85vh; overflow-y:auto; box-shadow:0 24px 48px -12px rgba(0,0,0,0.18); animation:modalIn 0.25s ease-out; }
+  @keyframes modalIn { from{opacity:0;transform:scale(0.95) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+  /* Mobile Nav */
+  .mobile-menu { position:fixed; inset:0; z-index:90; background:rgba(0,0,0,0.4); backdrop-filter:blur(4px); display:none; }
+  .mobile-menu.open { display:block; }
+  .mobile-menu-panel { position:absolute; top:0; right:0; width:280px; height:100%; background:#fff; box-shadow:-8px 0 30px rgba(0,0,0,0.1); padding:20px; animation:slideIn 0.25s ease-out; }
+  @keyframes slideIn { from{transform:translateX(100%)} to{transform:translateX(0)} }
+  /* Typing indicator */
+  .typing-dot { width:6px; height:6px; border-radius:50%; background:#466554; display:inline-block; animation:typingBounce 1.4s infinite ease-in-out both; }
+  .typing-dot:nth-child(1){animation-delay:-0.32s} .typing-dot:nth-child(2){animation-delay:-0.16s}
+  @keyframes typingBounce { 0%,80%,100%{transform:scale(0)} 40%{transform:scale(1)} }
+  /* Spinner */
+  .spinner { width:20px; height:20px; border:2px solid #c2c8c2; border-top-color:#1f3d2e; border-radius:50%; animation:spin 0.6s linear infinite; display:inline-block; }
+  @keyframes spin { to{transform:rotate(360deg)} }
+  /* Chat bubble animation */
+  .chat-msg { animation: chatIn 0.3s ease-out; }
+  @keyframes chatIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  /* Checkbox toggle styling */
+  .check-toggle { cursor:pointer; transition: all 0.2s; }
+  .check-toggle:hover { background-color: #f4f4f2; }
 </style>
 </head>
 <body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
@@ -77,8 +109,30 @@ tailwind.config = {
       </button>
     </div>
   </div>
+    <button id="hamburger-btn" aria-label="Menu" class="md:hidden p-1 text-on-surface-variant hover:text-primary transition-colors" onclick="toggleMobileMenu()"><span class="material-symbols-outlined text-[24px]">menu</span></button>
+  </div>
 </div>
 </header>
+
+<!-- Toast Container -->
+<div id="toast-container"></div>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobile-menu" class="mobile-menu" onclick="if(event.target===this)toggleMobileMenu()">
+  <div class="mobile-menu-panel">
+    <div class="flex items-center justify-between mb-6">
+      <span class="text-headline-sm font-headline-sm text-primary font-semibold">Menu</span>
+      <button onclick="toggleMobileMenu()" class="p-1 text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <nav id="mobile-nav" class="flex flex-col gap-1"></nav>
+    <div class="mt-6 pt-4 border-t border-surface-container">
+      <span id="mobile-role-badge" class="text-label-sm font-label-sm text-on-surface-variant"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Container -->
+<div id="modal-root"></div>
 
 <!-- ============================================ -->
 <!-- MAIN CONTENT AREA -->
@@ -155,29 +209,29 @@ tailwind.config = {
     <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mx-auto leading-relaxed">Choose your credential tier for authenticated regulatory access.</p>
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-stretch">
-    <!-- Researcher -->
+    <!-- User (Individual) -->
     <div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200">
       <div>
-        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">biotech</span></div>
-        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 01 · Innovation &amp; Search</span>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">Researcher / MSME</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Analyze herbal formulations, check prior-art, and prepare statutory filings.</p>
+        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">person</span></div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 01 · Individual Access</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">User / Practitioner</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Analyze your formulations, run intake assessments, view results, and consult the AI assistant.</p>
       </div>
       <div class="pt-8 mt-6 border-t border-[#EFEFE9]">
-        <button onclick="setRole('researcher')" class="w-full h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-all duration-150 active:scale-[0.99] shadow-sm"><span>Enter as Researcher</span><span class="material-symbols-outlined text-base">arrow_forward</span></button>
+        <button onclick="setRole('user')" class="w-full h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-all duration-150 active:scale-[0.99] shadow-sm"><span>Enter as User</span><span class="material-symbols-outlined text-base">arrow_forward</span></button>
       </div>
     </div>
-    <!-- Facilitator -->
+    <!-- Company -->
     <div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200 relative">
-      <div class="absolute -top-3 right-6 bg-surface-container border border-outline-variant/40 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-secondary">Empaneled Counsel</div>
+      <div class="absolute -top-3 right-6 bg-surface-container border border-outline-variant/40 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-secondary">MSME / Enterprise</div>
       <div>
-        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">verified_user</span></div>
-        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 02 · Advisory &amp; Prosecution</span>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">Legal &amp; IP Facilitator</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Review escalated dossiers, provide statutory counsel, and guide patent prosecution.</p>
+        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">domain</span></div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 02 · Business &amp; IP Counsel</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">Company / Expert</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Manage IP dossiers, run prior-art searches, oversee formulations, and handle regulatory compliance.</p>
       </div>
       <div class="pt-8 mt-6 border-t border-[#EFEFE9]">
-        <button onclick="setRole('facilitator')" class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]"><span>Enter as Facilitator</span><span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span></button>
+        <button onclick="setRole('company')" class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]"><span>Enter as Company</span><span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span></button>
       </div>
     </div>
     <!-- Admin -->
@@ -712,10 +766,10 @@ tailwind.config = {
 <div class="flex flex-col sm:flex-row justify-between items-center w-full px-6 lg:px-12 py-8 max-w-7xl mx-auto gap-4">
   <div class="text-body-md font-body-md text-on-surface-variant">© 2026 IP-SAKTI Sahayak. Grounded botanical intelligence for sovereign IP.</div>
   <div class="flex flex-wrap items-center justify-center gap-6 text-label-sm font-label-sm">
-    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Jurisdiction Guidelines</a>
-    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Privacy Charter</a>
-    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">System Status</a>
-    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Contact Counsel</a>
+    <a onclick="showFooterModal('jurisdiction')" class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Jurisdiction Guidelines</a>
+    <a onclick="showFooterModal('privacy')" class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Privacy Charter</a>
+    <a onclick="showFooterModal('status')" class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">System Status</a>
+    <a onclick="showFooterModal('contact')" class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Contact Counsel</a>
   </div>
 </div>
 </footer>
@@ -724,69 +778,195 @@ tailwind.config = {
 <!-- APPLICATION ROUTING & INTERACTIVITY SCRIPT -->
 <!-- ============================================ -->
 <script>
+// =============================================
+// APP STATE — localStorage-backed data layer
+// =============================================
+const DEFAULT_STATE = {
+  dossiers: [
+    {id:'AYU-7821',name:'Ashwagandha Vitality Elixir',status:'Ready for Filing',desc:'Standardized withanolide glycoside extract matrix. Botanical reference: Withania somnifera root extract.',tags:['Novel Excipient','IPO Section 3(p) Cleared'],updated:'2 days ago',route:'tkdl'},
+    {id:'AYU-6340',name:'Triphala Digestive Tonic',status:'Review Recommended',desc:'Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.',tags:['Citation Match Flagged','TKDL Prior Art v1.8'],updated:'4 hours ago',route:'abs'},
+    {id:'AYU-9014',name:'Curcumin Bio-Enhanced Extract',status:'Prior-Art Clear',desc:'Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.',tags:['PCT Global Ready','USPTO Class 424'],updated:'5 days ago',route:'escalation'}
+  ],
+  corpus: [
+    {id:'c1',name:'CSIR-TKDL Ayurveda Samhita Corpus',version:'v4.2',detail:'430,000+ Slokas • Last synced 04:00 IST',category:'Traditional Knowledge Gazette',url:'https://tkdl.res.in/api/v4/corpus/ayurveda',hash:'9fa2b7c3e8d1...cc17',status:'Active'},
+    {id:'c2',name:'Indian Patents Act (1970) Rule Matrix',version:'v2.1',detail:'Section 3(p) + 3(e) Guidelines • CGPDTM Official',category:'Patent Office Guidance',url:'',hash:'',status:'Active'},
+    {id:'c3',name:'NBA Biological Diversity Act 2002 Registers',version:'v3.0',detail:'Including 2023 Amendment Rules • State Board Forms',category:'Biodiversity Regulation',url:'',hash:'',status:'Active'},
+    {id:'c4',name:'TKDL Gazette Supplement v4.3',version:'v4.3',detail:'1,420 new slokas • Pending verification',category:'Traditional Knowledge Gazette',url:'',hash:'',status:'Needs Review'}
+  ],
+  users: [
+    {name:'Dr. Ananya Sharma',email:'ananya.sharma@ayush.gov.in',role:'User',initials:'AS',active:'2h ago'},
+    {name:'Adv. K. Ramanathan',email:'k.ramanathan@iplaw.in',role:'Company',initials:'KR',active:'5h ago'},
+    {name:'Dr. R. Varma',email:'r.varma@sakti-admin.gov.in',role:'Admin',initials:'RV',active:'1h ago'},
+    {name:'Adv. Vikramaditya Sen',email:'v.sen@counsel.in',role:'Company',initials:'VS',active:'2d ago'}
+  ],
+  auditLog: [
+    {time:'Today, 14:32 IST',event:'Dossier AYU-2025-084B escalated to Empaneled Counsel',hash:'e5c3...b189',type:'dossier'},
+    {time:'Today, 13:19 IST',event:'Corpus updated: CSIR-TKDL Gazette Supplement v4.3 indexed',hash:'77d1...4ac0',type:'corpus'},
+    {time:'Today, 11:05 IST',event:'Classification generated: AYU-2025-991C §3(p)',hash:'4a8f...92df',type:'dossier'},
+    {time:'24 Feb, 17:48 IST',event:'DSC Token cryptographic signature verified: Dr. Ananya Sharma',hash:'c2e0...815b',type:'user'},
+    {time:'24 Feb, 14:10 IST',event:'ABS Form-1 draft exported for Maharashtra SBB',hash:'18f6...ec31',type:'compliance'},
+    {time:'23 Feb, 16:22 IST',event:'User account provisioned: Adv. Vikramaditya Sen (Company)',hash:'6b22...179c',type:'user'}
+  ],
+  chatHistory: [],
+  intakeData: { step2: {}, step3: {}, step4: {}, step5: {} },
+  absChecklist: [true, true, false, true],
+  auditPage: 0
+};
+
+function loadState() { try { return JSON.parse(localStorage.getItem('ipsakti_state')) || JSON.parse(JSON.stringify(DEFAULT_STATE)); } catch(e) { return JSON.parse(JSON.stringify(DEFAULT_STATE)); } }
+function saveState() { localStorage.setItem('ipsakti_state', JSON.stringify(appState)); }
+let appState = loadState();
 let currentRole = null;
 let showingEmpty = false;
 
+// =============================================
+// TOAST NOTIFICATIONS
+// =============================================
+function showToast(message, type='success') {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast toast-${type}`;
+  const icons = {success:'check_circle',warning:'warning',error:'error',info:'info'};
+  toast.innerHTML = `<span class="material-symbols-outlined text-[16px]">${icons[type]||'info'}</span><span>${message}</span>`;
+  container.appendChild(toast);
+  setTimeout(()=>{toast.classList.add('removing');setTimeout(()=>toast.remove(),300);},4000);
+}
+
+// =============================================
+// MODAL SYSTEM
+// =============================================
+function showModal(title, bodyHTML, footerHTML='') {
+  const root = document.getElementById('modal-root');
+  root.innerHTML = `<div class="modal-overlay" onclick="if(event.target===this)closeModal()"><div class="modal-content">
+    <div class="px-6 py-4 border-b border-surface-container flex items-center justify-between">
+      <h3 class="text-headline-sm font-headline-sm text-primary font-semibold">${title}</h3>
+      <button onclick="closeModal()" class="p-1 text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div class="p-6">${bodyHTML}</div>
+    ${footerHTML?`<div class="px-6 py-4 border-t border-surface-container flex justify-end gap-3">${footerHTML}</div>`:''}
+  </div></div>`;
+}
+function closeModal() { document.getElementById('modal-root').innerHTML = ''; }
+
+// =============================================
+// MOBILE NAV
+// =============================================
+function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+
+// =============================================
+// NAV CONFIGS — User / Company / Admin
+// =============================================
 const NAV_CONFIGS = {
   landing: { links: [
-    {label:'Home',page:'landing',active:true},{label:'Intake Wizard',page:'intake-2'},{label:'Results Dashboard',page:'dossiers'},{label:'Ask AI',page:'ask-ai'}
+    {label:'Home',page:'landing'},{label:'Intake Wizard',page:'intake-2'},{label:'Results Dashboard',page:'dossiers'},{label:'Ask AI',page:'ask-ai'}
   ], badge:'' },
-  researcher: { links: [
-    {label:'Dockets',page:'dossiers',active:true},{label:'Prior Art',page:'tkdl'},{label:'Formulations',page:'intake-2'},{label:'Compliance',page:'abs'},{label:'Ask AI',page:'ask-ai'}
-  ], badge:'Researcher // Tier 01' },
-  facilitator: { links: [
-    {label:'Dockets',page:'dossiers',active:true},{label:'Prior Art',page:'tkdl'},{label:'Formulations',page:'intake-2'},{label:'Compliance',page:'abs'},{label:'Ask AI',page:'ask-ai'}
-  ], badge:'Facilitator // Tier 02' },
+  user: { links: [
+    {label:'Home',page:'landing'},{label:'Intake Wizard',page:'intake-2'},{label:'Results Dashboard',page:'dossiers'},{label:'Ask AI',page:'ask-ai'}
+  ], badge:'User // Tier 01' },
+  company: { links: [
+    {label:'Dockets',page:'dossiers'},{label:'Prior Art',page:'tkdl'},{label:'Formulations',page:'intake-2'},{label:'Compliance',page:'abs'}
+  ], badge:'Company // Tier 02' },
   admin: { links: [
-    {label:'Overview',page:'admin',active:true},{label:'Source Corpus',page:'corpus'},{label:'User & Roles',page:'users'},{label:'Audit Log',page:'audit'}
+    {label:'Overview',page:'admin'},{label:'Source Corpus',page:'corpus'},{label:'User & Roles',page:'users'},{label:'Audit Log',page:'audit'}
   ], badge:'System Admin // Tier 03' }
 };
 
 function updateNav(activePage) {
   const nav = document.getElementById('main-nav');
   const badge = document.getElementById('nav-role-badge');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileBadge = document.getElementById('mobile-role-badge');
   const config = currentRole ? NAV_CONFIGS[currentRole] : NAV_CONFIGS.landing;
   
   badge.textContent = config.badge;
   badge.classList.toggle('hidden', !config.badge);
+  if(mobileBadge) mobileBadge.textContent = config.badge;
   
-  nav.innerHTML = config.links.map(link => {
+  const renderLinks = (isDesktop) => config.links.map(link => {
     const isActive = link.page === activePage;
-    const cls = isActive
-      ? 'text-primary border-b-2 border-primary pb-1 font-medium active:scale-[0.99] transition-transform duration-150 cursor-pointer'
-      : 'text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150 active:scale-[0.99] cursor-pointer';
-    return `<a class="${cls}" onclick="navigate('${link.page}')">${link.label}</a>`;
+    if(isDesktop) {
+      const cls = isActive
+        ? 'text-primary border-b-2 border-primary pb-1 font-medium cursor-pointer'
+        : 'text-on-surface-variant hover:text-on-surface pb-1 transition-colors cursor-pointer';
+      return `<a class="${cls}" onclick="navigate('${link.page}')">${link.label}</a>`;
+    } else {
+      const cls = isActive
+        ? 'block px-4 py-2.5 rounded-lg bg-primary-container/10 text-primary font-medium text-label-md cursor-pointer'
+        : 'block px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container text-label-md cursor-pointer';
+      return `<a class="${cls}" onclick="navigate('${link.page}');toggleMobileMenu()">${link.label}</a>`;
+    }
   }).join('');
+  
+  nav.innerHTML = renderLinks(true);
+  if(mobileNav) mobileNav.innerHTML = renderLinks(false);
 }
 
 function navigate(page) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   const target = document.getElementById('page-' + page);
-  if (target) {
-    target.classList.add('active');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+  if (target) { target.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
   
-  // Determine nav context
-  const researcherPages = ['dossiers','tkdl','abs','escalation','intake-2','intake-3','intake-4','intake-5','ask-ai'];
+  const userPages = ['landing','intake-2','intake-3','intake-4','intake-5','ask-ai'];
+  const companyPages = ['dossiers','tkdl','abs','escalation'];
   const adminPages = ['admin','corpus','source-edit','users','audit'];
   
-  if (page === 'landing' || page === 'roles') {
-    // Keep current or use landing nav
-  } else if (adminPages.includes(page)) {
-    if (currentRole !== 'admin') currentRole = 'admin';
-  } else if (researcherPages.includes(page)) {
-    if (!currentRole || currentRole === 'admin') currentRole = 'researcher';
-  }
+  if (page === 'roles') { /* keep */ }
+  else if (adminPages.includes(page)) { if(currentRole !== 'admin') currentRole = 'admin'; }
+  else if (companyPages.includes(page)) { if(!currentRole || currentRole === 'admin') currentRole = 'company'; }
+  else if (userPages.includes(page)) { if(!currentRole || currentRole === 'admin' || currentRole === 'company') currentRole = currentRole || 'user'; }
   
   updateNav(page);
   history.replaceState(null, '', '#' + page);
+  
+  // Dynamic rendering for certain pages
+  if(page === 'dossiers') renderDossiers();
+  if(page === 'admin') renderAdminStats();
+  if(page === 'users') renderUsers();
+  if(page === 'corpus') renderCorpus();
+  if(page === 'audit') renderAuditLog();
+  if(page === 'intake-5') renderIntakeReview();
 }
 
 function setRole(role) {
   currentRole = role;
+  showToast(`Signed in as ${role.charAt(0).toUpperCase()+role.slice(1)}`, 'success');
   if (role === 'admin') navigate('admin');
-  else navigate('dossiers');
+  else if (role === 'company') navigate('dossiers');
+  else navigate('landing');
+}
+
+// =============================================
+// DOSSIER RENDERING
+// =============================================
+function renderDossiers() {
+  const grid = document.getElementById('dossiersGrid');
+  if (!grid || showingEmpty) return;
+  const statusColors = {
+    'Ready for Filing': 'bg-primary-fixed text-on-primary-fixed border-primary-fixed-dim/40',
+    'Review Recommended': 'bg-secondary-container/20 text-on-secondary-container border-secondary-container/40',
+    'Prior-Art Clear': 'bg-surface-container-high text-on-surface-variant border-outline-variant/50',
+    'Draft': 'bg-surface-container text-on-surface-variant border-outline-variant/40'
+  };
+  const dotColors = {'Ready for Filing':'bg-primary-container','Review Recommended':'bg-secondary','Prior-Art Clear':'bg-outline','Draft':'bg-outline-variant'};
+  grid.innerHTML = appState.dossiers.map(d => `
+    <div onclick="navigate('${d.route||'tkdl'}')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+      <div>
+        <div class="flex items-start justify-between gap-3 mb-4">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: ${d.id}</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm ${statusColors[d.status]||statusColors['Draft']}"><span class="w-1.5 h-1.5 rounded-full ${dotColors[d.status]||'bg-outline'}"></span>${d.status}</span>
+        </div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">${d.name}</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">${d.desc}</p>
+        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">${d.tags.map(t=>`<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">${t}</span>`).join('')}</div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated ${d.updated}</span>
+        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      </div>
+    </div>`).join('');
+  // Update count
+  const countEl = grid.closest('.page-section')?.querySelector('.font-medium.text-on-surface');
+  if(countEl) countEl.textContent = `${appState.dossiers.length} active formulations`;
 }
 
 function toggleDossierView() {
@@ -795,15 +975,394 @@ function toggleDossierView() {
   const empty = document.getElementById('dossiersEmptyState');
   const label = document.getElementById('toggleBtnLabel');
   if (showingEmpty) { grid.classList.add('hidden'); empty.classList.remove('hidden'); label.innerText='Show Active Dossiers'; }
-  else { grid.classList.remove('hidden'); empty.classList.add('hidden'); label.innerText='Simulate Empty State'; }
+  else { grid.classList.remove('hidden'); empty.classList.add('hidden'); label.innerText='Simulate Empty State'; renderDossiers(); }
 }
 
+// =============================================
+// INTAKE FORM PERSISTENCE
+// =============================================
+function saveIntakeStep2() {
+  const rows = document.querySelectorAll('.ingredient-row');
+  const ingredients = [];
+  rows.forEach(r => {
+    const inp = r.querySelector('input');
+    const selects = r.querySelectorAll('select');
+    if(inp && inp.value.trim()) ingredients.push({name:inp.value.trim(), part:selects[0]?.value||'', provenance:selects[1]?.value||''});
+  });
+  appState.intakeData.step2 = {ingredients};
+  saveState();
+  showToast('Ingredients saved','info');
+}
+
+function saveIntakeStep3() {
+  const label = document.querySelector('#page-intake-3 textarea:first-of-type');
+  const hyp = document.getElementById('scientific_hypothesis');
+  appState.intakeData.step3 = {label: label?.value||'', hypothesis: hyp?.value||''};
+  saveState();
+  showToast('Claims saved','info');
+}
+
+function saveIntakeStep4() {
+  const form = document.querySelector('#page-intake-4 form');
+  if(!form) return;
+  const selects = form.querySelectorAll('select');
+  const inputs = form.querySelectorAll('input');
+  appState.intakeData.step4 = {method:selects[0]?.value||'',region:inputs[0]?.value||'',zone:inputs[1]?.value||''};
+  saveState();
+  showToast('Biological source saved','info');
+}
+
+function renderIntakeReview() {
+  const d = appState.intakeData;
+  const reviewEl = document.querySelector('#page-intake-5 .divide-y');
+  if(!reviewEl) return;
+  const ingText = d.step2.ingredients?.length ? d.step2.ingredients.map(i=>`${i.name} (${i.part}, ${i.provenance})`).join(', ') : 'Not yet completed';
+  const claimText = d.step3.label || 'Not yet completed';
+  const bioText = d.step4.method ? `${d.step4.method} · ${d.step4.region}` : 'Not yet completed';
+  // Update review items dynamically
+  const items = reviewEl.querySelectorAll('.py-3\\.5');
+  if(items[1]) items[1].querySelector('.text-body-md')&&(items[1].querySelector('.text-body-md').textContent = ingText);
+  if(items[2]) items[2].querySelector('.text-body-md')&&(items[2].querySelector('.text-body-md').textContent = claimText.substring(0,80)+(claimText.length>80?'...':''));
+  if(items[3]) items[3].querySelector('.text-body-md')&&(items[3].querySelector('.text-body-md').textContent = bioText);
+}
+
+function submitIntake() {
+  const d = appState.intakeData;
+  const name = d.step2.ingredients?.[0]?.name || 'New Formulation';
+  const newId = 'AYU-' + (1000 + appState.dossiers.length + 1);
+  appState.dossiers.unshift({
+    id: newId, name: name + ' Complex', status: 'Draft',
+    desc: d.step3.label || 'Formulation submitted for TKDL analysis.',
+    tags: ['New Submission'], updated: 'Just now', route: 'tkdl'
+  });
+  addAuditEntry(`New dossier ${newId} created via Intake Wizard`, 'dossier');
+  saveState();
+  showToast(`Dossier ${newId} created successfully!`, 'success');
+  navigate('tkdl');
+}
+
+// =============================================
+// TKDL SEARCH — Interactive Filtering
+// =============================================
+const TKDL_DATA = [
+  {title:'Charaka Samhita — Cikitsasthana 1.1-38',flag:'Classical Overlap Flagged',flagColor:'bg-[rgba(232,163,61,0.14)] text-[#996515] border-[rgba(232,163,61,0.3)]',desc:'Classical formulation context: root powder of Withania somnifera processed with cow milk and clarified butter for cellular rejuvenation.',score:98.4,keywords:['ashwagandha','withania','rasayana','rejuvenation','charaka']},
+  {title:'Sushruta Samhita — Sutrasthana 46.12',flag:'No Direct Claim Conflict',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Rasayana preparatory protocol excerpt: root bark extracts alongside honey in therapeutic convalescence.',score:76.1,keywords:['ashwagandha','withania','rasayana','sushruta','honey']},
+  {title:'Bhavaprakasha Nighantu — Guduchyadi Varga',flag:'Prior Knowledge Cited',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Botanical synergy notes: Ashwagandha paired with Guduchi in immune modulating tonics.',score:64.8,keywords:['ashwagandha','guduchi','tinospora','immune','synergy','bhavaprakasha']},
+  {title:'Ashtanga Hridaya — Uttarasthana 39',flag:'General Usage',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Adjuvant piperine processing: black pepper with revitalizing tubers for enhanced systemic absorption.',score:52.3,keywords:['piperine','curcumin','turmeric','absorption','ashtanga','pepper']},
+  {title:'Dravyaguna Vijnana — Curcuma Section',flag:'Classical Overlap Flagged',flagColor:'bg-[rgba(232,163,61,0.14)] text-[#996515] border-[rgba(232,163,61,0.3)]',desc:'Curcuma longa (Haridra) therapeutic decoction in wound healing and anti-inflammatory applications.',score:91.2,keywords:['curcumin','turmeric','curcuma','haridra','anti-inflammatory']},
+  {title:'Sahasrayoga — Kashaya Prakarana',flag:'Prior Knowledge Cited',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Triphala-based classical decoction formulations for digestive and metabolic disorders.',score:87.6,keywords:['triphala','haritaki','bibhitaki','amalaki','digestive']},
+  {title:'Charaka Samhita — Chikitsa 1.3 (Medhya Rasayana)',flag:'Classical Overlap Flagged',flagColor:'bg-[rgba(232,163,61,0.14)] text-[#996515] border-[rgba(232,163,61,0.3)]',desc:'Brahmi (Bacopa monnieri) as Medhya Rasayana for cognitive enhancement and neuroprotective properties.',score:95.7,keywords:['brahmi','bacopa','medhya','cognitive','neuroprotective','memory']},
+  {title:'Bhavaprakasha — Haritakyadi Varga',flag:'General Usage',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Tulsi (Ocimum sanctum) in respiratory and adaptogenic formulations across classical texts.',score:70.5,keywords:['tulsi','ocimum','respiratory','adaptogenic','holy basil']},
+  {title:'API — Neem Monograph',flag:'No Direct Claim Conflict',flagColor:'bg-surface-container text-on-surface-variant border-outline-variant',desc:'Azadirachta indica dermatological applications and pest management in Ayurvedic Pharmacopoeia of India.',score:68.3,keywords:['neem','azadirachta','dermatological','skin','pharmacopoeia']}
+];
+
+function searchTKDL() {
+  const input = document.querySelector('#page-tkdl input[type="text"]');
+  const query = (input?.value || '').toLowerCase().replace(/tkdl:\[|\]|and|claim:\[/gi,'').trim();
+  const resultsContainer = document.querySelector('#page-tkdl .divide-y.divide-outline-variant');
+  const countEl = document.querySelector('#page-tkdl .font-semibold.text-primary');
+  if(!resultsContainer) return;
+  
+  // Show spinner
+  resultsContainer.innerHTML = '<div class="p-8 text-center"><div class="spinner mx-auto mb-3"></div><p class="text-body-md text-on-surface-variant">Searching TKDL database...</p></div>';
+  
+  setTimeout(() => {
+    const results = query ? TKDL_DATA.filter(r => r.keywords.some(k => k.includes(query)) || r.title.toLowerCase().includes(query) || r.desc.toLowerCase().includes(query)) : TKDL_DATA.slice(0,4);
+    
+    if(countEl) countEl.textContent = `${results.length} classical citations`;
+    
+    if(results.length === 0) {
+      resultsContainer.innerHTML = '<div class="p-12 text-center"><span class="material-symbols-outlined text-[40px] text-outline mb-3">search_off</span><h3 class="text-headline-sm font-headline-sm text-on-surface">No matching citations found</h3><p class="text-body-md text-on-surface-variant mt-2">Try broader botanical terms or TKDL classification codes.</p></div>';
+      return;
+    }
+    
+    resultsContainer.innerHTML = results.map(r => `
+      <article class="p-5 sm:p-6 hover:bg-surface transition-colors"><div class="space-y-2">
+        <div class="flex flex-wrap items-center gap-3"><h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">${r.title}</h2><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold ${r.flagColor}">${r.flag}</span></div>
+        <p class="text-body-md font-body-md text-on-surface-variant pt-1">${r.desc}</p>
+        <div class="flex items-center gap-2 text-label-sm font-label-sm text-outline mt-2"><span>Relevance Score: ${r.score}%</span></div>
+      </div></article>`).join('');
+  }, 800);
+}
+
+function saveCitationsToDossier() {
+  addAuditEntry('TKDL citations saved to active dossier', 'dossier');
+  saveState();
+  showToast('Citations saved to dossier', 'success');
+}
+
+// =============================================
+// ABS CHECKLIST — Interactive
+// =============================================
+function toggleAbsCheck(index) {
+  appState.absChecklist[index] = !appState.absChecklist[index];
+  saveState();
+  renderAbsChecklist();
+}
+
+function renderAbsChecklist() {
+  const checks = appState.absChecklist;
+  const verified = checks.filter(Boolean).length;
+  const counterEl = document.querySelector('#page-abs .font-medium.bg-surface-container');
+  if(counterEl) counterEl.textContent = `${verified} of ${checks.length} Verified`;
+  
+  const statusBadge = document.querySelector('#page-abs .gap-1\\.5.px-3.py-1.rounded-full');
+  if(statusBadge && verified === checks.length) {
+    statusBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>All Checks Cleared';
+    statusBadge.className = statusBadge.className.replace(/bg-\[.*?\]/g,'bg-primary-fixed/50').replace(/text-secondary/g,'text-primary-container').replace(/border-secondary\/20/g,'border-primary-fixed-dim');
+  }
+}
+
+function generateForm1() {
+  const d = appState.intakeData.step4;
+  showModal('SBB Form-1 Draft Preview', `
+    <div class="space-y-4 text-body-md">
+      <div class="bg-surface-container-low rounded-lg p-4 border border-outline-variant/40">
+        <h4 class="font-label-md text-label-md text-primary font-semibold mb-2">FORM-1: Intimation for Access to Biological Resources</h4>
+        <p class="text-on-surface-variant text-sm">Under Rule 14 of the Biological Diversity Rules, 2004</p>
+      </div>
+      <div class="space-y-3">
+        <div><span class="text-label-sm text-outline">Applicant Entity:</span><p class="font-medium">IP-SAKTI Research Unit</p></div>
+        <div><span class="text-label-sm text-outline">Biological Resource:</span><p class="font-medium">Tinospora cordifolia (Guduchi) — Wild-Harvested Stem</p></div>
+        <div><span class="text-label-sm text-outline">Acquisition Method:</span><p class="font-medium">${d.method||'Wild-Harvested'}</p></div>
+        <div><span class="text-label-sm text-outline">State of Origin:</span><p class="font-medium">${d.region||'Western Ghats, Maharashtra'}</p></div>
+        <div><span class="text-label-sm text-outline">Purpose:</span><p class="font-medium">Commercial utilization — Patent filing for herbal formulation</p></div>
+        <div><span class="text-label-sm text-outline">Submitted To:</span><p class="font-medium">Maharashtra State Biodiversity Board (MSBB)</p></div>
+      </div>
+    </div>`,
+    `<button onclick="closeModal();addAuditEntry('ABS Form-1 draft generated','compliance');saveState();showToast('Form-1 draft exported','success')" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-medium">Export Draft</button>`
+  );
+}
+
+// =============================================
+// ASK AI — Working Chat
+// =============================================
+const AI_RESPONSES = {
+  patent: {text:'Under Section 3(p) of the Indian Patents Act 1970, traditional knowledge or aggregation of known properties of traditionally known components cannot be patented. To overcome this, you must demonstrate a novel inventive step — such as a unique extraction method, enhanced bioavailability mechanism, or synergistic efficacy beyond traditional aggregation under Section 3(e).', citation:'Indian Patents Act 1970, §3(p); CGPDTM AYUSH Examination Guidelines 2025'},
+  abs: {text:'Under the Biological Diversity Act 2002, if you source biological materials from Indian natural habitats (wild-harvested), you need prior intimation to the State Biodiversity Board (SBB) via Form-1 before any commercial use or patent filing. Cultivated medicinal plants are generally exempt from benefit-sharing obligations. For entities with turnover > ₹1 crore, monetary benefit-sharing applies.', citation:'BD Act 2002, Sections 3 & 7; BD (ABS) Regulations 2025; NBA Portal'},
+  tkdl: {text:'The TKDL database maintained by CSIR contains 430,000+ formulations from Ayurveda, Unani, Siddha, and Sowa Rigpa systems. It provides prior art evidence in 5 languages. Patent examiners at EPO, USPTO, and IPO use it to verify novelty. If your formulation matches TKDL entries, it will face Section 3(p) rejection unless you demonstrate significant non-obvious advancement.', citation:'CSIR-TKDL v4.2; WIPO-TKDL Access Agreements; Charaka Samhita, Sushruta Samhita'},
+  extraction: {text:'A standard aqueous Kashaya extraction is documented in Charaka Samhita as established traditional knowledge. Simple water extracts lack inventive step and face a strict patent bar under §3(p). Strategic path: Protect proprietary extraction temperature curves and yield optimization as a Trade Secret, or develop a novel delivery system (liposomal, nanoparticle) that demonstrates measurably enhanced bioavailability.', citation:'Charaka Samhita Chikitsa 1.2:14 (TKDL ID: AK/8412); API Monograph'},
+  default: {text:'I can help with questions about Indian IP law, TKDL prior art searches, ABS/Biodiversity compliance, patentability of Ayurvedic formulations, and Section 3(p)/3(e) analysis. Please share specific details about your formulation or regulatory question for grounded guidance.', citation:'IP-SAKTI Knowledge Base v2.6'}
+};
+
+function getAIResponse(query) {
+  const q = query.toLowerCase();
+  if(q.match(/patent|section 3|3\(p\)|3\(e\)|patentab|inventive/)) return AI_RESPONSES.patent;
+  if(q.match(/abs|biodiversity|form.?1|sbb|nba|biological|wild/)) return AI_RESPONSES.abs;
+  if(q.match(/tkdl|prior.?art|charaka|sushruta|traditional.?knowledge|samhita/)) return AI_RESPONSES.tkdl;
+  if(q.match(/extract|kashaya|decoction|water|process|method/)) return AI_RESPONSES.extraction;
+  return AI_RESPONSES.default;
+}
+
+function sendChatMessage() {
+  const input = document.querySelector('#page-ask-ai input[type="text"]');
+  const chatContainer = document.querySelector('#page-ask-ai .space-y-8');
+  if(!input || !chatContainer || !input.value.trim()) return;
+  
+  const userMsg = input.value.trim();
+  input.value = '';
+  
+  // Add user message
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  chatContainer.innerHTML += `<div class="chat-msg flex justify-end w-full pl-8 sm:pl-16"><div class="max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-5 py-4 shadow-sm"><p class="text-body-md font-body-md leading-relaxed text-on-surface">${userMsg}</p><div class="flex items-center justify-end gap-1.5 mt-2"><span class="text-label-sm font-label-sm text-outline">${timeStr}</span><span class="material-symbols-outlined text-[14px] text-surface-tint">done_all</span></div></div></div>`;
+  
+  // Typing indicator
+  chatContainer.innerHTML += `<div id="typing-indicator" class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8"><div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm"><span class="material-symbols-outlined text-[18px]">verified_user</span></div><div class="px-5 py-4 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm"><div class="flex gap-1.5"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div></div>`;
+  chatContainer.parentElement.scrollTop = chatContainer.parentElement.scrollHeight;
+  
+  setTimeout(() => {
+    document.getElementById('typing-indicator')?.remove();
+    const resp = getAIResponse(userMsg);
+    chatContainer.innerHTML += `<div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8">
+      <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm"><span class="material-symbols-outlined text-[18px]">verified_user</span></div>
+      <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center gap-2 pb-3 border-b border-surface-container-low mb-3"><span class="text-label-md font-label-md font-medium text-primary-container flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence</span></div>
+        <p class="text-body-md font-body-md text-on-surface leading-relaxed">${resp.text}</p>
+        <div class="mt-4 p-3 rounded-lg bg-surface-container-low/80 border border-surface-container-highest text-label-sm font-label-sm text-on-surface-variant"><span class="font-semibold text-primary">Source:</span> ${resp.citation}</div>
+      </div>
+    </div>`;
+    chatContainer.parentElement.scrollTop = chatContainer.parentElement.scrollHeight;
+  }, 1200 + Math.random()*800);
+  
+  appState.chatHistory.push({role:'user',text:userMsg,time:timeStr});
+  saveState();
+}
+
+// =============================================
+// ADMIN — Dynamic Stats & Operations
+// =============================================
+function renderAdminStats() {
+  const stats = document.querySelectorAll('#page-admin .text-headline-lg');
+  if(stats.length >= 4) {
+    stats[0].textContent = appState.dossiers.length;
+    stats[1].textContent = appState.dossiers.filter(d=>d.status==='Review Recommended').length;
+    stats[2].parentElement.querySelector('.text-headline-lg').textContent = appState.corpus.filter(c=>c.status==='Needs Review').length;
+    stats[3].textContent = appState.users.length;
+  }
+}
+
+function triggerSync() {
+  showToast('Corpus sync initiated at ' + new Date().toLocaleTimeString(), 'info');
+  addAuditEntry('Statutory corpus sync triggered manually', 'corpus');
+  saveState();
+}
+
+function verifyHash() {
+  showToast('Cryptographic hash verified ✓ — Ledger integrity confirmed', 'success');
+  addAuditEntry('Cryptographic hash verification completed', 'corpus');
+  saveState();
+}
+
+// =============================================
+// CORPUS MANAGEMENT
+// =============================================
+function renderCorpus() {
+  const container = document.querySelector('#page-corpus .divide-y');
+  if(!container) return;
+  container.innerHTML = appState.corpus.map(c => `
+    <div onclick="${c.status==='Active'?"navigate('source-edit')":''}" class="${c.status==='Active'?'cursor-pointer':''} h-16 px-6 flex items-center justify-between hover:bg-surface transition-colors group">
+      <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined ${c.status==='Needs Review'?'text-secondary':'text-primary-container'}">${c.status==='Needs Review'?'warning':'menu_book'}</span>
+        <div><span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">${c.name}</span><span class="text-label-sm text-on-surface-variant block">${c.detail}</span></div>
+      </div>
+      <div class="flex items-center gap-3">
+        ${c.status==='Needs Review'?`<button onclick="event.stopPropagation();approveCorpus('${c.id}')" class="px-3 py-1 rounded-lg bg-primary-container text-on-primary text-label-sm hover:bg-primary transition-colors">Approve</button>`:''}
+        <span class="text-label-sm ${c.status==='Needs Review'?'bg-secondary-container/20 text-secondary':'bg-primary-fixed/50 text-primary-container'} px-2.5 py-0.5 rounded-full">${c.status}</span>
+      </div>
+    </div>`).join('');
+}
+
+function approveCorpus(id) {
+  const c = appState.corpus.find(x=>x.id===id);
+  if(c) { c.status = 'Active'; addAuditEntry(`Corpus "${c.name}" approved and activated`,'corpus'); saveState(); renderCorpus(); showToast('Corpus approved','success'); }
+}
+
+function showAddCorpusModal() {
+  showModal('Add Source Document', `
+    <form id="add-corpus-form" class="space-y-4">
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Document Name *</label><input id="new-corpus-name" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" placeholder="e.g., FSSAI Ayurvedic Standards 2025"/></div>
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Version</label><input id="new-corpus-version" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg" placeholder="e.g., v1.0"/></div>
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Category</label><select id="new-corpus-category" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg"><option>Traditional Knowledge Gazette</option><option>Patent Office Guidance</option><option>Biodiversity Regulation</option><option>Pharmacopoeia</option></select></div>
+    </form>`,
+    `<button onclick="closeModal()" class="px-4 h-10 rounded-lg text-label-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
+     <button onclick="addCorpus()" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-medium">Add Document</button>`
+  );
+}
+
+function addCorpus() {
+  const name = document.getElementById('new-corpus-name')?.value;
+  const version = document.getElementById('new-corpus-version')?.value || 'v1.0';
+  const category = document.getElementById('new-corpus-category')?.value;
+  if(!name) { showToast('Please enter a document name','warning'); return; }
+  appState.corpus.push({id:'c'+(appState.corpus.length+1),name,version,detail:`${category} • Pending indexing`,category,url:'',hash:'',status:'Needs Review'});
+  addAuditEntry(`New corpus "${name}" added`,'corpus');
+  saveState(); closeModal(); renderCorpus(); showToast('Source document added','success');
+}
+
+// =============================================
+// USER MANAGEMENT
+// =============================================
+function renderUsers() {
+  const container = document.querySelector('#page-users .divide-y.divide-outline-variant');
+  const statsEls = document.querySelectorAll('#page-users .text-headline-lg');
+  if(!container) return;
+  
+  if(statsEls.length >= 4) {
+    statsEls[0].textContent = appState.users.length;
+    statsEls[1].textContent = appState.users.filter(u=>u.role==='User').length;
+    statsEls[2].textContent = appState.users.filter(u=>u.role==='Company').length;
+    statsEls[3].textContent = appState.users.filter(u=>u.role==='Admin').length;
+  }
+  
+  const roleColors = {'User':'bg-primary-fixed/50 text-primary-container','Company':'bg-secondary-container/20 text-secondary','Admin':'bg-tertiary-fixed text-on-tertiary-fixed'};
+  const bgColors = {'User':'bg-primary-container text-on-primary','Company':'bg-surface-container text-on-surface-variant','Admin':'bg-surface-container text-on-surface-variant'};
+  
+  container.innerHTML = appState.users.map(u => `
+    <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors">
+      <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full ${bgColors[u.role]||bgColors.User} flex items-center justify-center text-label-sm font-semibold">${u.initials}</div><div><span class="text-body-md font-medium text-on-surface">${u.name}</span><span class="text-label-sm text-on-surface-variant block">${u.email}</span></div></div>
+      <div class="flex items-center gap-4"><span class="text-label-sm ${roleColors[u.role]||roleColors.User} px-2.5 py-0.5 rounded-full">${u.role}</span><span class="text-label-sm text-outline">Active ${u.active}</span></div>
+    </div>`).join('');
+}
+
+function showInviteUserModal() {
+  showModal('Invite User', `
+    <form id="invite-user-form" class="space-y-4">
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Full Name *</label><input id="new-user-name" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" placeholder="e.g., Dr. Priya Mehta"/></div>
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Email *</label><input id="new-user-email" type="email" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg" placeholder="e.g., priya.mehta@ayush.gov.in"/></div>
+      <div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Role Tier</label><select id="new-user-role" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg"><option>User</option><option>Company</option><option>Admin</option></select></div>
+    </form>`,
+    `<button onclick="closeModal()" class="px-4 h-10 rounded-lg text-label-md text-on-surface-variant hover:bg-surface-container-low">Cancel</button>
+     <button onclick="inviteUser()" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-medium">Send Invitation</button>`
+  );
+}
+
+function inviteUser() {
+  const name = document.getElementById('new-user-name')?.value;
+  const email = document.getElementById('new-user-email')?.value;
+  const role = document.getElementById('new-user-role')?.value;
+  if(!name||!email) { showToast('Please fill all required fields','warning'); return; }
+  const initials = name.split(' ').filter(w=>w.length>1).map(w=>w[0]).join('').toUpperCase().substring(0,2);
+  appState.users.push({name,email,role,initials,active:'Just now'});
+  addAuditEntry(`User "${name}" (${role}) invited`,'user');
+  saveState(); closeModal(); renderUsers(); showToast(`Invitation sent to ${email}`,'success');
+}
+
+// =============================================
+// AUDIT LOG — Dynamic with Pagination
+// =============================================
+function addAuditEntry(event, type='dossier') {
+  const now = new Date();
+  const time = `${now.toLocaleDateString('en-IN',{day:'numeric',month:'short'})}, ${now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})} IST`;
+  const hash = Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b=>b.toString(16).padStart(2,'0')).join('').substring(0,4) + '...' + Array.from(crypto.getRandomValues(new Uint8Array(4))).map(b=>b.toString(16).padStart(2,'0')).join('').substring(0,4);
+  appState.auditLog.unshift({time,event,hash,type});
+}
+
+function renderAuditLog() {
+  const container = document.querySelector('#page-audit .divide-y.divide-surface-container-highest');
+  const footer = document.querySelector('#page-audit .px-6.py-4.bg-surface-container-low');
+  if(!container) return;
+  
+  const perPage = 6;
+  const page = appState.auditPage || 0;
+  const total = appState.auditLog.length;
+  const start = page * perPage;
+  const entries = appState.auditLog.slice(start, start + perPage);
+  
+  container.innerHTML = entries.map(e => `
+    <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors">
+      <div class="flex items-center gap-2 font-label-md text-label-md text-on-surface shrink-0"><span class="w-1.5 h-1.5 rounded-full ${e.type==='dossier'?'bg-primary-container':e.type==='compliance'?'bg-secondary':'bg-outline-variant'}"></span><span>${e.time}</span></div>
+      <div class="flex-1 px-6 text-body-md truncate">${e.event}</div>
+      <div class="text-label-sm text-outline font-mono shrink-0">${e.hash}</div>
+    </div>`).join('');
+  
+  if(footer) footer.innerHTML = `
+    <div class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant"><span class="material-symbols-outlined text-[16px] text-primary">verified</span>Ledger Seal Intact: All entries match cryptographic state root</div>
+    <div class="flex items-center gap-4"><button onclick="appState.auditPage=Math.max(0,${page-1});saveState();renderAuditLog()" class="text-label-md ${page>0?'text-primary hover:underline':'text-outline'}" ${page===0?'disabled':''}>← Previous</button><span class="text-label-md text-on-surface-variant">${start+1}–${Math.min(start+perPage,total)} of ${total}</span><button onclick="appState.auditPage=${page+1};saveState();renderAuditLog()" class="text-label-md ${start+perPage<total?'text-primary hover:underline':'text-outline'}" ${start+perPage>=total?'disabled':''}>Next →</button></div>`;
+}
+
+// =============================================
+// FOOTER MODALS
+// =============================================
+function showFooterModal(type) {
+  const content = {
+    jurisdiction: {title:'Jurisdiction Guidelines',body:'<div class="space-y-4 text-body-md"><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">India (CGPDTM / IPO)</h4><p class="text-on-surface-variant mt-1">Patents Act 1970, Section 3(p) — Traditional Knowledge bar. Section 3(e) — Mere admixture exclusion. TKDL database mandatory prior art check.</p></div><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">United States (USPTO)</h4><p class="text-on-surface-variant mt-1">35 U.S.C. §101/103 — Patentability and non-obviousness. Botanical compositions under Class 424/514.</p></div><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">European Union (EPO)</h4><p class="text-on-surface-variant mt-1">EPC Art. 52-57 — Inventive step assessment. Traditional Herbal Medicinal Products Directive (THMPD) compliance.</p></div><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">Japan (JPO) / GCC</h4><p class="text-on-surface-variant mt-1">JPO — Kampo medicine prior art databases. GCC — Unified patent examination for Gulf states.</p></div></div>'},
+    privacy: {title:'Privacy Charter',body:'<div class="space-y-4 text-body-md"><p class="text-on-surface-variant">IP-SAKTI Sahayak is committed to the protection of user data in compliance with the <strong>Digital Personal Data Protection Act, 2023 (DPDP)</strong> and the <strong>IT Act, 2000</strong>.</p><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">Data Handling</h4><ul class="list-disc pl-5 mt-2 text-on-surface-variant space-y-1"><li>All dossier and formulation data is stored locally on your device.</li><li>No data is transmitted to external servers.</li><li>TKDL search queries are processed client-side.</li><li>Audit logs maintain cryptographic hash integrity.</li></ul></div><div class="p-4 rounded-lg bg-surface-container-low border border-outline-variant/40"><h4 class="font-label-md font-semibold text-primary">Your Rights</h4><p class="text-on-surface-variant mt-1">You may request data deletion, portability, or correction at any time through the System Administrator.</p></div></div>'},
+    status: {title:'System Status',body:`<div class="space-y-3"><div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="text-body-md font-medium">TKDL Database</span></div><span class="text-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded-full">Synchronized</span></div><div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="text-body-md font-medium">Patent Examination Engine</span></div><span class="text-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded-full">Online</span></div><div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-secondary"></span><span class="text-body-md font-medium">ABS Portal (NBA)</span></div><span class="text-label-sm text-secondary bg-secondary-container/20 px-2 py-0.5 rounded-full">Maintenance Window</span></div><div class="flex items-center justify-between p-3 rounded-lg bg-surface-container-low"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-primary-container"></span><span class="text-body-md font-medium">AI Statutory Assistant</span></div><span class="text-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded-full">Active</span></div><p class="text-label-sm text-outline pt-2">Last updated: ${new Date().toLocaleString()}</p></div>`},
+    contact: {title:'Contact Counsel',body:`<form class="space-y-4" onsubmit="event.preventDefault();closeModal();showToast('Message sent to regulatory counsel','success')"><div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Your Name</label><input class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg" placeholder="Full name"/></div><div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Email</label><input type="email" class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg" placeholder="you@org.in"/></div><div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Query Category</label><select class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg"><option>TKDL Prior Art Query</option><option>Section 3(p) Patentability</option><option>ABS / NBA Compliance</option><option>Patent Filing Support</option><option>General Inquiry</option></select></div><div class="space-y-1.5"><label class="text-label-md font-label-md text-on-surface font-medium">Message</label><textarea class="w-full bg-surface-container-lowest border border-outline-variant/60 rounded-lg p-3.5 text-body-md min-h-[100px]" placeholder="Describe your regulatory query..."></textarea></div><button type="submit" class="w-full h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-medium">Send Message</button></form>`}
+  };
+  const c = content[type];
+  if(c) showModal(c.title, c.body);
+}
+
+// =============================================
+// KEYWORD & INGREDIENT HANDLERS
+// =============================================
 function appendKeyword(keyword) {
   const ta = document.getElementById('scientific_hypothesis');
   if (ta) { ta.value = ta.value.trim() ? ta.value + ' ' + keyword : keyword; ta.focus(); }
 }
 
-// Ingredient add/remove
 document.addEventListener('click', e => {
   if (e.target.closest('.remove-row')) {
     const row = e.target.closest('.ingredient-row');
@@ -811,7 +1370,11 @@ document.addEventListener('click', e => {
   }
 });
 
+// =============================================
+// INIT
+// =============================================
 document.addEventListener('DOMContentLoaded', () => {
+  // Ingredient add button
   const addBtn = document.getElementById('add-ingredient-btn');
   if (addBtn) {
     addBtn.addEventListener('click', () => {
@@ -823,6 +1386,69 @@ document.addEventListener('DOMContentLoaded', () => {
       row.querySelector('input').focus();
     });
   }
+
+  // Wire TKDL search form
+  const tkdlForm = document.querySelector('#page-tkdl form');
+  if(tkdlForm) tkdlForm.addEventListener('submit', e => { e.preventDefault(); searchTKDL(); });
+
+  // Wire AI chat form
+  const chatForm = document.querySelector('#page-ask-ai form');
+  if(chatForm) chatForm.addEventListener('submit', e => { e.preventDefault(); sendChatMessage(); });
+  const chatInput = document.querySelector('#page-ask-ai input[type="text"]');
+  if(chatInput) chatInput.addEventListener('keydown', e => { if(e.key==='Enter'){e.preventDefault();sendChatMessage();} });
+
+  // Wire intake navigation to save data
+  document.querySelectorAll('[onclick*="navigate(\'intake-3\')"]').forEach(el => {
+    const orig = el.getAttribute('onclick');
+    el.setAttribute('onclick', `saveIntakeStep2();${orig}`);
+  });
+  document.querySelectorAll('[onclick*="navigate(\'intake-4\')"]').forEach(el => {
+    const orig = el.getAttribute('onclick');
+    el.setAttribute('onclick', `saveIntakeStep3();${orig}`);
+  });
+  document.querySelectorAll('[onclick*="navigate(\'intake-5\')"]').forEach(el => {
+    const orig = el.getAttribute('onclick');
+    el.setAttribute('onclick', `saveIntakeStep4();${orig}`);
+  });
+
+  // Wire admin buttons
+  const syncBtn = document.querySelector('#page-admin .bg-primary-container.text-on-primary.text-label-md:last-child');
+  const hashBtn = document.querySelector('#page-admin .bg-surface-container-lowest.border.border-outline-variant.text-on-surface');
+
+  // Wire Submit for Classification button
+  const submitBtn = document.querySelector('#page-intake-5 .group');
+  if(submitBtn) submitBtn.addEventListener('click', e => { if(e.target.closest('button.bg-primary-container')) submitIntake(); });
+
+  // Wire ABS Generate Form-1 button
+  document.querySelectorAll('#page-abs button').forEach(btn => {
+    if(btn.textContent.includes('Generate SBB')) btn.addEventListener('click', generateForm1);
+  });
+
+  // Wire Corpus "Add Source" button
+  document.querySelectorAll('#page-corpus button').forEach(btn => {
+    if(btn.textContent.includes('Add Source')) btn.setAttribute('onclick', 'showAddCorpusModal()');
+  });
+
+  // Wire Users "Invite User" button
+  document.querySelectorAll('#page-users button').forEach(btn => {
+    if(btn.textContent.includes('Invite User')) btn.setAttribute('onclick', 'showInviteUserModal()');
+  });
+
+  // Wire Admin sync/hash buttons
+  document.querySelectorAll('#page-admin button').forEach(btn => {
+    if(btn.textContent.includes('Trigger Sync')) btn.setAttribute('onclick', 'triggerSync()');
+    if(btn.textContent.includes('Verify Cryptographic')) btn.setAttribute('onclick', 'verifyHash()');
+  });
+
+  // Wire Save Citations button
+  document.querySelectorAll('#page-tkdl button').forEach(btn => {
+    if(btn.textContent.includes('Save Citations')) btn.setAttribute('onclick', 'saveCitationsToDossier()');
+  });
+
+  // Wire Source Edit save
+  document.querySelectorAll('#page-source-edit button').forEach(btn => {
+    if(btn.textContent.includes('Save Changes')) btn.setAttribute('onclick', "showToast('Source updated successfully','success');addAuditEntry('Corpus source edited','corpus');saveState();navigate('corpus')");
+  });
 
   // Initial page load
   const hash = window.location.hash.slice(1) || 'landing';
@@ -837,3 +1463,4 @@ window.addEventListener('hashchange', () => {
 </script>
 </body>
 </html>
+
