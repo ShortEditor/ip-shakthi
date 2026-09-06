@@ -3387,8 +3387,11 @@ function verifyLanguageScript(text, targetCode) {
   const pattern = SCRIPT_PATTERNS[targetCode];
   if (!pattern) return true;
   const matches = text.match(pattern);
-  return Boolean(matches && matches.length >= 20);
+  return Boolean(matches && matches.length >= 10);
 }
+
+// Multi-model retry cascade: fast, intelligent, zero-cost (includes groq/compound-mini with 70,000 TPM limit)
+const MODEL_CASCADE = ['qwen/qwen3.8-27b', 'groq/compound-mini', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.6-27b'];
 
 async function callGroqRAG(userQuery) {
   const { contextText, sources } = retrieveContext(userQuery);
@@ -3956,7 +3959,23 @@ async function sendChatMessage() {
     renderChatSessions();
     if (scrollContainer) scrollContainer.scrollTop = scrollContainer.scrollHeight;
   } catch (error) {
+    console.error('Chat execution error:', error);
     if (typingEl) typingEl.classList.add('hidden');
+    const fallbackText = getLocalRAGResponse(userMsg, []);
+    const assistantFallbackItem = {
+      role: 'assistant',
+      text: fallbackText,
+      time: timeStr,
+      sources: [],
+      model: 'Statutory Knowledge Engine (Offline Fallback)'
+    };
+    session.messages.push(assistantFallbackItem);
+    const sessions = loadChatSessions();
+    const idx = sessions.findIndex(s => s.id === session.id);
+    if (idx !== -1) sessions[idx] = session;
+    else sessions.unshift(session);
+    saveChatSessions(sessions);
+    renderChatMessage(assistantFallbackItem);
     showToast('Notice: Grounded in offline statutory knowledge base', 'info');
   } finally {
     if (sendBtn) sendBtn.disabled = false;
