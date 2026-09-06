@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IP-SAKTI Sahayak — TKDL Prior-Art Search</title>
+<!-- Google Fonts: Manrope, Plus Jakarta Sans, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#3b372c",
+            "surface-container-low": "#f4f4f2",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#466554",
+            "tertiary": "#262217",
+            "on-tertiary-fixed-variant": "#4b463a",
+            "outline": "#727973",
+            "surface-container-high": "#e8e8e6",
+            "secondary-fixed": "#ffddb5",
+            "inverse-on-surface": "#f1f1ef",
+            "on-secondary-fixed-variant": "#643f00",
+            "outline-variant": "#c2c8c2",
+            "on-surface-variant": "#424844",
+            "on-tertiary-fixed": "#1f1b11",
+            "on-secondary-fixed": "#2a1800",
+            "inverse-surface": "#2f3130",
+            "on-tertiary": "#ffffff",
+            "surface": "#f9f9f7",
+            "on-primary-fixed-variant": "#2f4d3d",
+            "secondary-fixed-dim": "#ffb956",
+            "on-primary-fixed": "#022113",
+            "on-tertiary-container": "#a7a091",
+            "secondary": "#835400",
+            "primary-container": "#1f3d2e",
+            "secondary-container": "#feb64e",
+            "primary-fixed-dim": "#adceba",
+            "on-secondary": "#ffffff",
+            "on-error-container": "#93000a",
+            "background": "#f9f9f7",
+            "surface-dim": "#dadad8",
+            "tertiary-fixed-dim": "#cec6b6",
+            "on-surface": "#1a1c1b",
+            "on-primary-container": "#87a894",
+            "surface-container": "#eeeeec",
+            "on-background": "#1a1c1b",
+            "on-secondary-container": "#714800",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "primary": "#082719",
+            "tertiary-fixed": "#ebe1d1",
+            "on-error": "#ffffff",
+            "surface-variant": "#e2e3e1",
+            "inverse-primary": "#adceba",
+            "surface-bright": "#f9f9f7",
+            "surface-container-highest": "#e2e3e1",
+            "primary-fixed": "#c8ebd5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-2xs": "0.25rem",
+            "space-sm": "0.75rem",
+            "margin-desktop": "3rem",
+            "space-xs": "0.5rem",
+            "gutter-tablet": "1.5rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-3xl": "3rem",
+            "margin-tablet": "2rem",
+            "space-md": "1rem",
+            "space-2xl": "2.5rem",
+            "gutter-desktop": "2rem",
+            "margin-mobile": "1.25rem",
+            "space-4xl": "4rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Manrope", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-sm": ["Manrope", "sans-serif"],
+            "display-mobile": ["Manrope", "sans-serif"],
+            "headline-lg": ["Manrope", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Manrope", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["22px", {"lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600"}],
+            "body-lg": ["16px", {"lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400"}],
+            "label-md": ["13px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+            "headline-sm": ["20px", {"lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+            "display-mobile": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "headline-lg": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+            "body-md": ["15px", {"lineHeight": "25px", "letterSpacing": "0em", "fontWeight": "400"}],
+            "display": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600"}],
+            "label-sm": ["11px", {"lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar (Shared Component JSON Source of Truth) -->
+<header class="w-full bg-surface border-b border-outline-variant shadow-sm z-30 sticky top-0">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
+<!-- Logo & Primary Links -->
+<div class="flex items-center gap-8">
+<span class="text-headline-sm font-headline-sm text-primary-container tracking-tight font-semibold">
+          IP-SAKTI Sahayak
+        </span>
+<!-- Desktop Navigation Links from JSON: Dockets, Prior Art (Active), Formulations, Compliance -->
+<nav class="hidden md:flex items-center gap-6 pt-1">
+<a class="text-on-surface-variant font-normal pb-1 hover:text-primary-container transition-colors duration-150 text-body-md font-body-md" href="#">
+            Dockets
+          </a>
+<a class="text-primary-container border-b-2 border-primary-container font-semibold pb-1 transition-colors duration-150 text-body-md font-body-md" href="#">
+            Prior Art
+          </a>
+<a class="text-on-surface-variant font-normal pb-1 hover:text-primary-container transition-colors duration-150 text-body-md font-body-md" href="#">
+            Formulations
+          </a>
+<a class="text-on-surface-variant font-normal pb-1 hover:text-primary-container transition-colors duration-150 text-body-md font-body-md" href="#">
+            Compliance
+          </a>
+</nav>
+</div>
+<!-- Trailing Controls from JSON -->
+<div class="flex items-center gap-4">
+<span class="text-label-md font-label-md text-on-surface-variant border border-outline-variant px-2.5 py-1 rounded-lg bg-surface-container-lowest">
+          EN / SA
+        </span>
+<div class="hidden sm:flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="text-label-md font-label-md text-primary-container font-semibold tracking-wide">
+            Docket #AYU-2024-88
+          </span>
+</div>
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary-container transition-colors p-1.5 rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button aria-label="Help" class="text-on-surface-variant hover:text-primary-container transition-colors p-1.5 rounded-lg hover:bg-surface-container">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<!-- Profile Avatar with detailed data-alt -->
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant shrink-0 ml-1">
+<img alt="Ayurvedic IP Officer avatar profile picture" class="w-full h-full object-cover" data-alt="Close-up portrait of an Ayurvedic intellectual property officer in a calm, naturally lit archival office. The individual wears professional neutral linen attire against warm wooden library partitions lined with classical botanical manuscripts and digital tablets. High key illumination imparts an authoritative, serene editorial aesthetic in dark forest green and warm ivory tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCik5_CBlAnPr_dradfJW00OVk-cGkYErfrg5r4Yceg1-XWX37yAEcRXTS8pSrZgOgwc6yDmHUMd-wujGRL0wGXLVGo1X4IGvuD1JKH9NWA6Y_m2YKIP3C4L682q96i9AM-tcSXMwk19A7-WqEJemoMkrcAN3lvxKRQFcNCNzkJma_u-ZC7xmkS8s2ZbpUKivGr04-oAr-tHJFaRuQO0foKDstJrGRmrGHtJLfCdypV7FxD5qsmzWx1"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10 space-y-8">
+<!-- Breadcrumb Context & Structural Headline -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+<div>
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant">
+<span class="hover:text-primary-container cursor-pointer transition-colors">Docket #AYU-2024-88</span>
+<span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+<span class="text-primary-container font-semibold">Prior-Art Search</span>
+</nav>
+<h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mt-2">
+          Traditional Knowledge Digital Library Inquiry
+        </h1>
+</div>
+<div class="flex items-center gap-3 self-start sm:self-auto">
+<span class="text-label-sm font-label-sm bg-surface-container-lowest text-on-surface-variant px-3 py-1 rounded-full border border-outline-variant">
+          Database Rev: CSIR-TKDL v4.12
+        </span>
+</div>
+</div>
+<!-- Search Hero / Focal Point (Strict Singular Focus) -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all">
+<form class="flex flex-col md:flex-row gap-3" onsubmit="event.preventDefault();">
+<div class="relative flex-1">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="block w-full pl-11 pr-24 py-3.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-lg border border-outline-variant placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all" id="tkdl-query-input" placeholder="e.g. TKDL:[Ashwagandha] AND CLAIM:[Rasayana] OR text search..." type="text" value="TKDL:[Withania somnifera] AND CLAIM:[Rasayana] OR formulation:[Ashwagandhadi]"/>
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center gap-1.5 pointer-events-none">
+<kbd class="hidden sm:inline-block text-label-sm font-label-sm bg-surface-container px-2 py-0.5 rounded text-on-surface-variant border border-outline-variant">⌘K</kbd>
+</div>
+</div>
+<button class="h-12 px-6 bg-primary-container text-on-primary rounded-lg text-label-md font-label-md font-semibold hover:bg-primary transition-all transform active:scale-[0.99] flex items-center justify-center gap-2 shadow-sm shrink-0" type="submit">
+<span class="material-symbols-outlined text-[18px]">manage_search</span>
+<span>Search TKDL</span>
+</button>
+</form>
+<!-- Advanced filters & query aids -->
+<div class="mt-4 pt-3 border-t border-outline-variant/50 flex flex-wrap items-center justify-between gap-3 text-label-sm font-label-sm text-on-surface-variant">
+<div class="flex items-center gap-4 flex-wrap">
+<span class="font-medium text-tertiary">Active Filter Lexicon:</span>
+<span class="inline-flex items-center gap-1 text-on-surface hover:text-primary cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">check</span> Ayurveda (Samhita Corpus)
+          </span>
+<span class="inline-flex items-center gap-1 text-on-surface hover:text-primary cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">check</span> Siddha Formulation Index
+          </span>
+<span class="inline-flex items-center gap-1 text-on-surface hover:text-primary cursor-pointer">
+<span class="material-symbols-outlined text-[14px]">check</span> Unani Registry
+          </span>
+</div>
+<div class="flex items-center gap-2">
+<button class="hover:text-primary-container transition-colors inline-flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tune</span>
+<span>Refine Boolean Matrix</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Results Section -->
+<section class="space-y-4">
+<!-- Active query indicator / result summary -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-2 gap-2 border-b border-outline-variant">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-primary-container text-[20px]">library_books</span>
+<p class="text-body-md font-body-md text-on-surface">
+            Showing <strong class="font-semibold text-primary">4 classical citations</strong> for <span class="italic text-on-surface-variant">Withania somnifera formulation</span>
+</p>
+</div>
+<div class="flex items-center gap-3 text-label-sm font-label-sm text-on-surface-variant">
+<span>Sort: Relevance (Highest TKDL Citation Index)</span>
+<span class="text-outline-variant">•</span>
+<button class="text-primary-container font-semibold hover:underline">Export Batch</button>
+</div>
+</div>
+<!-- Results List: Pure 1px dividers, 56px+ row height, clean hierarchy -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant divide-y divide-outline-variant overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<!-- Result 1: OVERLAP FLAGGED (Singular warm amber accent) -->
+<article class="p-5 sm:p-6 hover:bg-surface transition-colors flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="space-y-2 flex-1 max-w-4xl">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">
+                Charaka Samhita — Cikitsasthana 1.1-38
+              </h2>
+<!-- THE ONLY WARM AMBER ACCENT ON THE ENTIRE PAGE -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[rgba(232,163,61,0.14)] text-[#996515] border border-[rgba(232,163,61,0.3)]">
+                Classical Overlap Flagged
+              </span>
+</div>
+<div class="flex items-center gap-3 text-label-md font-label-md text-tertiary">
+<span class="font-medium text-primary-container bg-surface-container-low px-2 py-0.5 rounded">TKDL/CS-2024/098</span>
+<span>•</span>
+<span>Section: Rasayanadhyaya (Longevity &amp; Revitalisation)</span>
+<span>•</span>
+<span class="text-on-surface-variant">Language: Sanskrit (Shloka Verse 38)</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant pt-1">
+              Classical formulation context: Identifies root powder of <em>Withania somnifera</em> processed with cow milk and clarified butter (<span class="font-medium text-on-surface">Ghrita</span>) administered for cellular rejuvenation and stress abatement. Direct overlap with Patent Claim 1–4 regarding lipid-bound bioenhancement.
+            </p>
+<div class="pt-2 flex items-center gap-4 text-label-sm font-label-sm">
+<a class="text-primary-container font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">visibility</span> View Original Sanskrit Verse &amp; English Translation
+              </a>
+<a class="text-on-surface-variant hover:text-on-surface inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">account_tree</span> Claim Comparison Mapping
+              </a>
+</div>
+</div>
+<div class="shrink-0 flex md:flex-col items-end justify-between gap-3 pt-2 md:pt-0">
+<span class="text-label-sm font-label-sm text-outline">Relevance Score: 98.4%</span>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant hover:border-primary-container text-primary-container hover:bg-primary-container/5 text-label-md font-label-md font-medium transition-colors">
+              Attach to Dossier
+            </button>
+</div>
+</article>
+<!-- Result 2: Sushruta Samhita -->
+<article class="p-5 sm:p-6 hover:bg-surface transition-colors flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="space-y-2 flex-1 max-w-4xl">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">
+                Sushruta Samhita — Sutrasthana 46.12
+              </h2>
+<!-- Single calm neutral pill -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+                No Direct Claim Conflict
+              </span>
+</div>
+<div class="flex items-center gap-3 text-label-md font-label-md text-tertiary">
+<span class="font-medium text-primary-container bg-surface-container-low px-2 py-0.5 rounded">TKDL/SS-1982/14</span>
+<span>•</span>
+<span>Section: Anna-Pana Vidhi (Dietetics &amp; Adjuvants)</span>
+<span>•</span>
+<span class="text-on-surface-variant">Language: Classical Sanskrit</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant pt-1">
+              Rasayana preparatory protocol excerpt: Prescribes decoction preparation utilizing root bark extracts alongside honey in therapeutic convalescence. Lacks the non-polar organic solvent extraction step detailed in the applicant's current independent claims.
+            </p>
+<div class="pt-2 flex items-center gap-4 text-label-sm font-label-sm">
+<a class="text-primary-container font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">visibility</span> View Protocol Specifications
+              </a>
+<a class="text-on-surface-variant hover:text-on-surface inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">account_tree</span> Prior Art Matrix
+              </a>
+</div>
+</div>
+<div class="shrink-0 flex md:flex-col items-end justify-between gap-3 pt-2 md:pt-0">
+<span class="text-label-sm font-label-sm text-outline">Relevance Score: 76.1%</span>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant hover:border-primary-container text-primary-container hover:bg-primary-container/5 text-label-md font-label-md font-medium transition-colors">
+              Attach to Dossier
+            </button>
+</div>
+</article>
+<!-- Result 3: Bhavaprakasha Nighantu -->
+<article class="p-5 sm:p-6 hover:bg-surface transition-colors flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="space-y-2 flex-1 max-w-4xl">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">
+                Bhavaprakasha Nighantu — Guduchyadi Varga
+              </h2>
+<!-- Single calm neutral pill -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+                Prior Knowledge Cited
+              </span>
+</div>
+<div class="flex items-center gap-3 text-label-md font-label-md text-tertiary">
+<span class="font-medium text-primary-container bg-surface-container-low px-2 py-0.5 rounded">TKDL/BN-402</span>
+<span>•</span>
+<span>Section: Dravyaguna Botanical Synonyms</span>
+<span>•</span>
+<span class="text-on-surface-variant">Language: Sanskrit Lexicon</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant pt-1">
+              Botanical synergy notes: Explicit documentation of <em>Withania somnifera</em> (Ashwagandha) paired with <em>Tinospora cordifolia</em> (Guduchi) in immune modulating tonics. Provides defensive prior publication for composite botanical combinations.
+            </p>
+<div class="pt-2 flex items-center gap-4 text-label-sm font-label-sm">
+<a class="text-primary-container font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">visibility</span> View Lexical Reference
+              </a>
+<a class="text-on-surface-variant hover:text-on-surface inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">account_tree</span> Synergy Cross-Validation
+              </a>
+</div>
+</div>
+<div class="shrink-0 flex md:flex-col items-end justify-between gap-3 pt-2 md:pt-0">
+<span class="text-label-sm font-label-sm text-outline">Relevance Score: 64.8%</span>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant hover:border-primary-container text-primary-container hover:bg-primary-container/5 text-label-md font-label-md font-medium transition-colors">
+              Attach to Dossier
+            </button>
+</div>
+</article>
+<!-- Result 4: Ashtanga Hridaya -->
+<article class="p-5 sm:p-6 hover:bg-surface transition-colors flex flex-col md:flex-row md:items-start justify-between gap-4">
+<div class="space-y-2 flex-1 max-w-4xl">
+<div class="flex flex-wrap items-center gap-3">
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">
+                Ashtanga Hridaya — Uttarasthana 39
+              </h2>
+<!-- Single calm neutral pill -->
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">
+                General Usage
+              </span>
+</div>
+<div class="flex items-center gap-3 text-label-md font-label-md text-tertiary">
+<span class="font-medium text-primary-container bg-surface-container-low px-2 py-0.5 rounded">TKDL/AH-1409/08</span>
+<span>•</span>
+<span>Section: Rasayana Vidhi</span>
+<span>•</span>
+<span class="text-on-surface-variant">Language: Sanskrit Compendium</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant pt-1">
+              Excerpt on adjuvant piperine processing: Details the simultaneous ingestion of black pepper (<em>Piper nigrum</em>) with revitalizing tubers to enhance systemic absorption. Corresponds to applicant's dependent claim 7 claiming bio-availability enhancement.
+            </p>
+<div class="pt-2 flex items-center gap-4 text-label-sm font-label-sm">
+<a class="text-primary-container font-semibold hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">visibility</span> View Commentary Notes
+              </a>
+<a class="text-on-surface-variant hover:text-on-surface inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[14px]">account_tree</span> Adjuvant Prior Index
+              </a>
+</div>
+</div>
+<div class="shrink-0 flex md:flex-col items-end justify-between gap-3 pt-2 md:pt-0">
+<span class="text-label-sm font-label-sm text-outline">Relevance Score: 52.3%</span>
+<button class="px-3 py-1.5 rounded-lg border border-outline-variant hover:border-primary-container text-primary-container hover:bg-primary-container/5 text-label-md font-label-md font-medium transition-colors">
+              Attach to Dossier
+            </button>
+</div>
+</article>
+</div>
+</section>
+<!-- Action Bar / Footnote Banner -->
+<section class="bg-surface-container-low border border-outline-variant rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary-container text-[24px]">folder_special</span>
+<div>
+<h3 class="text-body-md font-body-md font-semibold text-primary">
+            Dossier Prior-Art Integration
+          </h3>
+<p class="text-label-md font-label-md text-on-surface-variant">
+            4 classical citations marked for inclusion into Official AYUSH IP Examination Report #AYU-2024-88.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex-1 sm:flex-initial h-10 px-4 rounded-lg bg-surface-container-lowest text-on-surface border border-outline-variant text-label-md font-label-md font-semibold hover:bg-surface transition-colors">
+          Clear Selection
+        </button>
+<button class="flex-1 sm:flex-initial h-10 px-5 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md font-semibold hover:bg-primary transition-all flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">save</span>
+<span>Save Citations to Dossier</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component JSON Source of Truth) -->
+<footer class="w-full bg-surface-container-low border-t border-outline-variant mt-auto">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="text-label-sm font-label-sm text-on-surface-variant text-center md:text-left">
+        © 2024 IP-SAKTI Sahayak. Traditional Knowledge Digital Library (TKDL) compliant life sciences intelligence.
+      </div>
+<!-- Links from JSON -->
+<nav class="flex flex-wrap justify-center gap-6 text-label-sm font-label-sm text-on-surface-variant">
+<a class="hover:text-primary-container transition-colors duration-150" href="#">TKDL Standards</a>
+<a class="hover:text-primary-container transition-colors duration-150" href="#">Ayush Regulatory Matrix</a>
+<a class="hover:text-primary-container transition-colors duration-150" href="#">Data Integrity</a>
+<a class="hover:text-primary-container transition-colors duration-150" href="#">Documentation</a>
+<a class="hover:text-primary-container transition-colors duration-150" href="#">Legal Disclaimer</a>
+</nav>
+</div>
+</footer>
+</body></html>

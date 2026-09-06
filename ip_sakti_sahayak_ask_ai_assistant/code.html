@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IP-SAKTI Sahayak — Statutory Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "error": "#ba1a1a",
+            "surface-container": "#eeeeec",
+            "on-primary-container": "#87a894",
+            "tertiary-container": "#3b372c",
+            "on-surface": "#1a1c1b",
+            "secondary": "#835400",
+            "tertiary-fixed-dim": "#cec6b6",
+            "tertiary": "#262217",
+            "surface-container-highest": "#e2e3e1",
+            "surface-dim": "#dadad8",
+            "on-secondary-fixed-variant": "#643f00",
+            "tertiary-fixed": "#ebe1d1",
+            "primary-container": "#1f3d2e",
+            "surface-tint": "#466554",
+            "on-background": "#1a1c1b",
+            "primary-fixed": "#c8ebd5",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed-variant": "#4b463a",
+            "on-secondary-fixed": "#2a1800",
+            "on-secondary": "#ffffff",
+            "inverse-primary": "#adceba",
+            "on-error-container": "#93000a",
+            "secondary-fixed": "#ffddb5",
+            "surface": "#f9f9f7",
+            "surface-bright": "#f9f9f7",
+            "secondary-container": "#feb64e",
+            "secondary-fixed-dim": "#ffb956",
+            "on-primary": "#ffffff",
+            "surface-container-lowest": "#ffffff",
+            "surface-container-low": "#f4f4f2",
+            "outline-variant": "#c2c8c2",
+            "surface-variant": "#e2e3e1",
+            "on-tertiary-container": "#a7a091",
+            "outline": "#727973",
+            "surface-container-high": "#e8e8e6",
+            "on-primary-fixed": "#022113",
+            "on-tertiary-fixed": "#1f1b11",
+            "primary": "#082719",
+            "on-surface-variant": "#424844",
+            "primary-fixed-dim": "#adceba",
+            "on-primary-fixed-variant": "#2f4d3d",
+            "background": "#f9f9f7",
+            "inverse-on-surface": "#f1f1ef",
+            "inverse-surface": "#2f3130",
+            "on-error": "#ffffff",
+            "on-secondary-container": "#714800",
+            "on-tertiary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "margin-desktop": "3rem",
+            "space-md": "1rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.5rem",
+            "gutter-desktop": "2rem",
+            "space-4xl": "4rem",
+            "space-2xs": "0.25rem",
+            "gutter-mobile": "1rem",
+            "space-3xl": "3rem",
+            "space-2xl": "2.5rem",
+            "space-xl": "2rem",
+            "gutter-tablet": "1.5rem",
+            "margin-mobile": "1.25rem",
+            "margin-tablet": "2rem",
+            "space-sm": "0.75rem"
+          },
+          "fontFamily": {
+            "display-mobile": ["manrope"],
+            "label-sm": ["inter"],
+            "body-md": ["plusJakartaSans"],
+            "headline-lg": ["manrope"],
+            "headline-sm": ["manrope"],
+            "display": ["manrope"],
+            "headline-lg-mobile": ["manrope"],
+            "label-md": ["inter"],
+            "body-lg": ["plusJakartaSans"]
+          },
+          "fontSize": {
+            "display-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "25px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar from Shared Components JSON -->
+<header class="bg-surface dark:bg-surface-container-highest shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] docked full-width top-0 sticky z-50">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-7xl mx-auto h-16">
+<!-- Brand & Left Cluster -->
+<div class="flex items-center gap-8">
+<a class="text-headline-sm font-headline-sm font-semibold tracking-tight text-primary dark:text-primary-fixed flex items-center gap-2" href="#">
+<span class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</span>
+          IP-SAKTI Sahayak
+        </a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-6 text-label-md font-label-md">
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#">Home</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#">Intake Wizard</a>
+<a class="text-on-surface-variant dark:text-outline hover:text-on-surface dark:hover:text-inverse-on-surface pb-1 transition-colors duration-150" href="#">Results Dashboard</a>
+<!-- Active state matches current page intent: 'Ask AI' -->
+<a class="text-primary dark:text-primary-fixed border-b-2 border-primary dark:border-primary-fixed pb-1 font-medium" href="#">Ask AI</a>
+</nav>
+</div>
+<!-- Trailing Action Badges & Secondary Links -->
+<div class="flex items-center gap-4">
+<!-- Docket Badge -->
+<span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-label-sm font-label-sm bg-surface-container-low border border-surface-container-highest text-on-surface-variant font-mono">
+<span class="w-1.5 h-1.5 rounded-full bg-surface-tint"></span>
+          Docket #2024-IN-09
+        </span>
+<!-- Secondary Language Indicator -->
+<span class="text-label-md font-label-md text-on-surface-variant hidden lg:inline-block">
+          EN / हिन्दी / తెలుగు
+        </span>
+<div class="flex items-center gap-1">
+<button aria-label="Help" class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-150 rounded-lg" title="Help &amp; Reference">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<button aria-label="Account" class="p-2 text-on-surface-variant hover:text-primary transition-colors duration-150 rounded-lg" title="Account">
+<span class="material-symbols-outlined text-[20px]">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Sub-Header / Workspace Title Bar -->
+<section class="w-full bg-surface-container-lowest/60 border-b border-surface-container-highest backdrop-blur-sm sticky top-16 z-40">
+<div class="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-2.5 h-2.5 rounded-full bg-surface-tint animate-pulse"></div>
+<div>
+<h1 class="text-headline-sm font-headline-sm text-primary tracking-tight">Statutory Assistant</h1>
+<p class="text-label-sm font-label-sm text-on-surface-variant">Live consultation on Indian Patent Act &amp; TKDL repositories</p>
+</div>
+</div>
+<!-- Language Pill Switcher -->
+<div aria-label="Interface Language Selection" class="flex items-center bg-surface-container-low border border-surface-container-highest rounded-full p-0.5" role="tablist">
+<button aria-selected="true" class="px-2.5 py-1 rounded-full text-label-sm font-label-sm bg-surface-container-lowest text-primary shadow-sm transition-all" role="tab">EN</button>
+<button aria-selected="false" class="px-2.5 py-1 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-colors" role="tab">हिन्दी</button>
+<button aria-selected="false" class="px-2.5 py-1 rounded-full text-label-sm font-label-sm text-on-surface-variant hover:text-primary transition-colors" role="tab">తెలుగు</button>
+</div>
+</div>
+</section>
+<!-- Main Chat Canvas -->
+<main class="flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-36 flex flex-col justify-start">
+<!-- Timeline Timestamp -->
+<div class="flex justify-center mb-8">
+<span class="text-label-sm font-label-sm text-outline px-3 py-0.5 rounded-full bg-surface-container-low/70">
+        Today • Traditional Knowledge Review Session
+      </span>
+</div>
+<!-- Conversation Feed -->
+<div class="space-y-8 flex flex-col w-full">
+<!-- Turn 1: User Message Bubble (Right-aligned) -->
+<div class="flex justify-end w-full pl-8 sm:pl-16">
+<div class="max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-5 py-4 shadow-sm">
+<p class="text-body-md font-body-md leading-relaxed text-on-surface">
+            Can we patent our extract if we use simple classical water extraction (Kashaya)?
+          </p>
+<div class="flex items-center justify-end gap-1.5 mt-2">
+<span class="text-label-sm font-label-sm text-outline">11:42 AM</span>
+<span class="material-symbols-outlined text-[14px] text-surface-tint">done_all</span>
+</div>
+</div>
+</div>
+<!-- Turn 2: AI Assistant Response (Left-aligned Floating Surface) -->
+<div class="flex items-start gap-3 w-full pr-2 sm:pr-8">
+<!-- Assistant Avatar Token -->
+<div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+</div>
+<!-- AI Floating Card -->
+<div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-6 sm:p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<!-- Sub-label / Origin Header -->
+<div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-4">
+<div class="flex items-center gap-2">
+<span class="text-label-md font-label-md font-medium text-primary-container flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+                IP-SAKTI Intelligence
+              </span>
+<span class="text-outline text-label-sm">•</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Grounded in Patents Act §3(p)</span>
+</div>
+<button class="text-outline hover:text-primary transition-colors p-1" title="Copy statutory opinion">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+<!-- Conversational Statutory Analysis -->
+<div class="space-y-4">
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+              Under Section 3(p) of the Indian Patents Act, a standard aqueous Kashaya extraction is considered established traditional knowledge recorded in Charaka Samhita 
+              <button class="inline-flex items-center px-1.5 py-0.2 mx-0.5 rounded text-label-sm font-label-sm bg-surface-container text-primary hover:bg-primary-fixed transition-colors font-mono cursor-pointer border border-outline-variant" onclick="toggleCitation()" title="Inspect Source Citation">[¹]</button>
+              and the Ayurvedic Pharmacopoeia of India 
+              <span class="inline-flex items-center px-1.5 py-0.2 mx-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant font-mono border border-surface-container-highest">[²]</span>. 
+              A simple water extract lacks an inventive step and will face a strict patent bar.
+            </p>
+<!-- Inline Micro-Card Citation Chip (Expanded) -->
+<div class="bg-surface-container-low/80 border border-surface-container-highest rounded-xl p-3.5 my-3 flex items-start gap-3 transition-all duration-200" id="citation-card">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5">menu_book</span>
+<div class="flex-1">
+<div class="flex items-center justify-between">
+<span class="text-label-sm font-label-sm text-primary font-semibold">Citation [¹] Prior Art Verification</span>
+<span class="text-label-sm font-label-sm font-mono text-outline">Verified Match</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface mt-0.5 text-sm">
+                  Source: Charaka Samhita Chikitsa 1.2:14 (TKDL ID: AK/8412)
+                </p>
+<p class="text-label-sm font-label-sm text-on-surface-variant mt-1">
+                  Categorized: Classical decoction protocol utilizing <i>decoctum simplicis</i>. Direct statutory bar invoked under 35 U.S.C. 102 / Indian Patents Act §3(p).
+                </p>
+</div>
+</div>
+<!-- Actionable Strategic Recommendation -->
+<div class="bg-surface-container-lowest border-l-2 border-primary pl-4 py-2 mt-2">
+<p class="text-label-sm font-label-sm text-primary font-semibold tracking-wide uppercase">Strategic Recommendation</p>
+<p class="text-body-md font-body-md text-on-surface mt-1">
+<span class="font-semibold text-primary">Strategic path:</span> Instead of a product patent, protect the proprietary extraction temperature and yield curve as a Trade Secret.
+              </p>
+</div>
+</div>
+<!-- Card Footer: Confidence Tag & Quick Utilities -->
+<div class="mt-6 pt-4 border-t border-surface-container flex flex-wrap items-center justify-between gap-3">
+<div class="flex items-center gap-2">
+<!-- Confidence Tag -->
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed/40 text-on-primary-fixed-variant border border-primary-fixed">
+<span class="material-symbols-outlined text-[13px] text-primary-container">verified</span>
+                Confidence: 94% (Established Statute)
+              </span>
+<!-- Domain Marker -->
+<span class="text-label-sm font-label-sm text-outline hidden sm:inline-block">
+                Jurisdiction: INIPO / TKDL
+              </span>
+</div>
+<div class="flex items-center gap-3 text-label-sm font-label-sm text-on-surface-variant">
+<button class="hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">bookmark_border</span> Save to Docket
+              </button>
+<button class="hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">share</span> Export
+              </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Sticky Bottom Input Area & Disclaimer -->
+<footer class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none pb-4 pt-10 bg-gradient-to-t from-background via-background/95 to-transparent">
+<div class="max-w-3xl mx-auto px-4 sm:px-6 pointer-events-auto">
+<!-- Input Panel Floating Surface -->
+<form class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08),0_2px_6px_-1px_rgba(0,0,0,0.04)] focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/10 transition-all p-2 flex items-center gap-2" onsubmit="event.preventDefault();">
+<!-- Attachment / Scope Indicator -->
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Attach formulation file or spec sheet" type="button">
+<span class="material-symbols-outlined text-[20px]">attach_file</span>
+</button>
+<!-- Input Field -->
+<input class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-2 py-2" placeholder="Ask in your language... (citations and legal sections remain untranslated for accuracy)" type="text"/>
+<!-- Mic / Voice Dictation Button for Multilingual Input -->
+<button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" title="Voice input in native language" type="button">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+<!-- Send Button -->
+<button class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" title="Submit Question" type="submit">
+<span class="material-symbols-outlined text-[18px]">arrow_upward</span>
+</button>
+</form>
+<!-- Discreet Single-line Disclaimer -->
+<div class="text-center mt-2.5">
+<p class="text-label-sm font-label-sm text-outline">
+          Information and source-based guidance — not legal, regulatory, or medical advice.
+        </p>
+</div>
+</div>
+</footer>
+<script>
+    function toggleCitation() {
+      const card = document.getElementById('citation-card');
+      if (card.classList.contains('hidden')) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    }
+  </script>
+</body></html>

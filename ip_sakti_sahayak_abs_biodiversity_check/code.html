@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IP-SAKTI Sahayak — ABS / Biodiversity Check</title>
+<!-- Google Fonts: Manrope, Plus Jakarta Sans, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@500;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS with CDN plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary-container": "#3b372c",
+            "surface-container-low": "#f4f4f2",
+            "error-container": "#ffdad6",
+            "surface-container-lowest": "#ffffff",
+            "surface-tint": "#466554",
+            "tertiary": "#262217",
+            "on-tertiary-fixed-variant": "#4b463a",
+            "outline": "#727973",
+            "surface-container-high": "#e8e8e6",
+            "secondary-fixed": "#ffddb5",
+            "inverse-on-surface": "#f1f1ef",
+            "on-secondary-fixed-variant": "#643f00",
+            "outline-variant": "#c2c8c2",
+            "on-surface-variant": "#424844",
+            "on-tertiary-fixed": "#1f1b11",
+            "on-secondary-fixed": "#2a1800",
+            "inverse-surface": "#2f3130",
+            "on-tertiary": "#ffffff",
+            "surface": "#f9f9f7",
+            "on-primary-fixed-variant": "#2f4d3d",
+            "secondary-fixed-dim": "#ffb956",
+            "on-primary-fixed": "#022113",
+            "on-tertiary-container": "#a7a091",
+            "secondary": "#835400",
+            "primary-container": "#1f3d2e",
+            "secondary-container": "#feb64e",
+            "primary-fixed-dim": "#adceba",
+            "on-secondary": "#ffffff",
+            "on-error-container": "#93000a",
+            "background": "#f9f9f7",
+            "surface-dim": "#dadad8",
+            "tertiary-fixed-dim": "#cec6b6",
+            "on-surface": "#1a1c1b",
+            "on-primary-container": "#87a894",
+            "surface-container": "#eeeeec",
+            "on-background": "#1a1c1b",
+            "on-secondary-container": "#714800",
+            "error": "#ba1a1a",
+            "on-primary": "#ffffff",
+            "primary": "#082719",
+            "tertiary-fixed": "#ebe1d1",
+            "on-error": "#ffffff",
+            "surface-variant": "#e2e3e1",
+            "inverse-primary": "#adceba",
+            "surface-bright": "#f9f9f7",
+            "surface-container-highest": "#e2e3e1",
+            "primary-fixed": "#c8ebd5"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-lg": "1.5rem",
+            "space-2xs": "0.25rem",
+            "space-sm": "0.75rem",
+            "margin-desktop": "3rem",
+            "space-xs": "0.5rem",
+            "gutter-tablet": "1.5rem",
+            "space-xl": "2rem",
+            "gutter-mobile": "1rem",
+            "space-3xl": "3rem",
+            "margin-tablet": "2rem",
+            "space-md": "1rem",
+            "space-2xl": "2.5rem",
+            "gutter-desktop": "2rem",
+            "margin-mobile": "1.25rem",
+            "space-4xl": "4rem"
+          },
+          "fontFamily": {
+            "headline-lg-mobile": ["Manrope", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "headline-sm": ["Manrope", "sans-serif"],
+            "display-mobile": ["Manrope", "sans-serif"],
+            "headline-lg": ["Manrope", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"],
+            "display": ["Manrope", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.05em", "fontWeight": "400" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "display-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-md": ["15px", { "lineHeight": "25px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar (Shared Component from JSON) -->
+<header class="w-full bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none sticky top-0 z-40">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
+<!-- Brand & Left Navigation Cluster -->
+<div class="flex items-center gap-10">
+<a class="text-headline-sm font-headline-sm text-primary-container dark:text-inverse-primary tracking-tight font-semibold flex items-center gap-2" href="#">
+<span class="material-symbols-outlined text-primary-container dark:text-inverse-primary" data-icon="shield_with_house">shield_with_house</span>
+<span>IP-SAKTI Sahayak</span>
+</a>
+<!-- Desktop Navigation Links -->
+<nav class="hidden md:flex items-center gap-6">
+<!-- Compliance is ACTIVE based on ABS / Biodiversity Check Intent -->
+<a class="text-on-surface-variant dark:text-outline-variant font-normal pb-1 hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150 font-label-md text-label-md" href="#">Dockets</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-normal pb-1 hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150 font-label-md text-label-md" href="#">Prior Art</a>
+<a class="text-on-surface-variant dark:text-outline-variant font-normal pb-1 hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150 font-label-md text-label-md" href="#">Formulations</a>
+<a class="text-primary-container dark:text-inverse-primary border-b-2 border-primary-container dark:border-inverse-primary font-semibold pb-1 hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150 font-label-md text-label-md" href="#">Compliance</a>
+</nav>
+</div>
+<!-- Trailing Action Items -->
+<div class="flex items-center gap-4">
+<!-- Language Switcher -->
+<span class="text-label-sm font-label-sm text-on-surface-variant px-2 py-1 rounded bg-surface-container border border-outline-variant">EN / SA</span>
+<!-- Active Docket Context Tag -->
+<div class="hidden sm:flex items-center gap-1.5 px-3 py-1 bg-surface-container-lowest border border-outline-variant rounded-lg">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="text-label-md font-label-md text-on-surface font-medium">Docket #AYU-2024-88</span>
+</div>
+<!-- Trailing Utility Icons -->
+<div class="flex items-center gap-1 text-on-surface-variant">
+<button aria-label="Notifications" class="p-2 rounded-lg hover:text-primary-container hover:bg-surface-container transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Help" class="p-2 rounded-lg hover:text-primary-container hover:bg-surface-container transition-all duration-200">
+<span class="material-symbols-outlined text-[20px]" data-icon="help">help</span>
+</button>
+</div>
+<!-- Profile Picture / Avatar -->
+<div class="flex items-center pl-2 border-l border-outline-variant">
+<img alt="Ayurvedic IP Officer avatar profile picture" class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A dignified close-up portrait of an Ayurvedic Intellectual Property Officer in professional Indian regulatory attire, subtle warm studio lighting, serene focused demeanor against a neutral cream office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoA0Ooo__MsSWpXmxjfE0x9nozcUI2OER-n2XeaKNn4x8lvNyjIdUBjF1G_hLwNePPMFgkV2_tpf0T9pPoslnLmyM26GcsciCm0lnTfmom7t8GummOsCjfWEn4We-Hz4S5vcBGnp713QXrYk48VhHyDDxWcW2eGxAlZWG_VFUQozO2fZkLxvvx9E7c8WoTPBvA2KXdGzzd4OVT7GCp0Lsc3XTxgyXlppr_aFsLy7WTBuDNmytQL2F8"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10">
+<!-- Breadcrumb & Docket Context Bar -->
+<div class="mb-6 flex flex-wrap items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant">
+<a class="hover:text-primary-container transition-colors" href="#">Dockets</a>
+<span class="text-outline-variant">/</span>
+<a class="hover:text-primary-container transition-colors" href="#">AYU-2024-88</a>
+<span class="text-outline-variant">/</span>
+<span class="text-on-surface font-medium">Access &amp; Benefit Sharing (ABS) Check</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="verified">verified</span>
+          TKDL Cross-Referenced
+        </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="gavel">gavel</span>
+          NBA Act 2002
+        </span>
+</div>
+</div>
+<!-- Section Title & Formulation Headline -->
+<div class="mb-8">
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Docket #AYU-2024-88 — Ashwagandha-Guduchi Formulation</h1>
+<p class="text-body-md font-body-md text-on-surface-variant mt-1">Biological resource origin audit and statutory benefit-sharing compliance workflow.</p>
+</div>
+<!-- Layout Grid: 12-column System -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Primary Content (Focal Status, Checklist & Ingredient Audit) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- 1. Focal Status Banner (Singular Focus Anchor) -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 md:p-8 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] transition-all">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-outline-variant/60">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container border border-outline-variant">
+<span class="material-symbols-outlined text-[22px]" data-icon="policy">policy</span>
+</div>
+<div>
+<span class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Statutory Determination</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">Biological Sourcing Assessment: In Review</h2>
+</div>
+</div>
+<!-- Single Amber Accent Callout (Strictly Reserved) -->
+<span class="self-start sm:self-center inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(232,163,61,0.12)] border border-secondary/20 text-secondary text-label-md font-label-md font-semibold whitespace-nowrap">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+              Form-1 SBB Clearance Required
+            </span>
+</div>
+<!-- Calm Legal Guidance & Explanation -->
+<div class="pt-5">
+<p class="text-body-md font-body-md text-on-surface leading-relaxed">
+              Pursuant to Sections 3 and 4 of the National Biodiversity Authority (NBA) Act 2002, commercial utilization of biological resources harvested from Indian natural habitats mandates prior intimation to the concerned State Biodiversity Board (SBB). While cultivated Ashwagandha qualifies under domestic standard commercial channels, wild-sourced Tinospora cordifolia (Guduchi) triggers mandatory Form-1 clearance before patent prosecution.
+            </p>
+<div class="mt-4 flex items-center gap-2 text-label-md font-label-md text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="info">info</span>
+<span>Statutory penalty mitigation active: 90-day cure period applies prior to provisional examination.</span>
+</div>
+</div>
+</section>
+<!-- 2. Simple Verification Checklist Card -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 md:p-8 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Compliance Verification Checklist</h3>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Mandatory provenance points under Biological Diversity Rules, 2004.</p>
+</div>
+<span class="text-label-md font-label-md text-on-surface-variant font-medium bg-surface-container px-3 py-1 rounded-full border border-outline-variant">3 of 4 Verified</span>
+</div>
+<div class="space-y-3">
+<!-- Checklist Item 1: Checked -->
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface hover:bg-surface-container transition-colors duration-150 border border-transparent hover:border-outline-variant">
+<div class="mt-0.5 flex-shrink-0">
+<div class="w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-label-md font-label-md text-on-surface font-semibold">Botanical source provenance documented</p>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Cultivated origin verified in Neemuch &amp; Mandsaur districts, Madhya Pradesh (Geo-coordinates #MP-24-902).</p>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded border border-primary-fixed-dim">Verified</span>
+</div>
+<!-- Checklist Item 2: Checked -->
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface hover:bg-surface-container transition-colors duration-150 border border-transparent hover:border-outline-variant">
+<div class="mt-0.5 flex-shrink-0">
+<div class="w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-label-md font-label-md text-on-surface font-semibold">Commercial invoice APMC registration verified</p>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Mandi fee receipts and licensed agricultural market vendor ledger (#APMC-MP-8831) attached to docket file.</p>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded border border-primary-fixed-dim">Verified</span>
+</div>
+<!-- Checklist Item 3: Unchecked / Attention (Singular focal trigger) -->
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface-container-low border border-secondary/30 relative">
+<div class="mt-0.5 flex-shrink-0">
+<div class="w-5 h-5 rounded border-2 border-secondary bg-surface-container-lowest flex items-center justify-center">
+<span class="w-2 h-2 rounded-sm bg-secondary"></span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2">
+<p class="text-label-md font-label-md text-on-surface font-semibold">State Biodiversity Board (SBB) intimation filing for wild-harvested Guduchi stem</p>
+<span class="text-label-sm font-label-sm text-secondary bg-[rgba(232,163,61,0.12)] px-2 py-0.5 rounded font-medium">Attention Required</span>
+</div>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Biological resource collected from forest fringes of Western Ghats (Satara cluster); Form-1 filing mandatory prior to claim 4 assertion.</p>
+</div>
+<button class="text-label-sm font-label-sm text-primary-container font-semibold hover:underline flex items-center gap-0.5 self-center">
+                Draft Form
+                <span class="material-symbols-outlined text-[14px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<!-- Checklist Item 4: Checked -->
+<div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface hover:bg-surface-container transition-colors duration-150 border border-transparent hover:border-outline-variant">
+<div class="mt-0.5 flex-shrink-0">
+<div class="w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[16px]" data-icon="check">check</span>
+</div>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-label-md font-label-md text-on-surface font-semibold">Indian research entity status confirmed</p>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Applicant registered under Indian MSME Udyam (#UDYAM-KR-03-991823) with 100% domestic shareholding equity.</p>
+</div>
+<span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded border border-primary-fixed-dim">Verified</span>
+</div>
+</div>
+</section>
+<!-- 3. Quiet Due Diligence Data List -->
+<section class="bg-surface-container-lowest rounded-2xl p-7 md:p-8 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<div class="flex items-center justify-between mb-4">
+<div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface">Formulation Biological Ingredients Audit</h3>
+<p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Assessment of accession origins under NBA Section 40 exemption parameters.</p>
+</div>
+<button class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary-container flex items-center gap-1 border border-outline-variant rounded-lg px-2.5 py-1.5 bg-surface hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="download">download</span>
+              Audit Sheet
+            </button>
+</div>
+<!-- Table-style Row Items with 56px height & 1px borders -->
+<div class="overflow-x-auto">
+<div class="min-w-[600px]">
+<!-- Column Headers -->
+<div class="grid grid-cols-12 px-4 py-2 text-label-sm font-label-sm text-outline border-b border-outline-variant">
+<span class="col-span-4">Botanical / Common Name</span>
+<span class="col-span-3">Source Classification</span>
+<span class="col-span-3">Sec. 40 Exemption</span>
+<span class="col-span-2 text-right">Filing Status</span>
+</div>
+<!-- Row 1: Ashwagandha -->
+<div class="grid grid-cols-12 items-center h-14 px-4 border-b border-outline-variant/60 hover:bg-surface transition-colors duration-150 text-body-md">
+<div class="col-span-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-container" data-icon="eco">eco</span>
+<div>
+<span class="text-label-md font-label-md text-on-surface font-semibold block leading-tight">Withania somnifera</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Ashwagandha (Root)</span>
+</div>
+</div>
+<div class="col-span-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container text-on-surface-variant font-medium">Cultivated (Farm gate)</span>
+</div>
+<div class="col-span-3 text-label-md font-label-md text-on-surface">
+<span class="text-primary-container font-medium">Exempt</span> <span class="text-outline text-xs">(Normally Traded Commodity)</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">Clear</span>
+</div>
+</div>
+<!-- Row 2: Guduchi (Trigger Item) -->
+<div class="grid grid-cols-12 items-center h-14 px-4 border-b border-outline-variant/60 hover:bg-surface transition-colors duration-150 text-body-md bg-surface/30">
+<div class="col-span-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary" data-icon="forest">forest</span>
+<div>
+<span class="text-label-md font-label-md text-on-surface font-semibold block leading-tight">Tinospora cordifolia</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Guduchi / Giloy (Stem)</span>
+</div>
+</div>
+<div class="col-span-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-secondary/10 text-secondary font-medium">Wild-Harvested (Western Ghats)</span>
+</div>
+<div class="col-span-3 text-label-md font-label-md text-on-surface">
+<span class="text-on-surface font-medium">Non-Exempt</span> <span class="text-outline text-xs">(Subject to ABS)</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-label-sm font-label-sm text-secondary font-semibold bg-[rgba(232,163,61,0.15)] px-2 py-0.5 rounded border border-secondary/30">Form-1 Due</span>
+</div>
+</div>
+<!-- Row 3: Pippali -->
+<div class="grid grid-cols-12 items-center h-14 px-4 hover:bg-surface transition-colors duration-150 text-body-md">
+<div class="col-span-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary-container" data-icon="eco">eco</span>
+<div>
+<span class="text-label-md font-label-md text-on-surface font-semibold block leading-tight">Piper longum</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Pippali (Fruit bio-enhancer)</span>
+</div>
+</div>
+<div class="col-span-3">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container text-on-surface-variant font-medium">Cultivated (Certified Organic)</span>
+</div>
+<div class="col-span-3 text-label-md font-label-md text-on-surface">
+<span class="text-primary-container font-medium">Exempt</span> <span class="text-outline text-xs">(AYUSH NMPB List)</span>
+</div>
+<div class="col-span-2 text-right">
+<span class="text-label-sm font-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded border border-outline-variant">Clear</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Column: Contextual Action Panel & Statutory Guidance -->
+<aside class="lg:col-span-4 flex flex-col gap-6">
+<!-- Primary Action Card (Direct Resolution) -->
+<div class="bg-surface-container-lowest rounded-2xl p-6 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] sticky top-24">
+<div class="flex items-center gap-2.5 pb-4 border-b border-outline-variant">
+<span class="material-symbols-outlined text-primary-container text-[22px]" data-icon="assignment_turned_in">assignment_turned_in</span>
+<h4 class="text-headline-sm font-headline-sm text-on-surface text-lg">Next Action Step</h4>
+</div>
+<div class="py-5">
+<p class="text-body-md font-body-md text-on-surface leading-normal text-sm">
+              Generate the pre-filled <strong class="text-on-surface font-semibold">Form-1 Intimation Dossier</strong> for submission to the Maharashtra State Biodiversity Board. The system has automatically compiled harvest coordinates, local panchayat BMC NOC, and batch yields.
+            </p>
+<div class="mt-4 p-3.5 rounded-xl bg-surface-container-low border border-outline-variant space-y-2">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Intended SBB Jurisdiction:</span>
+<span class="text-on-surface font-semibold">MSBB, Nagpur</span>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Estimated Fee Levy (ABS):</span>
+<span class="text-on-surface font-semibold">0.1% of Purchase Ex-Factory</span>
+</div>
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-on-surface-variant">Statutory Lead Time:</span>
+<span class="text-on-surface font-semibold">30 Days</span>
+</div>
+</div>
+</div>
+<!-- CTAs -->
+<div class="flex flex-col gap-3 pt-2">
+<button class="w-full h-10 px-4 bg-primary-container hover:bg-[#183024] text-on-primary font-label-md text-label-md font-medium rounded-lg transition-all duration-150 transform active:scale-[0.99] flex items-center justify-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-[18px]" data-icon="description">description</span>
+<span>Generate SBB Form-1 Intimation Draft</span>
+</button>
+<button class="w-full h-10 px-4 bg-surface-container-lowest hover:bg-surface border border-outline-variant text-on-surface font-label-md text-label-md font-medium rounded-lg transition-colors duration-150 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="save">save</span>
+<span>Save Check to Dossier</span>
+</button>
+</div>
+<!-- Secondary Help Link -->
+<div class="mt-4 pt-4 border-t border-outline-variant/60 text-center">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary-container inline-flex items-center gap-1 transition-colors" href="#">
+<span class="material-symbols-outlined text-[14px]" data-icon="contact_support">contact_support</span>
+              Consult AYUSH Legal Cell Officer
+            </a>
+</div>
+</div>
+<!-- Statutory Regulatory Guidance Box -->
+<div class="bg-surface-container-low rounded-2xl p-6 border border-outline-variant">
+<div class="flex items-center gap-2 text-tertiary-container mb-3">
+<span class="material-symbols-outlined text-[20px]" data-icon="auto_stories">auto_stories</span>
+<h5 class="text-label-md font-label-md text-on-surface font-semibold">NBA Act 2002 Framework Memo</h5>
+</div>
+<p class="text-label-md font-label-md text-on-surface-variant leading-relaxed">
+            Biological Diversity (Amendment) Act 2023 clarifies that domestic codified traditional medicine practitioners and registered AYUSH manufacturing MSMEs are exempt from prior approval fees for domestic marketing, provided no foreign equity participates in IPR ownership.
+          </p>
+<div class="mt-4 pt-3 border-t border-outline-variant/40 flex justify-between items-center text-label-sm font-label-sm">
+<span class="text-outline">Section 7 &amp; 40 Matrix</span>
+<a class="text-primary-container font-semibold hover:underline flex items-center gap-0.5" href="#">
+              Read Gazetted Rule
+              <span class="material-symbols-outlined text-[12px]" data-icon="north_east">north_east</span>
+</a>
+</div>
+</div>
+</aside>
+</div>
+</main>
+<!-- Footer (Shared Component from JSON) -->
+<footer class="mt-auto bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<!-- Copyright text from JSON -->
+<div class="text-label-sm font-label-sm text-on-surface-variant dark:text-outline-variant text-center md:text-left">
+        © 2024 IP-SAKTI Sahayak. Traditional Knowledge Digital Library (TKDL) compliant life sciences intelligence.
+      </div>
+<!-- Footer links from JSON -->
+<nav class="flex flex-wrap justify-center items-center gap-6">
+<a class="text-on-surface-variant dark:text-outline-variant text-label-sm font-label-sm hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150" href="#">TKDL Standards</a>
+<a class="text-on-surface-variant dark:text-outline-variant text-label-sm font-label-sm hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150" href="#">Ayush Regulatory Matrix</a>
+<a class="text-on-surface-variant dark:text-outline-variant text-label-sm font-label-sm hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150" href="#">Data Integrity</a>
+<a class="text-on-surface-variant dark:text-outline-variant text-label-sm font-label-sm hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150" href="#">Documentation</a>
+<a class="text-on-surface-variant dark:text-outline-variant text-label-sm font-label-sm hover:text-primary-container dark:hover:text-inverse-primary transition-colors duration-150" href="#">Legal Disclaimer</a>
+</nav>
+</div>
+</footer>
+</body></html>

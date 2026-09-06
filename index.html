@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IP-SAKTI Sahayak | Grounded Botanical Intelligence for Sovereign IP</title>
+<meta name="description" content="Evidence-grounded IP & regulatory navigation for Ayurvedic innovation. Navigate classification, patentability, TKDL prior-art, and ABS biological diversity clearance."/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "tertiary":"#262217","surface-dim":"#dadad8","inverse-on-surface":"#f1f1ef","secondary":"#835400","on-surface-variant":"#424844","secondary-fixed":"#ffddb5","on-secondary-fixed-variant":"#643f00","inverse-surface":"#2f3130","on-primary-fixed-variant":"#2f4d3d","surface-container-low":"#f4f4f2","inverse-primary":"#adceba","surface-container-high":"#e8e8e6","on-primary":"#ffffff","on-background":"#1a1c1b","on-tertiary-fixed-variant":"#4b463a","tertiary-fixed-dim":"#cec6b6","primary":"#082719","surface-bright":"#f9f9f7","surface":"#f9f9f7","on-secondary-fixed":"#2a1800","background":"#f9f9f7","surface-variant":"#e2e3e1","on-tertiary":"#ffffff","primary-container":"#1f3d2e","on-tertiary-fixed":"#1f1b11","surface-container":"#eeeeec","tertiary-container":"#3b372c","error":"#ba1a1a","outline-variant":"#c2c8c2","on-surface":"#1a1c1b","on-primary-fixed":"#022113","secondary-container":"#feb64e","on-primary-container":"#87a894","primary-fixed":"#c8ebd5","surface-container-highest":"#e2e3e1","on-error":"#ffffff","tertiary-fixed":"#ebe1d1","error-container":"#ffdad6","on-error-container":"#93000a","on-secondary-container":"#714800","secondary-fixed-dim":"#ffb956","surface-tint":"#466554","surface-container-lowest":"#ffffff","on-tertiary-container":"#a7a091","outline":"#727973","primary-fixed-dim":"#adceba","on-secondary":"#ffffff"
+      },
+      borderRadius: {"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","2xl":"1rem","full":"9999px"},
+      spacing: {"gutter-desktop":"2rem","space-xs":"0.5rem","margin-desktop":"3rem","gutter-mobile":"1rem","space-2xs":"0.25rem","margin-mobile":"1.25rem","gutter-tablet":"1.5rem","space-4xl":"4rem","space-2xl":"2.5rem","space-sm":"0.75rem","space-md":"1rem","margin-tablet":"2rem","space-xl":"2rem","space-3xl":"3rem","space-lg":"1.5rem"},
+      fontFamily: {"headline-lg":["Manrope","sans-serif"],"body-lg":["Plus Jakarta Sans","sans-serif"],"display-mobile":["Manrope","sans-serif"],"label-sm":["Inter","sans-serif"],"headline-lg-mobile":["Manrope","sans-serif"],"display":["Manrope","sans-serif"],"headline-sm":["Manrope","sans-serif"],"label-md":["Inter","sans-serif"],"body-md":["Plus Jakarta Sans","sans-serif"]},
+      fontSize: {
+        "headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.02em","fontWeight":"600"}],
+        "body-lg":["16px",{"lineHeight":"26px","letterSpacing":"-0.005em","fontWeight":"400"}],
+        "display-mobile":["30px",{"lineHeight":"38px","letterSpacing":"-0.02em","fontWeight":"600"}],
+        "label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],
+        "headline-lg-mobile":["22px",{"lineHeight":"30px","letterSpacing":"-0.015em","fontWeight":"600"}],
+        "display":["40px",{"lineHeight":"48px","letterSpacing":"-0.03em","fontWeight":"600"}],
+        "headline-sm":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"500"}],
+        "label-md":["13px",{"lineHeight":"18px","letterSpacing":"0.01em","fontWeight":"500"}],
+        "body-md":["15px",{"lineHeight":"25px","letterSpacing":"0em","fontWeight":"400"}]
+      }
+    }
+  }
+};
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; display:inline-block; vertical-align:middle; line-height:1; }
+  .page-section { display:none; animation: fadeIn 0.25s ease-out; }
+  .page-section.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .font-tabular { font-variant-numeric: tabular-nums; }
+  .elevation-ambient { box-shadow: 0 4px 20px -2px rgba(0,0,0,0.04), 0 1px 3px 0 rgba(0,0,0,0.02); }
+  .elevation-hover { box-shadow: 0 12px 28px -6px rgba(0,0,0,0.07), 0 2px 8px -2px rgba(0,0,0,0.03); }
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col selection:bg-primary-fixed selection:text-primary">
+
+<!-- ============================================ -->
+<!-- SHARED HEADER -->
+<!-- ============================================ -->
+<header id="app-header" class="sticky top-0 z-50 bg-surface shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-7xl mx-auto h-16">
+  <div class="flex items-center gap-3">
+    <a onclick="navigate('landing')" class="flex items-center gap-3 cursor-pointer">
+      <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+        <span class="material-symbols-outlined text-[20px]">spa</span>
+      </div>
+      <span class="text-headline-sm font-headline-sm font-semibold tracking-tight text-primary">IP-SAKTI Sahayak</span>
+    </a>
+    <span id="nav-role-badge" class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm tracking-wide"></span>
+  </div>
+  <nav id="main-nav" class="hidden md:flex items-center gap-8 text-label-md font-label-md"></nav>
+  <div class="flex items-center gap-5">
+    <span class="hidden lg:inline-block text-label-sm font-label-sm text-outline hover:text-on-surface cursor-pointer transition-colors duration-150 tracking-wider">EN / हिन्दी / తెలుగు</span>
+    <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+      <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+      <span>Docket #2024-IN-09</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <button aria-label="Help" class="p-1 text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[22px]">help_outline</span></button>
+      <button aria-label="Account" onclick="navigate('roles')" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface hover:bg-surface-container-low transition-all duration-150 text-label-md font-label-md text-on-surface">
+        <span class="material-symbols-outlined text-[20px] text-primary">account_circle</span>
+        <span class="hidden sm:inline">Sign In</span>
+      </button>
+    </div>
+  </div>
+</div>
+</header>
+
+<!-- ============================================ -->
+<!-- MAIN CONTENT AREA -->
+<!-- ============================================ -->
+<main class="flex-1" id="app-content">
+
+<!-- ===== LANDING PAGE ===== -->
+<div id="page-landing" class="page-section">
+<div class="max-w-7xl w-full mx-auto px-6 lg:px-12 pt-16 lg:pt-24 pb-16 flex flex-col justify-center">
+  <section class="max-w-4xl mx-auto text-center flex flex-col items-center">
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-8">
+      <span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+      <span class="text-label-sm font-label-sm text-secondary tracking-wider font-semibold">2024 SAKTI STATUTORY ENGINE READY</span>
+    </div>
+    <h1 class="font-display text-display hidden md:block text-primary tracking-tight max-w-3xl leading-tight">Evidence-grounded IP &amp; regulatory navigation for Ayurvedic innovation.</h1>
+    <h1 class="font-display-mobile text-display-mobile md:hidden text-primary tracking-tight leading-tight">Evidence-grounded IP &amp; regulatory navigation for Ayurvedic innovation.</h1>
+    <p class="mt-6 text-on-surface-variant font-body-lg text-body-lg max-w-2xl leading-relaxed">Navigate classification, patentability §3(p), TKDL prior-art, and ABS biological diversity clearance in one calm, guided workflow.</p>
+    <div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+      <a onclick="navigate('roles')" class="cursor-pointer inline-flex items-center justify-center gap-2.5 px-8 h-12 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-md hover:bg-primary-container/90 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200">
+        <span>Analyse My Product</span>
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </a>
+      <a class="inline-flex items-center justify-center px-6 h-12 rounded-lg bg-surface text-on-surface border border-outline-variant/60 font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-150 cursor-pointer">Review Sovereign Framework</a>
+    </div>
+    <p class="mt-3 text-label-sm font-label-sm text-outline">Zero preliminary filings required • Formulated for AYUSH practitioners &amp; Biotech counsel</p>
+  </section>
+  <section class="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
+    <div onclick="navigate('tkdl')" class="cursor-pointer bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5"><span class="material-symbols-outlined text-[24px]">menu_book</span></div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Traditional Knowledge Prior-Art</h3>
+        <p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">Automated screening against 430,000+ formulations from Charaka Samhita, Sushruta Samhita, and authoritative Unani texts.</p>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline"><span>Status: Synchronized</span><span class="font-semibold text-primary">TKDL Gazette v4.2</span></div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5"><span class="material-symbols-outlined text-[24px]">gavel</span></div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Section 3(p) Validation</h3>
+        <p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">Distinguish patentable synergistic efficacy from traditional non-patentable aggregation under Indian Patents Act 1970.</p>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline"><span>Invention Audit</span><span class="font-semibold text-primary">CGPDTM Guidelines</span></div>
+    </div>
+    <div onclick="navigate('abs')" class="cursor-pointer bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5"><span class="material-symbols-outlined text-[24px]">nature_people</span></div>
+        <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Biological Diversity &amp; ABS</h3>
+        <p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">Form I/III access determination, SBB territorial notifications, and fair Benefit Sharing verification in real time.</p>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline"><span>Compliance Rule</span><span class="font-semibold text-primary">BD Act 2002 &amp; 2023 Regs</span></div>
+    </div>
+  </section>
+  <section class="mt-16 lg:mt-24 pt-10 border-t border-outline-variant/40 max-w-5xl mx-auto w-full">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+      <span class="text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">Grounded in Statutory Frameworks of</span>
+      <div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">TKDL</span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">IP India (CGPDTM)</span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">Ministry of AYUSH</span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">National Biodiversity Authority (NBA)</span>
+        <span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">FSSAI</span>
+      </div>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ===== ROLE SELECTION ===== -->
+<div id="page-roles" class="page-section">
+<div class="flex-1 flex flex-col justify-center items-center px-6 py-12 lg:py-16 max-w-7xl mx-auto w-full">
+  <div class="text-center max-w-2xl mx-auto mb-10 lg:mb-12">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/30 text-label-sm font-label-sm text-on-surface-variant mb-4"><span class="material-symbols-outlined text-sm text-primary-container">shield</span><span>Sovereign Access Gateway</span></div>
+    <h1 class="font-headline-lg text-headline-lg sm:text-display sm:font-display text-primary tracking-tight mb-3">Select your role to proceed</h1>
+    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mx-auto leading-relaxed">Choose your credential tier for authenticated regulatory access.</p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-stretch">
+    <!-- Researcher -->
+    <div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200">
+      <div>
+        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">biotech</span></div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 01 · Innovation &amp; Search</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">Researcher / MSME</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Analyze herbal formulations, check prior-art, and prepare statutory filings.</p>
+      </div>
+      <div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+        <button onclick="setRole('researcher')" class="w-full h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-all duration-150 active:scale-[0.99] shadow-sm"><span>Enter as Researcher</span><span class="material-symbols-outlined text-base">arrow_forward</span></button>
+      </div>
+    </div>
+    <!-- Facilitator -->
+    <div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200 relative">
+      <div class="absolute -top-3 right-6 bg-surface-container border border-outline-variant/40 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-secondary">Empaneled Counsel</div>
+      <div>
+        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">verified_user</span></div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 02 · Advisory &amp; Prosecution</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">Legal &amp; IP Facilitator</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Review escalated dossiers, provide statutory counsel, and guide patent prosecution.</p>
+      </div>
+      <div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+        <button onclick="setRole('facilitator')" class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]"><span>Enter as Facilitator</span><span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span></button>
+      </div>
+    </div>
+    <!-- Admin -->
+    <div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200">
+      <div>
+        <div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200"><span class="material-symbols-outlined text-2xl">admin_panel_settings</span></div>
+        <span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">Tier 03 · Governance &amp; Audit</span>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">System Administrator</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">Manage authoritative document corpora, user access tiers, and system compliance logs.</p>
+      </div>
+      <div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+        <button onclick="setRole('admin')" class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]"><span>Enter as Admin</span><span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span></button>
+      </div>
+    </div>
+  </div>
+  <div class="mt-12 text-center"><a class="inline-flex items-center gap-1.5 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors group" href="#"><span>Need assistance with credentials?</span><span class="underline decoration-outline-variant underline-offset-4 group-hover:decoration-primary font-medium text-primary">Contact regulatory support.</span></a></div>
+</div>
+</div>
+
+<!-- ===== MY DOSSIERS ===== -->
+<div id="page-dossiers" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10">
+  <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-8 border-b border-surface-container">
+    <div>
+      <div class="flex items-center gap-2 mb-1.5"><span class="font-label-sm text-label-sm text-on-surface-variant tracking-wider">TKDL REGISTERED REGIME</span><span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span><span class="font-label-sm text-label-sm text-surface-tint">Active Workspace</span></div>
+      <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">My Dossiers</h1>
+      <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-xl">Manage active formulation assessments, IP readiness, and statutory dossiers.</p>
+    </div>
+    <div class="flex items-center gap-3 self-start sm:self-auto">
+      <button onclick="toggleDossierView()" class="px-3.5 h-10 rounded-lg border border-surface-container bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md hover:text-primary-container hover:bg-surface-container-low transition-colors duration-150 flex items-center gap-2" id="viewToggleBtn"><span class="material-symbols-outlined text-outline">view_agenda</span><span id="toggleBtnLabel">Simulate Empty State</span></button>
+      <button onclick="navigate('intake-2')" class="h-10 px-5 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ New Dossier</span></button>
+    </div>
+  </div>
+  <div class="py-4 flex flex-wrap items-center justify-between gap-4">
+    <div class="flex items-center gap-6">
+      <span class="font-label-md text-label-md text-on-surface-variant">Showing <span class="font-medium text-on-surface">3 active formulations</span></span>
+      <span class="h-3.5 w-px bg-surface-container"></span>
+      <span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span> TKDL Engine v4.2 Synchronized</span>
+    </div>
+  </div>
+  <!-- Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-2" id="dossiersGrid">
+    <div onclick="navigate('tkdl')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+      <div>
+        <div class="flex items-start justify-between gap-3 mb-4">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-7821</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-primary-fixed text-on-primary-fixed border border-primary-fixed-dim/40"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>Ready for Filing</span>
+        </div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Ashwagandha Vitality Elixir</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Standardized withanolide glycoside extract matrix. Botanical reference: <em>Withania somnifera</em> root extract.</p>
+        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Novel Excipient</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">IPO Section 3(p) Cleared</span>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 2 days ago</span>
+        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      </div>
+    </div>
+    <div onclick="navigate('abs')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+      <div>
+        <div class="flex items-start justify-between gap-3 mb-4">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-6340</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-secondary-container/20 text-on-secondary-container border border-secondary-container/40"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Review Recommended</span>
+        </div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Triphala Digestive Tonic</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.</p>
+        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">Citation Match Flagged</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">TKDL Prior Art v1.8</span>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 4 hours ago</span>
+        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      </div>
+    </div>
+    <div onclick="navigate('escalation')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+      <div>
+        <div class="flex items-start justify-between gap-3 mb-4">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: AYU-9014</span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant border border-outline-variant/50"><span class="w-1.5 h-1.5 rounded-full bg-outline"></span>Prior-Art Clear</span>
+        </div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">Curcumin Bio-Enhanced Extract</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.</p>
+        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">PCT Global Ready</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">USPTO Class 424</span>
+        </div>
+      </div>
+      <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
+        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated 5 days ago</span>
+        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+      </div>
+    </div>
+  </div>
+  <!-- Empty State -->
+  <div class="hidden my-12 bg-surface-container-lowest rounded-2xl border border-surface-container p-12 md:p-16 elevation-ambient text-center max-w-2xl mx-auto" id="dossiersEmptyState">
+    <div class="w-16 h-16 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center mx-auto mb-5"><span class="material-symbols-outlined text-[32px]">local_florist</span></div>
+    <h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">No dossiers created yet</h3>
+    <p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-md mx-auto">Begin your first formulation assessment. Cross-reference classical Ayurvedic texts, verify Section 3(p) compliance, and generate filing-ready dossiers.</p>
+    <div class="mt-7"><button onclick="navigate('intake-2')" class="h-10 px-6 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-medium hover:bg-primary-container/90 transition-all duration-200 active:scale-[0.99] inline-flex items-center gap-2 shadow-sm"><span class="material-symbols-outlined text-on-primary">add</span><span>+ Create First Dossier</span></button></div>
+  </div>
+  <div class="mt-12 bg-surface-container-low rounded-xl border border-surface-container p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="flex items-start gap-3"><span class="material-symbols-outlined text-primary-container mt-0.5">verified_user</span><div><h4 class="font-label-md text-label-md font-medium text-on-surface">Central Council for Research in Ayurvedic Sciences (CCRAS) Verification</h4><p class="font-label-sm text-label-sm text-on-surface-variant mt-0.5">All docket claims are dynamically validated against 2.4 million slokas from ancient foundational treatises.</p></div></div>
+    <a class="font-label-sm text-label-sm text-primary-container font-medium hover:underline self-start md:self-center shrink-0 cursor-pointer">Review Compliance Registry →</a>
+  </div>
+</div>
+</div>
+
+<!-- ===== ADMIN OVERVIEW ===== -->
+<div id="page-admin" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 space-y-12">
+  <section class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="space-y-1">
+      <div class="flex items-center space-x-2 text-label-sm font-label-sm text-outline"><span>Sovereign Governance</span><span>/</span><span class="text-on-surface font-medium">Platform Overview</span></div>
+      <h1 class="text-display font-display text-primary tracking-tight">Governance &amp; Corpus State</h1>
+    </div>
+    <div class="flex items-center space-x-2 bg-surface-container-lowest border border-outline-variant px-3 py-1.5 rounded-full self-start md:self-auto shadow-sm"><span class="w-2 h-2 rounded-full bg-primary-container inline-block"></span><span class="text-label-sm font-label-sm text-on-surface tracking-wide">DPDP &amp; Audit Trail: Immutable</span></div>
+  </section>
+  <section class="pt-2 pb-4">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+      <div class="space-y-2"><div class="text-headline-lg font-headline-lg text-primary tracking-tight">142</div><div class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Active Dossiers</div></div>
+      <div class="space-y-2"><div class="text-headline-lg font-headline-lg text-primary tracking-tight">3</div><div class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Pending Escalations</div></div>
+      <div class="space-y-2"><div class="flex items-center space-x-2"><span class="text-headline-lg font-headline-lg text-primary tracking-tight">1</span><span class="inline-block w-2 h-2 rounded-full bg-secondary-container"></span></div><div class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Sources Needing Review</div></div>
+      <div class="space-y-2"><div class="text-headline-lg font-headline-lg text-primary tracking-tight">84</div><div class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Active Users</div></div>
+    </div>
+  </section>
+  <section class="space-y-4 pt-6">
+    <div class="flex items-baseline justify-between border-b border-outline-variant pb-3">
+      <div><h2 class="text-headline-sm font-headline-sm text-primary tracking-tight">Needs Attention</h2><p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Prioritized compliance items across Traditional Knowledge digital libraries and access-benefit frameworks.</p></div>
+      <a onclick="navigate('audit')" class="cursor-pointer text-label-sm font-label-sm text-outline hover:text-primary transition-colors inline-flex items-center space-x-1"><span>Complete Audit Log</span><span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+    </div>
+    <div class="divide-y divide-outline-variant bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+      <div onclick="navigate('corpus')" class="cursor-pointer h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors duration-150 group"><div class="flex items-center space-x-4 min-w-0 pr-4"><span class="material-symbols-outlined text-on-surface-variant text-lg shrink-0">menu_book</span><span class="text-body-md font-body-md text-on-surface truncate group-hover:text-primary transition-colors font-medium">TKDL Gazette Supplement v4.3 pending verification</span></div><div class="flex items-center space-x-6 shrink-0"><span class="inline-flex items-center h-[22px] px-2.5 rounded-full text-label-sm font-label-sm bg-secondary-container/20 text-secondary">Needs Review</span><span class="text-label-sm font-label-sm text-outline w-24 text-right">2 hours ago</span></div></div>
+      <div onclick="navigate('users')" class="cursor-pointer h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors duration-150 group"><div class="flex items-center space-x-4 min-w-0 pr-4"><span class="material-symbols-outlined text-on-surface-variant text-lg shrink-0">badge</span><span class="text-body-md font-body-md text-on-surface truncate group-hover:text-primary transition-colors">Facilitator Dr. K. Ramanathan credentials renewal</span></div><div class="flex items-center space-x-6 shrink-0"><span class="inline-flex items-center h-[22px] px-2.5 rounded-full text-label-sm font-label-sm bg-surface border border-outline-variant text-outline">Pending Review</span><span class="text-label-sm font-label-sm text-outline w-24 text-right">5 hours ago</span></div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors duration-150 group"><div class="flex items-center space-x-4 min-w-0 pr-4"><span class="material-symbols-outlined text-on-surface-variant text-lg shrink-0">gavel</span><span class="text-body-md font-body-md text-on-surface truncate group-hover:text-primary transition-colors">Section 3(p) Patent Office Guidance Addendum 2024</span></div><div class="flex items-center space-x-6 shrink-0"><span class="inline-flex items-center h-[22px] px-2.5 rounded-full text-label-sm font-label-sm bg-surface border border-outline-variant text-outline">Review Required</span><span class="text-label-sm font-label-sm text-outline w-24 text-right">1 day ago</span></div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors duration-150 group"><div class="flex items-center space-x-4 min-w-0 pr-4"><span class="material-symbols-outlined text-on-surface-variant text-lg shrink-0">sync</span><span class="text-body-md font-body-md text-on-surface truncate group-hover:text-primary transition-colors">ABS State Biodiversity Board (MSBB) Form-1 Tariff sync</span></div><div class="flex items-center space-x-6 shrink-0"><span class="inline-flex items-center h-[22px] px-2.5 rounded-full text-label-sm font-label-sm bg-surface border border-outline-variant text-outline">Sync Scheduled</span><span class="text-label-sm font-label-sm text-outline w-24 text-right">2 days ago</span></div></div>
+    </div>
+  </section>
+  <section class="bg-surface-container-low rounded-lg p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border border-outline-variant/50">
+    <div class="space-y-1"><span class="text-label-sm font-label-sm uppercase tracking-wider text-outline">Statutory Corpus Sync</span><p class="text-body-md font-body-md text-on-surface text-sm">TKDL v4.2 repository and National Biodiversity Authority registers synchronized at 04:00 IST today.</p></div>
+    <div class="flex items-center space-x-3">
+      <button class="h-10 px-4 rounded-lg bg-surface-container-lowest border border-outline-variant text-on-surface text-label-md font-label-md hover:bg-surface transition-colors">Verify Cryptographic Hash</button>
+      <button class="h-10 px-4 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md hover:opacity-90 transition-all">Trigger Sync</button>
+    </div>
+  </section>
+</div>
+</div>
+
+<!-- ===== ASK AI ===== -->
+<div id="page-ask-ai" class="page-section">
+<section class="w-full bg-surface-container-lowest/60 border-b border-surface-container-highest backdrop-blur-sm">
+  <div class="max-w-3xl mx-auto px-6 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3"><div class="w-2.5 h-2.5 rounded-full bg-surface-tint animate-pulse"></div><div><h1 class="text-headline-sm font-headline-sm text-primary tracking-tight">Statutory Assistant</h1><p class="text-label-sm font-label-sm text-on-surface-variant">Live consultation on Indian Patent Act &amp; TKDL repositories</p></div></div>
+  </div>
+</section>
+<div class="w-full max-w-3xl mx-auto px-4 sm:px-6 pt-8 pb-36 flex flex-col justify-start">
+  <div class="flex justify-center mb-8"><span class="text-label-sm font-label-sm text-outline px-3 py-0.5 rounded-full bg-surface-container-low/70">Today • Traditional Knowledge Review Session</span></div>
+  <div class="space-y-8 flex flex-col w-full">
+    <div class="flex justify-end w-full pl-8 sm:pl-16"><div class="max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-5 py-4 shadow-sm"><p class="text-body-md font-body-md leading-relaxed text-on-surface">Can we patent our extract if we use simple classical water extraction (Kashaya)?</p><div class="flex items-center justify-end gap-1.5 mt-2"><span class="text-label-sm font-label-sm text-outline">11:42 AM</span><span class="material-symbols-outlined text-[14px] text-surface-tint">done_all</span></div></div></div>
+    <div class="flex items-start gap-3 w-full pr-2 sm:pr-8">
+      <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm"><span class="material-symbols-outlined text-[18px]">verified_user</span></div>
+      <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-6 sm:p-7 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-4"><div class="flex items-center gap-2"><span class="text-label-md font-label-md font-medium text-primary-container flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence</span><span class="text-outline text-label-sm">•</span><span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Grounded in Patents Act §3(p)</span></div></div>
+        <div class="space-y-4">
+          <p class="text-body-md font-body-md text-on-surface leading-relaxed">Under Section 3(p) of the Indian Patents Act, a standard aqueous Kashaya extraction is considered established traditional knowledge recorded in Charaka Samhita <span class="inline-flex items-center px-1.5 py-0.2 mx-0.5 rounded text-label-sm font-label-sm bg-surface-container text-primary font-mono border border-outline-variant">[¹]</span> and the Ayurvedic Pharmacopoeia of India <span class="inline-flex items-center px-1.5 py-0.2 mx-0.5 rounded text-label-sm font-label-sm bg-surface-container-low text-on-surface-variant font-mono border border-surface-container-highest">[²]</span>. A simple water extract lacks an inventive step and will face a strict patent bar.</p>
+          <div class="bg-surface-container-low/80 border border-surface-container-highest rounded-xl p-3.5 my-3 flex items-start gap-3"><span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5">menu_book</span><div class="flex-1"><div class="flex items-center justify-between"><span class="text-label-sm font-label-sm text-primary font-semibold">Citation [¹] Prior Art Verification</span><span class="text-label-sm font-label-sm font-mono text-outline">Verified Match</span></div><p class="text-body-md font-body-md text-on-surface mt-0.5 text-sm">Source: Charaka Samhita Chikitsa 1.2:14 (TKDL ID: AK/8412)</p><p class="text-label-sm font-label-sm text-on-surface-variant mt-1">Categorized: Classical decoction protocol. Direct statutory bar invoked under Indian Patents Act §3(p).</p></div></div>
+          <div class="bg-surface-container-lowest border-l-2 border-primary pl-4 py-2 mt-2"><p class="text-label-sm font-label-sm text-primary font-semibold tracking-wide uppercase">Strategic Recommendation</p><p class="text-body-md font-body-md text-on-surface mt-1"><span class="font-semibold text-primary">Strategic path:</span> Instead of a product patent, protect the proprietary extraction temperature and yield curve as a Trade Secret.</p></div>
+        </div>
+        <div class="mt-6 pt-4 border-t border-surface-container flex flex-wrap items-center justify-between gap-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm bg-primary-fixed/40 text-on-primary-fixed-variant border border-primary-fixed"><span class="material-symbols-outlined text-[13px] text-primary-container">verified</span>Confidence: 94% (Established Statute)</span>
+          <div class="flex items-center gap-3 text-label-sm font-label-sm text-on-surface-variant"><button onclick="navigate('dossiers')" class="hover:text-primary transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">bookmark_border</span>Save to Docket</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fixed bottom-0 left-0 right-0 z-30 pointer-events-none pb-4 pt-10 bg-gradient-to-t from-background via-background/95 to-transparent">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 pointer-events-auto">
+    <form class="bg-surface-container-lowest border border-surface-container-highest rounded-2xl shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08),0_2px_6px_-1px_rgba(0,0,0,0.04)] focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/10 transition-all p-2 flex items-center gap-2" onsubmit="event.preventDefault();">
+      <button class="p-2 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded-xl transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">attach_file</span></button>
+      <input class="flex-1 bg-transparent border-none text-body-md font-body-md text-on-surface placeholder:text-outline placeholder:text-opacity-70 focus:outline-none focus:ring-0 px-2 py-2" placeholder="Ask about IP law, TKDL prior art, or ABS compliance..." type="text"/>
+      <button class="bg-primary text-on-primary hover:bg-primary-container transition-all active:scale-[0.98] w-10 h-10 rounded-xl flex items-center justify-center shrink-0 shadow-sm" type="submit"><span class="material-symbols-outlined text-[18px]">arrow_upward</span></button>
+    </form>
+    <div class="text-center mt-2.5"><p class="text-label-sm font-label-sm text-outline">Information and source-based guidance — not legal, regulatory, or medical advice.</p></div>
+  </div>
+</div>
+</div>
+
+<!-- ===== INTAKE STEP 2: INGREDIENTS ===== -->
+<div id="page-intake-2" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 lg:py-10 flex flex-col">
+  <section class="mb-10 max-w-4xl mx-auto w-full">
+    <div class="relative">
+      <div class="flex items-center justify-between relative z-10">
+        <div class="flex flex-col items-center group"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-xs font-semibold shadow-sm ring-4 ring-surface"><span class="material-symbols-outlined text-sm">check</span></div><span class="mt-2 text-label-sm font-label-sm text-on-surface-variant">1. Botanical Identity</span></div>
+        <div class="flex flex-col items-center"><div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-semibold ring-4 ring-primary-fixed shadow-md"><span>2</span></div><span class="mt-2 text-label-sm font-label-sm text-primary font-semibold">2. Formulation &amp; Ingredients</span></div>
+        <div class="flex flex-col items-center group"><div class="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center text-xs font-medium ring-4 ring-surface"><span>3</span></div><span class="mt-2 text-label-sm font-label-sm text-outline">3. Core Claims</span></div>
+        <div class="flex flex-col items-center group"><div class="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center text-xs font-medium ring-4 ring-surface"><span>4</span></div><span class="mt-2 text-label-sm font-label-sm text-outline">4. Biological Source</span></div>
+        <div class="flex flex-col items-center group"><div class="w-8 h-8 rounded-full bg-surface-container text-outline flex items-center justify-center text-xs font-medium ring-4 ring-surface"><span>5</span></div><span class="mt-2 text-label-sm font-label-sm text-outline">5. Target Market</span></div>
+      </div>
+      <div class="absolute top-4 left-4 right-4 h-0.5 bg-surface-container-high -z-0"><div class="h-full bg-primary-container transition-all duration-500" style="width:25%;"></div></div>
+    </div>
+  </section>
+  <section class="max-w-4xl mx-auto w-full flex-1 flex flex-col justify-start">
+    <div class="mb-8">
+      <div class="inline-flex items-center gap-2 px-2.5 py-0.5 mb-3 rounded-full bg-surface-container text-label-sm font-label-sm text-on-surface-variant"><span>STEP 2 OF 5</span><span class="w-1 h-1 rounded-full bg-outline"></span><span>COMPOSITION SCREENING</span></div>
+      <h1 class="text-display-mobile lg:text-display font-display tracking-tight text-primary">What ingredients does it contain?</h1>
+      <p class="mt-2.5 text-body-md lg:text-body-lg font-body-md text-on-surface-variant max-w-2xl">Add the primary herbal taxa, specific plant parts, and sourcing methods for classical TKDL concordance screening.</p>
+    </div>
+    <div class="bg-surface-container-lowest rounded-xl border border-surface-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] p-6 lg:p-8 space-y-5">
+      <div class="hidden md:grid md:grid-cols-12 gap-4 pb-1 text-label-sm font-label-sm text-outline uppercase tracking-wider"><div class="col-span-5">Botanical Taxon / Herbal Entity</div><div class="col-span-3">Part Utilized</div><div class="col-span-3">Sourcing &amp; Provenance</div><div class="col-span-1 text-center">Action</div></div>
+      <div class="space-y-4" id="ingredient-rows">
+        <div class="ingredient-row p-4 rounded-lg bg-surface-bright border border-surface-container-high transition-all duration-200 hover:border-outline-variant grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center">
+          <div class="md:col-span-5 relative"><input class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all" type="text" value="Withania somnifera (Ashwagandha)"/></div>
+          <div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface"><option selected>Radix (Root)</option><option>Caulis (Stem)</option><option>Leaf</option><option>Fruit</option><option>Seed</option><option>Bark</option></select></div>
+          <div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface"><option selected>Cultivated</option><option>Wild-Harvested</option><option>Commercial Commodity</option></select></div>
+          <div class="md:col-span-1 flex justify-end md:justify-center"><button class="remove-row p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/30 transition-colors"><span class="material-symbols-outlined text-lg leading-none">close</span></button></div>
+        </div>
+        <div class="ingredient-row p-4 rounded-lg bg-surface-bright border border-surface-container-high transition-all duration-200 hover:border-outline-variant grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center">
+          <div class="md:col-span-5"><input class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface placeholder:text-outline/60" placeholder="e.g., Tinospora cordifolia (Guduchi)" type="text"/></div>
+          <div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface"><option disabled selected value="">Select part...</option><option>Caulis (Stem)</option><option>Radix (Root)</option><option>Leaf</option></select></div>
+          <div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md font-body-md text-on-surface"><option disabled selected value="">Select provenance...</option><option>Cultivated</option><option>Wild-Harvested</option><option>Commercial Commodity</option></select></div>
+          <div class="md:col-span-1 flex justify-end md:justify-center"><button class="remove-row p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/30 transition-colors"><span class="material-symbols-outlined text-lg leading-none">close</span></button></div>
+        </div>
+      </div>
+      <div class="pt-2"><button id="add-ingredient-btn" class="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-label-md font-label-md text-on-surface-variant hover:text-primary hover:bg-primary-container/5 transition-colors border border-dashed border-outline-variant hover:border-primary-container"><span class="material-symbols-outlined text-base">add</span><span>+ Add ingredient</span></button></div>
+    </div>
+    <div class="mt-6 p-4 rounded-lg bg-surface-container-low border border-surface-container flex items-start gap-3.5"><span class="material-symbols-outlined text-secondary mt-0.5 text-xl">shield</span><div class="text-body-md font-body-md text-on-surface-variant"><span class="font-medium text-on-surface">TKDL &amp; Biological Diversity Act alignment:</span> Each specified taxon is cross-referenced in real-time against Indian Biological Diversity Act (BDA 2002) accession databases.</div></div>
+  </section>
+  <div class="mt-12 max-w-4xl mx-auto w-full pt-6 border-t border-surface-variant flex flex-col sm:flex-row justify-between items-center gap-4">
+    <a onclick="navigate('dossiers')" class="cursor-pointer inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-label-md font-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-base">arrow_back</span><span>Back to Dossiers</span></a>
+    <div class="flex items-center gap-1.5 text-label-sm font-label-sm text-outline"><span class="material-symbols-outlined text-xs text-surface-tint">cloud_done</span><span>Auto-saved 1m ago</span></div>
+    <a onclick="navigate('intake-3')" class="cursor-pointer inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md hover:bg-primary transition-all duration-150 shadow-sm active:scale-[0.99]"><span>Continue to Core Claims</span><span class="material-symbols-outlined text-base">arrow_forward</span></a>
+  </div>
+</div>
+</div>
+
+<!-- ===== INTAKE STEP 3: CLAIMS ===== -->
+<div id="page-intake-3" class="page-section">
+<div class="max-w-4xl w-full mx-auto px-6 py-8 md:py-12 flex flex-col justify-start">
+  <div class="mb-8 max-w-2xl">
+    <h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg text-on-surface tracking-tight mb-2">What does it claim to do?</h1>
+    <p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">State your therapeutic or commercial indications. This informs whether your formulation falls under Section 3(p) prior art or Section 3(e) synergistic efficacy.</p>
+  </div>
+  <div class="mb-8 p-4 rounded-lg bg-surface-container-low border border-outline-variant/30 flex items-start gap-3.5"><span class="material-symbols-outlined text-secondary mt-0.5">policy</span><div class="text-body-md font-body-md text-on-surface-variant text-sm"><strong class="font-medium text-on-surface">Indian Patent Office S.3 Assessment Note:</strong> Purely herbal admixtures claiming broad therapeutic indications documented in TKDL are susceptible to Section 3(p) rejections unless distinct synergistic efficacy under 3(e) is articulated.</div></div>
+  <div class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6 md:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <form class="space-y-8" onsubmit="event.preventDefault();">
+      <div class="space-y-2.5">
+        <label class="text-label-md font-label-md text-on-surface font-medium flex items-center gap-1.5">Label / marketing claim <span class="text-secondary text-sm">*</span></label>
+        <textarea class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-3.5 text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all resize-y min-h-[100px]" placeholder="e.g. Supports natural stress relief, enhances cellular vitality..." rows="3"></textarea>
+      </div>
+      <div class="space-y-2.5">
+        <label class="text-label-md font-label-md text-on-surface font-medium">Scientific basis / hypothesis <span class="text-outline font-normal">(Optional)</span></label>
+        <textarea id="scientific_hypothesis" class="w-full bg-surface-container-lowest border border-outline-variant/50 rounded-lg p-3.5 text-body-md font-body-md text-on-surface placeholder:text-outline/70 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all resize-y min-h-[120px]" placeholder="e.g. Aqueous-ethanol extraction standardizes Withanolide D glycosides to 2.8% w/w..." rows="4"></textarea>
+      </div>
+      <div class="pt-2 border-t border-surface-container flex flex-wrap items-center gap-2 text-label-sm font-label-sm">
+        <span class="text-outline">Suggested keywords:</span>
+        <button type="button" onclick="appendKeyword('Neuro-protective')" class="px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 hover:bg-surface-container text-on-surface-variant transition-colors">+ Neuro-protective</button>
+        <button type="button" onclick="appendKeyword('Bio-availability Enhancement')" class="px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 hover:bg-surface-container text-on-surface-variant transition-colors">+ Bio-availability Enhancement</button>
+        <button type="button" onclick="appendKeyword('Anti-inflammatory Cascade')" class="px-2.5 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 hover:bg-surface-container text-on-surface-variant transition-colors">+ Anti-inflammatory Cascade</button>
+      </div>
+    </form>
+  </div>
+  <div class="mt-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-4 py-3">
+    <a onclick="navigate('intake-2')" class="cursor-pointer inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-label-md font-label-md text-on-surface-variant hover:text-primary hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-sm">arrow_back</span><span>Back to Ingredients</span></a>
+    <div class="flex items-center gap-2 text-label-sm font-label-sm text-outline"><span class="w-2 h-2 rounded-full bg-surface-tint"></span><span>Auto-saved just now</span></div>
+    <button onclick="navigate('intake-4')" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary-container text-on-primary rounded-lg font-label-md text-label-md shadow-sm hover:opacity-95 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-150"><span>Continue to Biological Source</span><span class="material-symbols-outlined text-sm">arrow_forward</span></button>
+  </div>
+</div>
+</div>
+
+<!-- ===== INTAKE STEP 4: BIOLOGICAL SOURCE ===== -->
+<div id="page-intake-4" class="page-section">
+<div class="w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+  <section class="mb-8 max-w-2xl">
+    <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-container border border-outline-variant/30 text-label-sm font-label-sm text-on-surface-variant mb-3"><span class="w-1.5 h-1.5 rounded-full bg-secondary-container"></span>Step 4 of 5 • Provenance &amp; Regulatory Check</div>
+    <h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mb-3">Where did the biological material come from?</h1>
+    <p class="text-body-md font-body-md text-outline">Under the Biological Diversity Act 2002, biological sourcing determines whether mandatory SBB or NBA approvals apply.</p>
+  </section>
+  <section class="bg-surface-container-lowest border border-outline-variant/40 rounded-xl p-6 sm:p-8 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <form class="space-y-7" onsubmit="event.preventDefault();">
+      <div class="space-y-2">
+        <label class="block text-label-md font-label-md text-on-surface">Biological material acquisition method <span class="text-error">*</span></label>
+        <select class="w-full h-11 px-3.5 text-body-md font-body-md text-on-surface bg-surface-container-lowest rounded-lg border border-outline-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all"><option selected value="wild-harvested">Wild-Harvested</option><option>Cultivated</option><option>Commercial Commodity</option><option>Community-Sourced</option><option>Imported</option></select>
+      </div>
+      <div class="space-y-2">
+        <label class="block text-label-md font-label-md text-on-surface">State / region of origin <span class="text-error">*</span></label>
+        <input class="w-full h-11 px-3.5 text-body-md font-body-md text-on-surface bg-surface-container-lowest rounded-lg border border-outline-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all" type="text" value="Western Ghats, Satara District, Maharashtra"/>
+      </div>
+      <div class="space-y-2">
+        <label class="block text-label-md font-label-md text-on-surface">Specific harvest zone or local panchayat (Optional)</label>
+        <input class="w-full h-11 px-3.5 text-body-md font-body-md text-on-surface placeholder:text-outline/60 bg-surface-container-lowest rounded-lg border border-outline-variant/60 focus:border-primary-container focus:ring-2 focus:ring-primary-container/10 transition-all" placeholder="e.g. Mahabaleshwar forest periphery BMC jurisdiction" type="text"/>
+      </div>
+      <div class="border border-outline-variant/50 bg-surface-container-low/70 rounded-xl p-4"><div class="flex items-start gap-3.5"><div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center shrink-0 border border-outline-variant/40 text-on-surface-variant"><span class="material-symbols-outlined text-[18px]">balance</span></div><div class="space-y-1"><h2 class="text-label-md font-label-md font-semibold text-on-surface-variant">This may trigger ABS / biodiversity compliance review.</h2><p class="text-body-md font-body-md text-on-surface-variant text-[14px] leading-relaxed">Section 3 &amp; 4 of the NBA Act 2002 require intimation or approval for wild-collected bio-resources before commercialization or patent filing.</p></div></div></div>
+      <div class="pt-4 border-t border-outline-variant/30 flex flex-col-reverse sm:flex-row items-center justify-between gap-4">
+        <button onclick="navigate('intake-3')" type="button" class="w-full sm:w-auto px-4 h-10 rounded-lg text-label-md font-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center justify-center gap-1.5"><span class="material-symbols-outlined text-[18px]">arrow_back</span><span>Back to Core Claims</span></button>
+        <button onclick="navigate('intake-5')" type="button" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary hover:opacity-95 transition-all text-label-md font-label-md font-medium flex items-center gap-2 shadow-sm"><span>Continue to Target Market</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+      </div>
+    </form>
+  </section>
+</div>
+</div>
+
+<!-- ===== INTAKE STEP 5: TARGET MARKET ===== -->
+<div id="page-intake-5" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
+  <div class="max-w-3xl mb-8">
+    <div class="inline-flex items-center space-x-2 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm mb-3"><span class="material-symbols-outlined text-sm">verified_user</span><span>Final Commercial Alignment</span></div>
+    <h1 class="text-display font-display font-bold tracking-tight text-primary mb-2">Where do you want to sell this?</h1>
+    <p class="text-body-lg font-body-lg text-on-surface-variant">Select your commercial jurisdictions to tailor patent non-obviousness tests and biological export clearances.</p>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <section class="lg:col-span-7 flex flex-col space-y-6">
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] p-6 sm:p-8">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-outline-variant/30 gap-4">
+          <div><h2 class="text-headline-sm font-headline-sm font-semibold text-primary">Territory Scope</h2><p class="text-label-md font-label-md text-on-surface-variant">Define cross-border intellectual property exposure.</p></div>
+        </div>
+        <div class="mt-6 space-y-3">
+          <label class="relative flex items-start p-4 rounded-lg border border-primary-container/30 bg-primary-fixed/10 hover:bg-primary-fixed/20 transition-all cursor-pointer"><div class="flex items-center h-6"><input checked type="checkbox" class="h-4 w-4 rounded border-outline-variant text-primary-container"/></div><div class="ml-3.5 flex-1"><span class="text-body-md font-semibold text-primary">United States</span> <span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant/40 ml-2">USPTO / FDA</span><p class="text-label-md text-on-surface-variant mt-0.5">Automated screening against 35 U.S.C. 101/103 prior art.</p></div></label>
+          <label class="relative flex items-start p-4 rounded-lg border border-primary-container/30 bg-primary-fixed/10 hover:bg-primary-fixed/20 transition-all cursor-pointer"><div class="flex items-center h-6"><input checked type="checkbox" class="h-4 w-4 rounded border-outline-variant text-primary-container"/></div><div class="ml-3.5 flex-1"><span class="text-body-md font-semibold text-primary">European Union</span> <span class="inline-flex items-center px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-surface-container text-on-surface-variant border border-outline-variant/40 ml-2">EMA / THMPD</span><p class="text-label-md text-on-surface-variant mt-0.5">Traditional Herbal Medicinal Products Directive prerequisites.</p></div></label>
+          <label class="relative flex items-start p-4 rounded-lg border border-outline-variant/50 bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer"><div class="flex items-center h-6"><input type="checkbox" class="h-4 w-4 rounded border-outline-variant text-primary-container"/></div><div class="ml-3.5 flex-1"><span class="text-body-md font-medium text-on-surface">United Kingdom</span><p class="text-label-md text-outline mt-0.5">Post-Brexit Traditional Herbal Registration scheme.</p></div></label>
+          <label class="relative flex items-start p-4 rounded-lg border border-outline-variant/50 bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer"><div class="flex items-center h-6"><input type="checkbox" class="h-4 w-4 rounded border-outline-variant text-primary-container"/></div><div class="ml-3.5 flex-1"><span class="text-body-md font-medium text-on-surface">Canada</span><p class="text-label-md text-outline mt-0.5">Health Canada NHP monographic alignment check.</p></div></label>
+        </div>
+      </div>
+    </section>
+    <aside class="lg:col-span-5 flex flex-col space-y-6">
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] p-6 sm:p-7">
+        <div class="flex items-center justify-between pb-4 border-b border-outline-variant/30"><div class="flex items-center space-x-2"><span class="material-symbols-outlined text-primary text-xl">fact_check</span><h2 class="text-headline-sm font-headline-sm font-semibold text-primary">Review your submission</h2></div><span class="px-2.5 py-0.5 rounded-full bg-primary-fixed text-primary font-label-sm text-label-sm">4 of 5 Verified</span></div>
+        <div class="divide-y divide-outline-variant/25 mt-4">
+          <div class="py-3.5"><span class="text-label-sm font-label-sm tracking-wider uppercase text-outline">Step 1: Botanical Basics</span><p class="text-body-md font-medium text-on-surface mt-1">Ashwagandha-Guduchi Rejuvenation Elixir</p></div>
+          <div class="py-3.5"><span class="text-label-sm font-label-sm tracking-wider uppercase text-outline">Step 2: Ingredients (2 items)</span><p class="text-body-md font-medium text-on-surface mt-1">Withania somnifera (Radix, Cultivated)</p></div>
+          <div class="py-3.5"><span class="text-label-sm font-label-sm tracking-wider uppercase text-outline">Step 3: Core Claims</span><p class="text-body-md text-on-surface mt-1 line-clamp-2">"Supports natural stress relief and enhances cellular vitality..."</p></div>
+          <div class="py-3.5"><span class="text-label-sm font-label-sm tracking-wider uppercase text-outline">Step 4: Biological Source</span><p class="text-body-md text-on-surface font-medium mt-1">Wild-Harvested · Western Ghats, Maharashtra</p><span class="inline-flex items-center w-fit px-2 py-0.5 rounded-full text-label-sm font-label-sm bg-secondary-fixed text-on-secondary-fixed-variant border border-secondary-fixed-dim/50 mt-1"><span class="material-symbols-outlined text-xs mr-1">warning</span>ABS Review Triggered</span></div>
+          <div class="pt-3.5"><span class="text-label-sm font-label-sm tracking-wider uppercase text-outline">Step 5: Commercial Scope</span><p class="text-body-md font-semibold text-primary mt-1 flex items-center"><span class="w-2 h-2 rounded-full bg-primary mr-2"></span>India + USA, EU</p></div>
+        </div>
+      </div>
+      <div class="flex flex-col space-y-4 pt-2">
+        <button onclick="navigate('tkdl')" class="w-full bg-primary-container hover:bg-primary text-on-primary rounded-lg py-3.5 px-6 shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-[0.99] flex flex-col items-center justify-center space-y-1 group"><span class="text-body-lg font-semibold flex items-center">Submit for Classification<span class="material-symbols-outlined ml-2 text-base group-hover:translate-x-1 transition-transform">arrow_forward</span></span><span class="text-label-sm font-label-sm text-primary-fixed-dim tracking-wide opacity-90">Initiate CSIR-TKDL &amp; Patents Act §3(p) Scrutiny</span></button>
+        <div class="flex items-center justify-between px-1">
+          <a onclick="navigate('intake-4')" class="cursor-pointer text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors flex items-center py-2"><span class="material-symbols-outlined text-sm mr-1.5">arrow_back</span>Back to Biological Source</a>
+          <span class="text-label-sm font-label-sm text-outline flex items-center"><span class="material-symbols-outlined text-xs mr-1">lock</span>Draft Autosaved</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+
+<!-- ===== TKDL PRIOR ART ===== -->
+<div id="page-tkdl" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10 space-y-8">
+  <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
+    <div>
+      <nav class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant"><span onclick="navigate('dossiers')" class="hover:text-primary-container cursor-pointer transition-colors">Docket #AYU-2024-88</span><span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span><span class="text-primary-container font-semibold">Prior-Art Search</span></nav>
+      <h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mt-2">Traditional Knowledge Digital Library Inquiry</h1>
+    </div>
+    <span class="text-label-sm font-label-sm bg-surface-container-lowest text-on-surface-variant px-3 py-1 rounded-full border border-outline-variant">Database Rev: CSIR-TKDL v4.12</span>
+  </div>
+  <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <form class="flex flex-col md:flex-row gap-3" onsubmit="event.preventDefault();"><div class="relative flex-1"><div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">search</span></div><input class="block w-full pl-11 pr-24 py-3.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded-lg border border-outline-variant placeholder:text-on-surface-variant/60 focus:outline-none focus:border-primary-container focus:ring-4 focus:ring-primary-container/10 transition-all" placeholder="TKDL:[Ashwagandha] AND CLAIM:[Rasayana]..." type="text" value="TKDL:[Withania somnifera] AND CLAIM:[Rasayana]"/></div><button class="h-12 px-6 bg-primary-container text-on-primary rounded-lg text-label-md font-label-md font-semibold hover:bg-primary transition-all flex items-center justify-center gap-2 shadow-sm" type="submit"><span class="material-symbols-outlined text-[18px]">manage_search</span>Search TKDL</button></form>
+  </section>
+  <section class="space-y-4">
+    <div class="flex items-center justify-between pb-2 border-b border-outline-variant"><div class="flex items-center gap-2.5"><span class="material-symbols-outlined text-primary-container text-[20px]">library_books</span><p class="text-body-md font-body-md text-on-surface">Showing <strong class="font-semibold text-primary">4 classical citations</strong> for <span class="italic text-on-surface-variant">Withania somnifera formulation</span></p></div></div>
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant divide-y divide-outline-variant overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+      <article class="p-5 sm:p-6 hover:bg-surface transition-colors"><div class="space-y-2"><div class="flex flex-wrap items-center gap-3"><h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">Charaka Samhita — Cikitsasthana 1.1-38</h2><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-semibold bg-[rgba(232,163,61,0.14)] text-[#996515] border border-[rgba(232,163,61,0.3)]">Classical Overlap Flagged</span></div><p class="text-body-md font-body-md text-on-surface-variant pt-1">Classical formulation context: root powder of <em>Withania somnifera</em> processed with cow milk and clarified butter for cellular rejuvenation. Direct overlap with Patent Claim 1–4.</p><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline mt-2"><span>Relevance Score: 98.4%</span></div></div></article>
+      <article class="p-5 sm:p-6 hover:bg-surface transition-colors"><div class="space-y-2"><div class="flex flex-wrap items-center gap-3"><h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">Sushruta Samhita — Sutrasthana 46.12</h2><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">No Direct Claim Conflict</span></div><p class="text-body-md font-body-md text-on-surface-variant pt-1">Rasayana preparatory protocol excerpt: root bark extracts alongside honey in therapeutic convalescence.</p><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline mt-2"><span>Relevance Score: 76.1%</span></div></div></article>
+      <article class="p-5 sm:p-6 hover:bg-surface transition-colors"><div class="space-y-2"><div class="flex flex-wrap items-center gap-3"><h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">Bhavaprakasha Nighantu — Guduchyadi Varga</h2><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">Prior Knowledge Cited</span></div><p class="text-body-md font-body-md text-on-surface-variant pt-1">Botanical synergy notes: Ashwagandha paired with Guduchi in immune modulating tonics. Defensive prior publication for composite botanical combinations.</p><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline mt-2"><span>Relevance Score: 64.8%</span></div></div></article>
+      <article class="p-5 sm:p-6 hover:bg-surface transition-colors"><div class="space-y-2"><div class="flex flex-wrap items-center gap-3"><h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold tracking-tight">Ashtanga Hridaya — Uttarasthana 39</h2><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-label-sm font-label-sm font-medium bg-surface-container text-on-surface-variant border border-outline-variant">General Usage</span></div><p class="text-body-md font-body-md text-on-surface-variant pt-1">Adjuvant piperine processing: black pepper with revitalizing tubers for enhanced systemic absorption. Corresponds to dependent claim 7.</p><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline mt-2"><span>Relevance Score: 52.3%</span></div></div></article>
+    </div>
+  </section>
+  <section class="bg-surface-container-low border border-outline-variant rounded-xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-3 text-on-surface"><span class="material-symbols-outlined text-primary-container text-[24px]">folder_special</span><div><h3 class="text-body-md font-body-md font-semibold text-primary">Dossier Prior-Art Integration</h3><p class="text-label-md font-label-md text-on-surface-variant">4 classical citations marked for inclusion into Official AYUSH IP Examination Report.</p></div></div>
+    <div class="flex items-center gap-3 w-full sm:w-auto"><button onclick="navigate('abs')" class="flex-1 sm:flex-initial h-10 px-5 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md font-semibold hover:bg-primary transition-all flex items-center justify-center gap-2 shadow-sm"><span class="material-symbols-outlined text-[18px]">save</span>Save Citations to Dossier</button></div>
+  </section>
+</div>
+</div>
+
+<!-- ===== ABS BIODIVERSITY CHECK ===== -->
+<div id="page-abs" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-8 py-8 md:py-10">
+  <div class="mb-6 flex flex-wrap items-center justify-between gap-4"><div class="flex items-center gap-2 text-label-md font-label-md text-on-surface-variant"><a onclick="navigate('dossiers')" class="hover:text-primary-container transition-colors cursor-pointer">Dockets</a><span class="text-outline-variant">/</span><span class="text-on-surface font-medium">Access &amp; Benefit Sharing (ABS) Check</span></div></div>
+  <div class="mb-8"><h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">Docket #AYU-2024-88 — Ashwagandha-Guduchi Formulation</h1><p class="text-body-md font-body-md text-on-surface-variant mt-1">Biological resource origin audit and statutory benefit-sharing compliance workflow.</p></div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <div class="lg:col-span-8 flex flex-col gap-8">
+      <section class="bg-surface-container-lowest rounded-2xl p-7 md:p-8 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-outline-variant/60">
+          <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container border border-outline-variant"><span class="material-symbols-outlined text-[22px]">policy</span></div><div><span class="text-label-sm font-label-sm text-outline tracking-wider uppercase">Statutory Determination</span><h2 class="text-headline-sm font-headline-sm text-on-surface">Biological Sourcing Assessment: In Review</h2></div></div>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[rgba(232,163,61,0.12)] border border-secondary/20 text-secondary text-label-md font-label-md font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>Form-1 SBB Clearance Required</span>
+        </div>
+        <div class="pt-5"><p class="text-body-md font-body-md text-on-surface leading-relaxed">Pursuant to Sections 3 and 4 of the NBA Act 2002, commercial utilization of biological resources harvested from Indian natural habitats mandates prior intimation to the State Biodiversity Board. Wild-sourced Tinospora cordifolia (Guduchi) triggers mandatory Form-1 clearance before patent prosecution.</p></div>
+      </section>
+      <section class="bg-surface-container-lowest rounded-2xl p-7 md:p-8 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+        <div class="flex items-center justify-between mb-6"><div><h3 class="text-headline-sm font-headline-sm text-on-surface">Compliance Verification Checklist</h3><p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Mandatory provenance points under Biological Diversity Rules, 2004.</p></div><span class="text-label-md font-label-md text-on-surface-variant font-medium bg-surface-container px-3 py-1 rounded-full border border-outline-variant">3 of 4 Verified</span></div>
+        <div class="space-y-3">
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface border border-transparent"><div class="mt-0.5 w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[16px]">check</span></div><div class="flex-1"><p class="text-label-md font-label-md text-on-surface font-semibold">Botanical source provenance documented</p><p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Cultivated origin verified in Neemuch, Madhya Pradesh.</p></div><span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded">Verified</span></div>
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface border border-transparent"><div class="mt-0.5 w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[16px]">check</span></div><div class="flex-1"><p class="text-label-md font-label-md text-on-surface font-semibold">Commercial invoice APMC registration verified</p></div><span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded">Verified</span></div>
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface-container-low border border-secondary/30"><div class="mt-0.5 w-5 h-5 rounded border-2 border-secondary bg-surface-container-lowest flex items-center justify-center"><span class="w-2 h-2 rounded-sm bg-secondary"></span></div><div class="flex-1"><p class="text-label-md font-label-md text-on-surface font-semibold">SBB intimation filing for wild-harvested Guduchi stem</p><p class="text-body-md font-body-md text-on-surface-variant text-sm mt-0.5">Form-1 filing mandatory prior to claim 4 assertion.</p></div><span class="text-label-sm font-label-sm text-secondary bg-[rgba(232,163,61,0.12)] px-2 py-0.5 rounded font-medium">Attention Required</span></div>
+          <div class="flex items-start gap-3.5 p-4 rounded-xl bg-surface border border-transparent"><div class="mt-0.5 w-5 h-5 rounded bg-primary-container flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[16px]">check</span></div><div class="flex-1"><p class="text-label-md font-label-md text-on-surface font-semibold">Indian research entity status confirmed</p></div><span class="text-label-sm font-label-sm text-primary-container bg-primary-fixed/50 px-2 py-0.5 rounded">Verified</span></div>
+        </div>
+      </section>
+    </div>
+    <aside class="lg:col-span-4 flex flex-col gap-6">
+      <div class="bg-surface-container-lowest rounded-2xl p-6 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] sticky top-24">
+        <div class="flex items-center gap-2.5 pb-4 border-b border-outline-variant"><span class="material-symbols-outlined text-primary-container text-[22px]">assignment_turned_in</span><h4 class="text-headline-sm font-headline-sm text-on-surface text-lg">Next Action Step</h4></div>
+        <div class="py-5"><p class="text-body-md font-body-md text-on-surface leading-normal text-sm">Generate the pre-filled <strong>Form-1 Intimation Dossier</strong> for submission to the Maharashtra State Biodiversity Board.</p></div>
+        <div class="flex flex-col gap-3 pt-2">
+          <button class="w-full h-10 px-4 bg-primary-container hover:bg-[#183024] text-on-primary font-label-md text-label-md font-medium rounded-lg transition-all flex items-center justify-center gap-2 shadow-sm"><span class="material-symbols-outlined text-[18px]">description</span>Generate SBB Form-1 Draft</button>
+          <button onclick="navigate('escalation')" class="w-full h-10 px-4 bg-surface-container-lowest hover:bg-surface border border-outline-variant text-on-surface font-label-md text-label-md font-medium rounded-lg transition-colors flex items-center justify-center gap-2"><span class="material-symbols-outlined text-[18px] text-outline">escalator_warning</span>Escalate to Counsel</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+</div>
+
+<!-- ===== ESCALATION CONFIRMATION ===== -->
+<div id="page-escalation" class="page-section">
+<div class="flex-1 flex flex-col justify-center items-center px-6 py-12 max-w-2xl mx-auto text-center">
+  <div class="w-16 h-16 rounded-full bg-primary-fixed/20 text-primary-container flex items-center justify-center mx-auto mb-6"><span class="material-symbols-outlined text-[36px]">check_circle</span></div>
+  <h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mb-3">Escalation Successfully Submitted</h1>
+  <p class="text-body-lg font-body-lg text-on-surface-variant max-w-md leading-relaxed">Docket #AYU-2024-88 has been escalated to Empaneled Legal Counsel Adv. K. Ramanathan for Section 39 Patent Act review and ABS compliance advisory.</p>
+  <div class="mt-8 bg-surface-container-lowest rounded-xl border border-outline-variant p-6 w-full max-w-md shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <div class="space-y-3 text-left">
+      <div class="flex justify-between text-label-md font-label-md"><span class="text-on-surface-variant">Assigned Counsel:</span><span class="text-on-surface font-semibold">Adv. K. Ramanathan</span></div>
+      <div class="flex justify-between text-label-md font-label-md"><span class="text-on-surface-variant">Tier:</span><span class="text-on-surface font-semibold">Tier 02 – Advisory</span></div>
+      <div class="flex justify-between text-label-md font-label-md"><span class="text-on-surface-variant">Expected SLA:</span><span class="text-on-surface font-semibold">48 Business Hours</span></div>
+      <div class="flex justify-between text-label-md font-label-md"><span class="text-on-surface-variant">Audit Trail:</span><span class="text-primary font-semibold">SHA-256 Sealed</span></div>
+    </div>
+  </div>
+  <div class="mt-8 flex flex-col sm:flex-row items-center gap-4">
+    <button onclick="navigate('dossiers')" class="h-10 px-6 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-all shadow-sm flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">arrow_back</span>Return to My Dossiers</button>
+    <button onclick="navigate('audit')" class="h-10 px-6 rounded-lg bg-surface border border-outline-variant text-on-surface font-label-md text-label-md hover:bg-surface-container-low transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">verified_user</span>View Audit Trail</button>
+  </div>
+</div>
+</div>
+
+<!-- ===== AUDIT LOG ===== -->
+<div id="page-audit" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
+  <section class="mb-8">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline uppercase tracking-wider mb-2"><span>Sovereign Governance</span><span>/</span><span class="text-on-surface-variant font-medium">Statutory Audit Trail</span></div><h1 class="text-headline-lg font-headline-lg text-primary tracking-tight">Immutable Platform Audit Log</h1><p class="text-body-md font-body-md text-on-surface-variant mt-1.5 max-w-3xl">Cryptographically sealed, chronological audit trail recording all sovereign patent access and verification events.</p></div>
+    </div>
+  </section>
+  <section class="bg-surface-container-lowest rounded-xl border border-surface-container-highest shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden">
+    <div class="px-6 py-3 bg-surface-container-low border-b border-surface-container-highest text-label-sm font-label-sm text-outline"><span>Reverse-Chronological Compliance Events</span></div>
+    <div class="divide-y divide-surface-container-highest">
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span><span>Today, 14:32 IST</span></div><div class="flex-1 px-6 text-body-md truncate"><span class="font-medium text-primary">Dossier AYU-2025-084B escalated to Empaneled Counsel</span></div><div class="text-label-sm text-outline font-mono">e5c3...b189</div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span>Today, 13:19 IST</span></div><div class="flex-1 px-6 text-body-md truncate">Corpus updated: CSIR-TKDL Gazette Supplement v4.3 indexed</div><div class="text-label-sm text-outline font-mono">77d1...4ac0</div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span>Today, 11:05 IST</span></div><div class="flex-1 px-6 text-body-md truncate"><span class="font-medium text-primary">Classification generated: AYU-2025-991C</span> <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary/10 text-secondary text-label-sm">§3(p)</span></div><div class="text-label-sm text-outline font-mono">4a8f...92df</div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span>24 Feb, 17:48 IST</span></div><div class="flex-1 px-6 text-body-md truncate">DSC Token cryptographic signature verified: Dr. Ananya Sharma</div><div class="text-label-sm text-outline font-mono">c2e0...815b</div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span>24 Feb, 14:10 IST</span></div><div class="flex-1 px-6 text-body-md truncate"><span class="font-medium text-primary">ABS Form-1 draft exported for Maharashtra SBB</span></div><div class="text-label-sm text-outline font-mono">18f6...ec31</div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-2 font-label-md text-label-md text-on-surface"><span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span><span>23 Feb, 16:22 IST</span></div><div class="flex-1 px-6 text-body-md truncate">User account provisioned: Adv. Vikramaditya Sen (Facilitator)</div><div class="text-label-sm text-outline font-mono">6b22...179c</div></div>
+    </div>
+    <div class="px-6 py-4 bg-surface-container-low border-t border-surface-container-highest flex items-center justify-between"><div class="flex items-center gap-2 text-label-sm font-label-sm text-on-surface-variant"><span class="material-symbols-outlined text-[16px] text-primary">verified</span>Ledger Seal Intact: All entries match cryptographic state root</div><span class="text-label-md font-label-md text-on-surface-variant">Showing 1–6 of 2,419</span></div>
+  </section>
+</div>
+</div>
+
+<!-- ===== ADMIN: SOURCE CORPUS ===== -->
+<div id="page-corpus" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 space-y-8">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline"><span onclick="navigate('admin')" class="hover:text-primary cursor-pointer">Governance</span><span>/</span><span class="text-on-surface font-medium">Source Corpus Management</span></div><h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mt-1">Authoritative Document Corpora</h1><p class="text-body-md font-body-md text-on-surface-variant mt-1">Manage statutory source texts, TKDL gazette revisions, and regulatory rule matrices.</p></div>
+    <button class="h-10 px-5 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md hover:bg-primary transition-all shadow-sm flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">add</span>Add Source Document</button>
+  </div>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <div class="divide-y divide-outline-variant">
+      <div onclick="navigate('source-edit')" class="cursor-pointer h-16 px-6 flex items-center justify-between hover:bg-surface transition-colors group"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary-container">menu_book</span><div><span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">CSIR-TKDL Ayurveda Samhita Corpus</span><span class="text-label-sm text-on-surface-variant block">v4.2 • 430,000+ Slokas • Last synced 04:00 IST</span></div></div><span class="text-label-sm bg-primary-fixed/50 text-primary-container px-2.5 py-0.5 rounded-full">Active</span></div>
+      <div class="h-16 px-6 flex items-center justify-between hover:bg-surface transition-colors group"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary-container">gavel</span><div><span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">Indian Patents Act (1970) Rule Matrix</span><span class="text-label-sm text-on-surface-variant block">Section 3(p) + 3(e) Guidelines • CGPDTM Official</span></div></div><span class="text-label-sm bg-primary-fixed/50 text-primary-container px-2.5 py-0.5 rounded-full">Active</span></div>
+      <div class="h-16 px-6 flex items-center justify-between hover:bg-surface transition-colors group"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-primary-container">nature_people</span><div><span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">NBA Biological Diversity Act 2002 Registers</span><span class="text-label-sm text-on-surface-variant block">Including 2023 Amendment Rules • State Board Forms</span></div></div><span class="text-label-sm bg-primary-fixed/50 text-primary-container px-2.5 py-0.5 rounded-full">Active</span></div>
+      <div class="h-16 px-6 flex items-center justify-between hover:bg-surface transition-colors group"><div class="flex items-center gap-4"><span class="material-symbols-outlined text-secondary">warning</span><div><span class="text-body-md font-medium text-on-surface group-hover:text-primary transition-colors">TKDL Gazette Supplement v4.3</span><span class="text-label-sm text-on-surface-variant block">1,420 new slokas • Pending verification</span></div></div><span class="text-label-sm bg-secondary-container/20 text-secondary px-2.5 py-0.5 rounded-full">Needs Review</span></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ===== ADMIN: SOURCE DETAIL EDIT ===== -->
+<div id="page-source-edit" class="page-section">
+<div class="w-full max-w-4xl mx-auto px-6 lg:px-12 py-10 space-y-8">
+  <div><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline"><span onclick="navigate('admin')" class="hover:text-primary cursor-pointer">Governance</span><span>/</span><span onclick="navigate('corpus')" class="hover:text-primary cursor-pointer">Source Corpus</span><span>/</span><span class="text-on-surface font-medium">Edit Source</span></div><h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mt-2">CSIR-TKDL Ayurveda Samhita Corpus</h1></div>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] p-6 sm:p-8">
+    <form class="space-y-6" onsubmit="event.preventDefault();">
+      <div class="space-y-2"><label class="text-label-md font-label-md text-on-surface font-medium">Source Name</label><input class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" value="CSIR-TKDL Ayurveda Samhita Corpus"/></div>
+      <div class="space-y-2"><label class="text-label-md font-label-md text-on-surface font-medium">Version</label><input class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" value="v4.2"/></div>
+      <div class="space-y-2"><label class="text-label-md font-label-md text-on-surface font-medium">Document Category</label><select class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg"><option selected>Traditional Knowledge Gazette</option><option>Patent Office Guidance</option><option>Biodiversity Regulation</option><option>Pharmacopeia</option></select></div>
+      <div class="space-y-2"><label class="text-label-md font-label-md text-on-surface font-medium">Sync Endpoint URL</label><input class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-mono text-sm" value="https://tkdl.res.in/api/v4/corpus/ayurveda"/></div>
+      <div class="space-y-2"><label class="text-label-md font-label-md text-on-surface font-medium">SHA-256 Verification Hash</label><input class="w-full h-11 px-3.5 text-body-md bg-surface-container-lowest border border-outline-variant/60 rounded-lg font-mono text-sm text-outline" value="9fa2b7c3e8d14f6a0b5c2d9e1f4a7b3c6d8e0f1a2b4c5d7e8f9a0b1c2d3e4cc17" readonly/></div>
+      <div class="pt-4 border-t border-outline-variant/30 flex items-center justify-between">
+        <button type="button" onclick="navigate('corpus')" class="px-4 h-10 rounded-lg text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors flex items-center gap-1.5"><span class="material-symbols-outlined text-[18px]">arrow_back</span>Cancel</button>
+        <button type="button" onclick="navigate('corpus')" class="px-5 h-10 rounded-lg bg-primary-container text-on-primary text-label-md font-medium hover:bg-primary transition-all shadow-sm flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">save</span>Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- ===== ADMIN: USER & ROLE MANAGEMENT ===== -->
+<div id="page-users" class="page-section">
+<div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-10 space-y-8">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div><div class="flex items-center gap-2 text-label-sm font-label-sm text-outline"><span onclick="navigate('admin')" class="hover:text-primary cursor-pointer">Governance</span><span>/</span><span class="text-on-surface font-medium">User &amp; Role Management</span></div><h1 class="text-headline-lg font-headline-lg text-primary tracking-tight mt-1">Platform Users &amp; Access Tiers</h1><p class="text-body-md font-body-md text-on-surface-variant mt-1">Manage researcher, facilitator, and administrator accounts across sovereign access control.</p></div>
+    <button class="h-10 px-5 rounded-lg bg-primary-container text-on-primary text-label-md font-label-md hover:bg-primary transition-all shadow-sm flex items-center gap-2"><span class="material-symbols-outlined text-[18px]">person_add</span>Invite User</button>
+  </div>
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5"><div class="text-headline-lg font-headline-lg text-primary">84</div><div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mt-1">Total Users</div></div>
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5"><div class="text-headline-lg font-headline-lg text-primary">62</div><div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mt-1">Researchers</div></div>
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5"><div class="text-headline-lg font-headline-lg text-primary">18</div><div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mt-1">Facilitators</div></div>
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5"><div class="text-headline-lg font-headline-lg text-primary">4</div><div class="text-label-sm font-label-sm text-outline uppercase tracking-wider mt-1">Administrators</div></div>
+  </div>
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+    <div class="px-6 py-3 bg-surface-container-low border-b border-outline-variant text-label-sm font-label-sm text-outline flex items-center justify-between"><span>Active Users</span><span>Sorted by Last Active</span></div>
+    <div class="divide-y divide-outline-variant">
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-label-sm font-semibold">AS</div><div><span class="text-body-md font-medium text-on-surface">Dr. Ananya Sharma</span><span class="text-label-sm text-on-surface-variant block">ananya.sharma@ayush.gov.in</span></div></div><div class="flex items-center gap-4"><span class="text-label-sm bg-primary-fixed/50 text-primary-container px-2.5 py-0.5 rounded-full">Researcher</span><span class="text-label-sm text-outline">Active 2h ago</span></div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-label-sm font-semibold">KR</div><div><span class="text-body-md font-medium text-on-surface">Adv. K. Ramanathan</span><span class="text-label-sm text-on-surface-variant block">k.ramanathan@iplaw.in</span></div></div><div class="flex items-center gap-4"><span class="text-label-sm bg-secondary-container/20 text-secondary px-2.5 py-0.5 rounded-full">Facilitator</span><span class="text-label-sm text-outline">Active 5h ago</span></div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-label-sm font-semibold">RV</div><div><span class="text-body-md font-medium text-on-surface">Dr. R. Varma</span><span class="text-label-sm text-on-surface-variant block">r.varma@sakti-admin.gov.in</span></div></div><div class="flex items-center gap-4"><span class="text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-2.5 py-0.5 rounded-full">Admin</span><span class="text-label-sm text-outline">Active 1d ago</span></div></div>
+      <div class="h-14 px-6 flex items-center justify-between hover:bg-surface transition-colors"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center text-label-sm font-semibold">VS</div><div><span class="text-body-md font-medium text-on-surface">Adv. Vikramaditya Sen</span><span class="text-label-sm text-on-surface-variant block">v.sen@counsel.in</span></div></div><div class="flex items-center gap-4"><span class="text-label-sm bg-secondary-container/20 text-secondary px-2.5 py-0.5 rounded-full">Facilitator</span><span class="text-label-sm text-outline">Active 2d ago</span></div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+</main>
+
+<!-- ============================================ -->
+<!-- SHARED FOOTER -->
+<!-- ============================================ -->
+<footer class="bg-surface-container-low mt-auto">
+<div class="flex flex-col sm:flex-row justify-between items-center w-full px-6 lg:px-12 py-8 max-w-7xl mx-auto gap-4">
+  <div class="text-body-md font-body-md text-on-surface-variant">© 2024 IP-SAKTI Sahayak. Grounded botanical intelligence for sovereign IP.</div>
+  <div class="flex flex-wrap items-center justify-center gap-6 text-label-sm font-label-sm">
+    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Jurisdiction Guidelines</a>
+    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Privacy Charter</a>
+    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">System Status</a>
+    <a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150 cursor-pointer">Contact Counsel</a>
+  </div>
+</div>
+</footer>
+
+<!-- ============================================ -->
+<!-- APPLICATION ROUTING & INTERACTIVITY SCRIPT -->
+<!-- ============================================ -->
+<script>
+let currentRole = null;
+let showingEmpty = false;
+
+const NAV_CONFIGS = {
+  landing: { links: [
+    {label:'Home',page:'landing',active:true},{label:'Intake Wizard',page:'intake-2'},{label:'Results Dashboard',page:'dossiers'},{label:'Ask AI',page:'ask-ai'}
+  ], badge:'' },
+  researcher: { links: [
+    {label:'Dockets',page:'dossiers',active:true},{label:'Prior Art',page:'tkdl'},{label:'Formulations',page:'intake-2'},{label:'Compliance',page:'abs'},{label:'Ask AI',page:'ask-ai'}
+  ], badge:'Researcher // Tier 01' },
+  facilitator: { links: [
+    {label:'Dockets',page:'dossiers',active:true},{label:'Prior Art',page:'tkdl'},{label:'Formulations',page:'intake-2'},{label:'Compliance',page:'abs'},{label:'Ask AI',page:'ask-ai'}
+  ], badge:'Facilitator // Tier 02' },
+  admin: { links: [
+    {label:'Overview',page:'admin',active:true},{label:'Source Corpus',page:'corpus'},{label:'User & Roles',page:'users'},{label:'Audit Log',page:'audit'}
+  ], badge:'System Admin // Tier 03' }
+};
+
+function updateNav(activePage) {
+  const nav = document.getElementById('main-nav');
+  const badge = document.getElementById('nav-role-badge');
+  const config = currentRole ? NAV_CONFIGS[currentRole] : NAV_CONFIGS.landing;
+  
+  badge.textContent = config.badge;
+  badge.classList.toggle('hidden', !config.badge);
+  
+  nav.innerHTML = config.links.map(link => {
+    const isActive = link.page === activePage;
+    const cls = isActive
+      ? 'text-primary border-b-2 border-primary pb-1 font-medium active:scale-[0.99] transition-transform duration-150 cursor-pointer'
+      : 'text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150 active:scale-[0.99] cursor-pointer';
+    return `<a class="${cls}" onclick="navigate('${link.page}')">${link.label}</a>`;
+  }).join('');
+}
+
+function navigate(page) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  
+  // Determine nav context
+  const researcherPages = ['dossiers','tkdl','abs','escalation','intake-2','intake-3','intake-4','intake-5','ask-ai'];
+  const adminPages = ['admin','corpus','source-edit','users','audit'];
+  
+  if (page === 'landing' || page === 'roles') {
+    // Keep current or use landing nav
+  } else if (adminPages.includes(page)) {
+    if (currentRole !== 'admin') currentRole = 'admin';
+  } else if (researcherPages.includes(page)) {
+    if (!currentRole || currentRole === 'admin') currentRole = 'researcher';
+  }
+  
+  updateNav(page);
+  history.replaceState(null, '', '#' + page);
+}
+
+function setRole(role) {
+  currentRole = role;
+  if (role === 'admin') navigate('admin');
+  else navigate('dossiers');
+}
+
+function toggleDossierView() {
+  showingEmpty = !showingEmpty;
+  const grid = document.getElementById('dossiersGrid');
+  const empty = document.getElementById('dossiersEmptyState');
+  const label = document.getElementById('toggleBtnLabel');
+  if (showingEmpty) { grid.classList.add('hidden'); empty.classList.remove('hidden'); label.innerText='Show Active Dossiers'; }
+  else { grid.classList.remove('hidden'); empty.classList.add('hidden'); label.innerText='Simulate Empty State'; }
+}
+
+function appendKeyword(keyword) {
+  const ta = document.getElementById('scientific_hypothesis');
+  if (ta) { ta.value = ta.value.trim() ? ta.value + ' ' + keyword : keyword; ta.focus(); }
+}
+
+// Ingredient add/remove
+document.addEventListener('click', e => {
+  if (e.target.closest('.remove-row')) {
+    const row = e.target.closest('.ingredient-row');
+    if (row && document.querySelectorAll('.ingredient-row').length > 1) row.remove();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addBtn = document.getElementById('add-ingredient-btn');
+  if (addBtn) {
+    addBtn.addEventListener('click', () => {
+      const container = document.getElementById('ingredient-rows');
+      const row = document.createElement('div');
+      row.className = 'ingredient-row p-4 rounded-lg bg-surface-bright border border-surface-container-high transition-all duration-200 hover:border-outline-variant grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-center';
+      row.innerHTML = `<div class="md:col-span-5"><input class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md placeholder:text-outline/60 focus:outline-none focus:border-primary-container focus:ring-2 focus:ring-primary-container/10" placeholder="e.g., Curcuma longa (Haridra)" type="text"/></div><div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md"><option disabled selected value="">Select part...</option><option>Radix (Root)</option><option>Caulis (Stem)</option><option>Leaf</option><option>Fruit</option></select></div><div class="md:col-span-3"><select class="w-full h-10 px-3 py-2 bg-surface-container-lowest border border-surface-container-high rounded-lg text-body-md"><option disabled selected value="">Select provenance...</option><option>Cultivated</option><option>Wild-Harvested</option><option>Commercial Commodity</option></select></div><div class="md:col-span-1 flex justify-end md:justify-center"><button class="remove-row p-2 rounded-lg text-outline hover:text-error hover:bg-error-container/30 transition-colors"><span class="material-symbols-outlined text-lg leading-none">close</span></button></div>`;
+      container.appendChild(row);
+      row.querySelector('input').focus();
+    });
+  }
+
+  // Initial page load
+  const hash = window.location.hash.slice(1) || 'landing';
+  navigate(hash);
+});
+
+// Handle browser back/forward
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.slice(1) || 'landing';
+  navigate(hash);
+});
+</script>
+</body>
+</html>

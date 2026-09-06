@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>IP-SAKTI Sahayak | Grounded Botanical Intelligence for Sovereign IP</title>
+<!-- Fonts: Manrope, Plus Jakarta Sans, Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#262217",
+            "surface-dim": "#dadad8",
+            "inverse-on-surface": "#f1f1ef",
+            "secondary": "#835400",
+            "on-surface-variant": "#424844",
+            "secondary-fixed": "#ffddb5",
+            "on-secondary-fixed-variant": "#643f00",
+            "inverse-surface": "#2f3130",
+            "on-primary-fixed-variant": "#2f4d3d",
+            "surface-container-low": "#f4f4f2",
+            "inverse-primary": "#adceba",
+            "surface-container-high": "#e8e8e6",
+            "on-primary": "#ffffff",
+            "on-background": "#1a1c1b",
+            "on-tertiary-fixed-variant": "#4b463a",
+            "tertiary-fixed-dim": "#cec6b6",
+            "primary": "#082719",
+            "surface-bright": "#f9f9f7",
+            "surface": "#f9f9f7",
+            "on-secondary-fixed": "#2a1800",
+            "background": "#f9f9f7",
+            "surface-variant": "#e2e3e1",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#1f3d2e",
+            "on-tertiary-fixed": "#1f1b11",
+            "surface-container": "#eeeeec",
+            "tertiary-container": "#3b372c",
+            "error": "#ba1a1a",
+            "outline-variant": "#c2c8c2",
+            "on-surface": "#1a1c1b",
+            "on-primary-fixed": "#022113",
+            "secondary-container": "#feb64e",
+            "on-primary-container": "#87a894",
+            "primary-fixed": "#c8ebd5",
+            "surface-container-highest": "#e2e3e1",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ebe1d1",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "on-secondary-container": "#714800",
+            "secondary-fixed-dim": "#ffb956",
+            "surface-tint": "#466554",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-container": "#a7a091",
+            "outline": "#727973",
+            "primary-fixed-dim": "#adceba",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "2rem",
+            "space-xs": "0.5rem",
+            "margin-desktop": "3rem",
+            "gutter-mobile": "1rem",
+            "space-2xs": "0.25rem",
+            "margin-mobile": "1.25rem",
+            "gutter-tablet": "1.5rem",
+            "space-4xl": "4rem",
+            "space-2xl": "2.5rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "margin-tablet": "2rem",
+            "space-xl": "2rem",
+            "space-3xl": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["Manrope", "sans-serif"],
+            "body-lg": ["Plus Jakarta Sans", "sans-serif"],
+            "display-mobile": ["Manrope", "sans-serif"],
+            "label-sm": ["Inter", "sans-serif"],
+            "headline-lg-mobile": ["Manrope", "sans-serif"],
+            "display": ["Manrope", "sans-serif"],
+            "headline-sm": ["Manrope", "sans-serif"],
+            "label-md": ["Inter", "sans-serif"],
+            "body-md": ["Plus Jakarta Sans", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "display-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "body-md": ["15px", { "lineHeight": "25px", "letterSpacing": "0em", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col justify-between selection:bg-primary-fixed selection:text-primary">
+<!-- TopNavBar (Shared Component JSON Blueprint) -->
+<header class="docked full-width top-0 sticky z-50 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] bg-surface">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-7xl mx-auto h-16">
+<!-- Brand Logo / Product Name -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-[20px]" data-icon="spa">spa</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-semibold tracking-tight text-primary">IP-SAKTI Sahayak</span>
+</div>
+<!-- Navigation Links (Active navigation mapped to "Home" for Screen A1) -->
+<nav class="hidden md:flex items-center gap-8 text-label-md font-label-md">
+<a class="text-primary border-b-2 border-primary pb-1 font-medium active:scale-[0.99] transition-transform duration-150" href="#home">Home</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150 active:scale-[0.99]" href="#intake">Intake Wizard</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150 active:scale-[0.99]" href="#dashboard">Results Dashboard</a>
+<a class="text-on-surface-variant hover:text-on-surface pb-1 transition-colors duration-150 active:scale-[0.99]" href="#ask-ai">Ask AI</a>
+</nav>
+<!-- Trailing Action Cluster -->
+<div class="flex items-center gap-5">
+<!-- Language Switcher -->
+<span class="hidden lg:inline-block text-label-sm font-label-sm text-outline hover:text-on-surface cursor-pointer transition-colors duration-150 tracking-wider">
+          EN / हिन्दी / తెలుగు
+        </span>
+<!-- Active Docket Indicator -->
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span>Docket #2024-IN-09</span>
+</div>
+<!-- Trailing Icons -->
+<div class="flex items-center gap-2">
+<button aria-label="Help and Documentation" class="p-1 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[22px]" data-icon="help_outline">help_outline</span>
+</button>
+<button aria-label="Sign In or User Account" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-outline-variant/60 bg-surface hover:bg-surface-container-low transition-all duration-150 text-label-md font-label-md text-on-surface" type="button">
+<span class="material-symbols-outlined text-[20px] text-primary" data-icon="account_circle">account_circle</span>
+<span class="hidden sm:inline">Sign In</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas Container -->
+<main class="flex-1 max-w-7xl w-full mx-auto px-6 lg:px-12 pt-16 lg:pt-24 pb-16 flex flex-col justify-center">
+<!-- Hero Section: Singular Focus with Editorial Botanical Harmony -->
+<section class="max-w-4xl mx-auto text-center flex flex-col items-center">
+<!-- Attention Status Pill: Singular #E8A33D usage -->
+<div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/20 mb-8 animate-fade-in">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-secondary tracking-wider font-semibold">2024 SAKTI STATUTORY ENGINE READY</span>
+</div>
+<!-- Hero Headline (Manrope Display) -->
+<h1 class="font-display text-display hidden md:block text-primary tracking-tight max-w-3xl leading-tight">
+        Evidence-grounded IP &amp; regulatory navigation for Ayurvedic innovation.
+      </h1>
+<h1 class="font-display-mobile text-display-mobile md:hidden text-primary tracking-tight leading-tight">
+        Evidence-grounded IP &amp; regulatory navigation for Ayurvedic innovation.
+      </h1>
+<!-- Hero Subtext (Plus Jakarta Sans) -->
+<p class="mt-6 text-on-surface-variant font-body-lg text-body-lg max-w-2xl leading-relaxed">
+        Navigate classification, patentability §3(p), TKDL prior-art, and ABS biological diversity clearance in one calm, guided workflow.
+      </p>
+<!-- Primary Action Button (The Single Intent Focal Point) -->
+<div class="mt-10 flex flex-col sm:flex-row items-center gap-4">
+<a class="inline-flex items-center justify-center gap-2.5 px-8 h-12 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-md hover:bg-primary-container/90 hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200" href="#intake">
+<span>Analyse My Product</span>
+<span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</a>
+<a class="inline-flex items-center justify-center px-6 h-12 rounded-lg bg-surface text-on-surface border border-outline-variant/60 font-label-md text-label-md hover:bg-surface-container-low transition-colors duration-150" href="#guidelines">
+          Review Sovereign Framework
+        </a>
+</div>
+<!-- Subtle Workflow Context Micro-text -->
+<p class="mt-3 text-label-sm font-label-sm text-outline">
+        Zero preliminary filings required • Formulated for AYUSH practitioners &amp; Biotech counsel
+      </p>
+</section>
+<!-- Bento Analytical Card Preview (Tactile Minimalist Grid) -->
+<section class="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto w-full">
+<!-- Card 1: TKDL Prior-Art Analysis -->
+<div class="bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5">
+<span class="material-symbols-outlined text-[24px]" data-icon="menu_book">menu_book</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Traditional Knowledge Prior-Art</h3>
+<p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">
+            Automated screening against 430,000+ formulations from Charaka Samhita, Sushruta Samhita, and authoritative Unani texts.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>Status: Synchronized</span>
+<span class="font-semibold text-primary">TKDL Gazette v4.2</span>
+</div>
+</div>
+<!-- Card 2: Section 3(p) Patentability Validation -->
+<div class="bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5">
+<span class="material-symbols-outlined text-[24px]" data-icon="gavel">gavel</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Section 3(p) Validation</h3>
+<p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">
+            Distinguish patentable synergistic efficacy from traditional non-patentable aggregation under Indian Patents Act 1970.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>Invention Audit</span>
+<span class="font-semibold text-primary">CGPDTM Guidelines</span>
+</div>
+</div>
+<!-- Card 3: NBA Biodiversity & ABS Clearance -->
+<div class="bg-surface-container-lowest rounded-xl p-7 border border-outline-variant/40 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-shadow duration-200 flex flex-col justify-between">
+<div>
+<div class="w-10 h-10 rounded-lg bg-surface-container flex items-center justify-center text-primary-container mb-5">
+<span class="material-symbols-outlined text-[24px]" data-icon="nature_people">nature_people</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold">Biological Diversity &amp; ABS</h3>
+<p class="mt-3 text-body-md text-on-surface-variant leading-relaxed">
+            Form I/III access determination, SBB territorial notifications, and fair Benefit Sharing verification in real time.
+          </p>
+</div>
+<div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between text-label-sm font-label-sm text-outline">
+<span>Compliance Rule</span>
+<span class="font-semibold text-primary">BD Act 2002 &amp; 2023 Regs</span>
+</div>
+</div>
+</section>
+<!-- Trust Strip (Authoritative Bodies) -->
+<section class="mt-16 lg:mt-24 pt-10 border-t border-outline-variant/40 max-w-5xl mx-auto w-full">
+<div class="flex flex-col md:flex-row items-center justify-between gap-6">
+<span class="text-label-sm font-label-sm uppercase tracking-wider text-outline font-semibold">
+          Grounded in Statutory Frameworks of
+        </span>
+<!-- Badges: Neutral / Metric Tag Style -->
+<div class="flex flex-wrap items-center justify-center gap-2 sm:gap-3">
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+            TKDL
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+            IP India (CGPDTM)
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+            Ministry of AYUSH
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+            National Biodiversity Authority (NBA)
+          </span>
+<span class="inline-flex items-center px-3 py-1 rounded-full bg-surface-container-low border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
+            FSSAI
+          </span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component JSON Blueprint) -->
+<footer class="docked full-width bottom-0 bg-surface-container-low">
+<div class="flex flex-col sm:flex-row justify-between items-center w-full px-6 lg:px-12 py-8 max-w-7xl mx-auto gap-4">
+<!-- Copyright text from JSON -->
+<div class="text-body-md font-body-md text-on-surface-variant">
+        © 2024 IP-SAKTI Sahayak. Grounded botanical intelligence for sovereign IP.
+      </div>
+<!-- Footer Links from JSON -->
+<div class="flex flex-wrap items-center justify-center gap-6 text-label-sm font-label-sm">
+<a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150" href="#jurisdiction">Jurisdiction Guidelines</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150" href="#privacy">Privacy Charter</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150" href="#status">System Status</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:underline transition-all duration-150" href="#counsel">Contact Counsel</a>
+</div>
+</div>
+</footer>
+</body></html>

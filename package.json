@@ -1,0 +1,12 @@
+{
+  "name": "ip-sakti-sahayak-prototype",
+  "version": "1.0.0",
+  "description": "IP-SAKTI Sahayak Legal Platform Prototype",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["ip-sakti", "tkdl", "ayurveda", "legal-tech", "prototype"],
+  "license": "ISC"
+}

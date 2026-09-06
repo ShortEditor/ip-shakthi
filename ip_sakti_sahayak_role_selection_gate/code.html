@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-surface" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Role Selection Gate | IP-SAKTI Sahayak</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "tertiary": "#262217",
+            "surface-dim": "#dadad8",
+            "inverse-on-surface": "#f1f1ef",
+            "secondary": "#835400",
+            "on-surface-variant": "#424844",
+            "secondary-fixed": "#ffddb5",
+            "on-secondary-fixed-variant": "#643f00",
+            "inverse-surface": "#2f3130",
+            "on-primary-fixed-variant": "#2f4d3d",
+            "surface-container-low": "#f4f4f2",
+            "inverse-primary": "#adceba",
+            "surface-container-high": "#e8e8e6",
+            "on-primary": "#ffffff",
+            "on-background": "#1a1c1b",
+            "on-tertiary-fixed-variant": "#4b463a",
+            "tertiary-fixed-dim": "#cec6b6",
+            "primary": "#082719",
+            "surface-bright": "#f9f9f7",
+            "surface": "#f9f9f7",
+            "on-secondary-fixed": "#2a1800",
+            "background": "#f9f9f7",
+            "surface-variant": "#e2e3e1",
+            "on-tertiary": "#ffffff",
+            "primary-container": "#1f3d2e",
+            "on-tertiary-fixed": "#1f1b11",
+            "surface-container": "#eeeeec",
+            "tertiary-container": "#3b372c",
+            "error": "#ba1a1a",
+            "outline-variant": "#c2c8c2",
+            "on-surface": "#1a1c1b",
+            "on-primary-fixed": "#022113",
+            "secondary-container": "#feb64e",
+            "on-primary-container": "#87a894",
+            "primary-fixed": "#c8ebd5",
+            "surface-container-highest": "#e2e3e1",
+            "on-error": "#ffffff",
+            "tertiary-fixed": "#ebe1d1",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "on-secondary-container": "#714800",
+            "secondary-fixed-dim": "#ffb956",
+            "surface-tint": "#466554",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-container": "#a7a091",
+            "outline": "#727973",
+            "primary-fixed-dim": "#adceba",
+            "on-secondary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "1rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter-desktop": "2rem",
+            "space-xs": "0.5rem",
+            "margin-desktop": "3rem",
+            "gutter-mobile": "1rem",
+            "space-2xs": "0.25rem",
+            "margin-mobile": "1.25rem",
+            "gutter-tablet": "1.5rem",
+            "space-4xl": "4rem",
+            "space-2xl": "2.5rem",
+            "space-sm": "0.75rem",
+            "space-md": "1rem",
+            "margin-tablet": "2rem",
+            "space-xl": "2rem",
+            "space-3xl": "3rem",
+            "space-lg": "1.5rem"
+          },
+          "fontFamily": {
+            "headline-lg": ["manrope", "sans-serif"],
+            "body-lg": ["plusJakartaSans", "sans-serif"],
+            "display-mobile": ["manrope", "sans-serif"],
+            "label-sm": ["inter", "sans-serif"],
+            "headline-lg-mobile": ["manrope", "sans-serif"],
+            "display": ["manrope", "sans-serif"],
+            "headline-sm": ["manrope", "sans-serif"],
+            "label-md": ["inter", "sans-serif"],
+            "body-md": ["plusJakartaSans", "sans-serif"]
+          },
+          "fontSize": {
+            "headline-lg": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "26px", "letterSpacing": "-0.005em", "fontWeight": "400" }],
+            "display-mobile": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "headline-lg-mobile": ["22px", { "lineHeight": "30px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "display": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+            "label-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+            "body-md": ["15px", { "lineHeight": "25px", "letterSpacing": "0em", "fontWeight": "400" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface text-on-surface flex flex-col min-h-full font-body-md selection:bg-primary-container selection:text-surface">
+<!-- Header Anchor -->
+<header class="docked full-width top-0 sticky z-50 bg-surface dark:bg-surface-container-highest shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+<div class="flex justify-between items-center w-full px-6 lg:px-12 max-w-7xl mx-auto h-16">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container text-2xl">eco</span>
+<span class="text-headline-sm font-headline-sm font-semibold tracking-tight text-primary dark:text-primary-fixed">IP-SAKTI Sahayak</span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Language indicator -->
+<span class="text-label-md font-label-md text-on-surface-variant hover:text-primary transition-colors cursor-pointer hidden sm:inline-block">
+          EN / हिन्दी / తెలుగు
+        </span>
+<div class="h-4 w-px bg-outline-variant hidden sm:block"></div>
+<!-- Regulatory Identifier Pill -->
+<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/40 text-label-sm font-label-sm text-on-surface">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+<span>Docket #2024-IN-09</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center p-1" title="Help">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Gate Container -->
+<main class="flex-1 flex flex-col justify-center items-center px-6 py-12 lg:py-16 max-w-7xl mx-auto w-full">
+<!-- Title & Subtitle Section (Quiet Authority) -->
+<div class="text-center max-w-2xl mx-auto mb-10 lg:mb-12">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container border border-outline-variant/30 text-label-sm font-label-sm text-on-surface-variant mb-4">
+<span class="material-symbols-outlined text-sm text-primary-container">shield</span>
+<span>Sovereign Access Gateway</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg sm:text-display sm:font-display text-primary tracking-tight mb-3">
+        Select your role to proceed
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg mx-auto leading-relaxed">
+        Choose your credential tier for authenticated regulatory access.
+      </p>
+</div>
+<!-- 3 Card Grid (Card & Panel System: 1px border, 16px radius, diffused ambient shadow) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-6xl items-stretch">
+<!-- Role 1: User / MSME Researcher -->
+<div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200">
+<div>
+<!-- Icon Container -->
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200">
+<span class="material-symbols-outlined text-2xl">biotech</span>
+</div>
+<!-- Tier Badge -->
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">
+            Tier 01 · Innovation &amp; Search
+          </span>
+<!-- Role Headline -->
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">
+            Researcher / MSME
+          </h2>
+<!-- Description -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Analyze herbal formulations, check prior-art, and prepare statutory filings.
+          </p>
+</div>
+<!-- Role Action Button -->
+<div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+<button class="w-full h-10 px-4 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-primary transition-all duration-150 active:scale-[0.99] shadow-sm">
+<span>Enter as Researcher</span>
+<span class="material-symbols-outlined text-base">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Role 2: Empaneled AYUSH Facilitator -->
+<div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200 relative">
+<!-- Subtle Active Distinction Flag -->
+<div class="absolute -top-3 right-6 bg-surface-container border border-outline-variant/40 px-2.5 py-0.5 rounded-full text-label-sm font-label-sm text-secondary">
+          Empaneled Counsel
+        </div>
+<div>
+<!-- Icon Container -->
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200">
+<span class="material-symbols-outlined text-2xl">verified_user</span>
+</div>
+<!-- Tier Badge -->
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">
+            Tier 02 · Advisory &amp; Prosecution
+          </span>
+<!-- Role Headline -->
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">
+            Legal &amp; IP Facilitator
+          </h2>
+<!-- Description -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Review escalated dossiers, provide statutory counsel, and guide patent prosecution.
+          </p>
+</div>
+<!-- Role Action Button -->
+<div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+<button class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]">
+<span>Enter as Facilitator</span>
+<span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Role 3: Statutory Admin -->
+<div class="group bg-surface-container-lowest border border-[#EFEFE9] rounded-2xl p-7 lg:p-8 flex flex-col justify-between shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.08)] transition-all duration-200">
+<div>
+<!-- Icon Container -->
+<div class="w-12 h-12 rounded-xl bg-surface-container-low flex items-center justify-center mb-6 text-primary-container group-hover:bg-primary-container group-hover:text-surface transition-colors duration-200">
+<span class="material-symbols-outlined text-2xl">admin_panel_settings</span>
+</div>
+<!-- Tier Badge -->
+<span class="text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider block mb-2">
+            Tier 03 · Governance &amp; Audit
+          </span>
+<!-- Role Headline -->
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-3 font-medium">
+            System Administrator
+          </h2>
+<!-- Description -->
+<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+            Manage authoritative document corpora, user access tiers, and system compliance logs.
+          </p>
+</div>
+<!-- Role Action Button -->
+<div class="pt-8 mt-6 border-t border-[#EFEFE9]">
+<button class="w-full h-10 px-4 rounded-lg bg-surface-container-lowest border border-[#EFEFE9] text-on-surface font-label-md text-label-md flex items-center justify-center gap-2 hover:bg-surface-container-low transition-all duration-150 active:scale-[0.99]">
+<span>Enter as Admin</span>
+<span class="material-symbols-outlined text-base text-on-surface-variant">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Quiet Support Link -->
+<div class="mt-12 text-center">
+<a class="inline-flex items-center gap-1.5 text-body-md font-body-md text-on-surface-variant hover:text-primary transition-colors group" href="#">
+<span>Need assistance with credentials?</span>
+<span class="underline decoration-outline-variant underline-offset-4 group-hover:decoration-primary font-medium text-primary">Contact regulatory support.</span>
+</a>
+</div>
+</main>
+<!-- Footer Anchor -->
+<footer class="docked full-width bottom-0 bg-surface-container-low dark:bg-surface-container-highest mt-auto">
+<div class="flex flex-col sm:flex-row justify-between items-center w-full px-6 lg:px-12 py-8 max-w-7xl mx-auto gap-4 sm:gap-0">
+<p class="text-body-md font-body-md text-on-surface-variant dark:text-outline text-center sm:text-left">
+        © 2024 IP-SAKTI Sahayak. Grounded botanical intelligence for sovereign IP.
+      </p>
+<div class="flex flex-wrap items-center justify-center gap-6">
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Jurisdiction Guidelines</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Privacy Charter</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">System Status</a>
+<a class="text-label-sm font-label-sm text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors" href="#">Contact Counsel</a>
+</div>
+</div>
+</footer>
+</body></html>
