@@ -1498,6 +1498,21 @@ const GROQ_CONFIG = {
   endpoint: 'https://api.groq.com/openai/v1/chat/completions'
 };
 
+// Sync config from .env / Vercel environment variables if available
+(function syncEnvConfig() {
+  fetch('/api/config')
+    .then(r => r.ok ? r.json() : null)
+    .then(cfg => {
+      if (cfg && cfg.apiKey && !localStorage.getItem('ipsakti_groq_key')) {
+        GROQ_CONFIG.apiKey = cfg.apiKey;
+      }
+      if (cfg && cfg.model && !localStorage.getItem('ipsakti_groq_model')) {
+        GROQ_CONFIG.model = cfg.model;
+      }
+    })
+    .catch(() => {});
+})();
+
 const STATUTORY_CORPUS = [
   {
     id: 'patents-3p',

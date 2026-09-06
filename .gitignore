@@ -17,3 +17,11 @@ node_modules/
 # OS Files
 .DS_Store
 Thumbs.db
+
+# Environment variables
+.env
+.env*.local
+!.env.example
+
+# Archive files
+*.zip

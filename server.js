@@ -48,6 +48,31 @@ const server = http.createServer((req, res) => {
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
+  // API config route for environment variables
+  if (pathname === '/api/config') {
+    let groqKey = process.env.GROQ_API_KEY || '';
+    let groqModel = process.env.GROQ_MODEL || 'qwen/qwen3.8-27b';
+    const envPath = path.join(ROOT_DIR, '.env');
+    if (fs.existsSync(envPath)) {
+      try {
+        const envContent = fs.readFileSync(envPath, 'utf8');
+        const keyMatch = envContent.match(/^GROQ_API_KEY\s*=\s*["']?([^\r\n"']+)["']?/m);
+        if (keyMatch) groqKey = keyMatch[1].trim();
+        const modelMatch = envContent.match(/^GROQ_MODEL\s*=\s*["']?([^\r\n"']+)["']?/m);
+        if (modelMatch) groqModel = modelMatch[1].trim();
+      } catch (e) {
+        console.warn('Could not read .env file:', e.message);
+      }
+    }
+    res.writeHead(200, {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Cache-Control': 'no-cache'
+    });
+    res.end(JSON.stringify({ apiKey: groqKey, model: groqModel }));
+    return;
+  }
+
   // If path is root or directory, point to index.html
   if (pathname === '/' || pathname === '') {
     pathname = '/index.html';
