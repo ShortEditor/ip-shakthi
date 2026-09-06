@@ -149,8 +149,23 @@ tailwind.config = {
     <span id="nav-role-badge" class="hidden sm:inline-flex items-center px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant text-label-sm font-label-sm tracking-wide"></span>
   </div>
   <nav id="main-nav" class="hidden md:flex items-center gap-8 text-label-md font-label-md"></nav>
-  <div class="flex items-center gap-5">
-    <span class="hidden lg:inline-block text-label-sm font-label-sm text-outline hover:text-on-surface cursor-pointer transition-colors duration-150 tracking-wider">EN / हिन्दी / తెలుగు</span>
+  <div class="flex items-center gap-4">
+    <!-- Interactive Top Multi-Lingual Switcher -->
+    <div id="header-lang-switcher" class="hidden sm:inline-flex items-center gap-1 text-label-sm font-label-sm bg-surface-container/70 border border-outline-variant/40 rounded-full p-0.5 transition-colors shadow-xs">
+      <button type="button" onclick="setPlatformLanguage('en')" id="hdr-lang-en" class="px-2 py-0.5 rounded-full font-semibold transition-all text-primary bg-surface shadow-xs cursor-pointer" title="Switch to English">EN</button>
+      <span class="text-outline-variant text-[11px] select-none">/</span>
+      <button type="button" onclick="setPlatformLanguage('hi')" id="hdr-lang-hi" class="px-2 py-0.5 rounded-full font-medium transition-all text-on-surface-variant hover:text-primary cursor-pointer" title="हिन्दी में बदलें">हिन्दी</button>
+      <span class="text-outline-variant text-[11px] select-none">/</span>
+      <button type="button" onclick="setPlatformLanguage('te')" id="hdr-lang-te" class="px-2 py-0.5 rounded-full font-medium transition-all text-on-surface-variant hover:text-primary cursor-pointer" title="తెలుగులోకి మార్చండి">తెలుగు</button>
+      <div class="relative inline-block ml-0.5" id="header-more-lang-container">
+        <button type="button" onclick="toggleHeaderMoreLangMenu(event)" class="px-1.5 py-0.5 rounded-full text-on-surface-variant hover:text-primary hover:bg-surface transition-all flex items-center text-[11px] cursor-pointer" title="More Indian Languages">
+          <span class="material-symbols-outlined text-[15px]">translate</span>
+        </button>
+        <div id="header-more-lang-menu" class="hidden absolute right-0 mt-2 w-52 bg-surface-container-lowest border border-outline-variant/60 rounded-xl shadow-xl z-50 py-1.5 text-xs max-h-72 overflow-y-auto">
+          <!-- Populated by initLanguageSelector() -->
+        </div>
+      </div>
+    </div>
     <div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container border border-outline-variant/40 text-label-sm font-label-sm text-on-surface-variant">
       <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
       <span>Docket #2024-IN-09</span>
@@ -3121,6 +3136,9 @@ function initLanguageSelector() {
   const input = document.getElementById('chat-user-input');
   if (input) input.placeholder = currentLang.placeholder;
 
+  // Sync the top header language switcher UI
+  updateHeaderLanguageUI(currentCode);
+
   renderLocalizedSuggestions(currentCode);
 }
 
@@ -3129,8 +3147,50 @@ function setChatLanguage(langCode) {
   appState.chatLanguage = lang.code;
   localStorage.setItem('ipsakti_chat_lang', lang.code);
   closeLanguageMenu();
+  closeHeaderMoreLangMenu();
   initLanguageSelector();
   showToast(`Language set to ${lang.native} (${lang.name})`, 'success');
+}
+
+function setPlatformLanguage(langCode) {
+  setChatLanguage(langCode);
+}
+
+function updateHeaderLanguageUI(activeCode) {
+  ['en', 'hi', 'te'].forEach(c => {
+    const btn = document.getElementById(`hdr-lang-${c}`);
+    if (btn) {
+      if (c === activeCode) {
+        btn.className = 'px-2 py-0.5 rounded-full font-semibold transition-all text-primary bg-surface shadow-xs cursor-pointer';
+      } else {
+        btn.className = 'px-2 py-0.5 rounded-full font-medium transition-all text-on-surface-variant hover:text-primary cursor-pointer';
+      }
+    }
+  });
+
+  const moreMenu = document.getElementById('header-more-lang-menu');
+  if (moreMenu) {
+    moreMenu.innerHTML = SUPPORTED_LANGUAGES.map(l => `
+      <button type="button" onclick="setPlatformLanguage('${l.code}')" class="w-full text-left px-3 py-2 hover:bg-surface-container flex items-center justify-between transition-colors ${l.code === activeCode ? 'bg-primary-container/10 font-semibold text-primary' : 'text-on-surface'}">
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-semibold">${l.native}</span>
+          <span class="text-[10px] text-outline">(${l.name})</span>
+        </div>
+        ${l.code === activeCode ? '<span class="material-symbols-outlined text-[14px] text-primary">check</span>' : ''}
+      </button>
+    `).join('');
+  }
+}
+
+function toggleHeaderMoreLangMenu(e) {
+  if (e) e.stopPropagation();
+  const menu = document.getElementById('header-more-lang-menu');
+  if (menu) menu.classList.toggle('hidden');
+}
+
+function closeHeaderMoreLangMenu() {
+  const menu = document.getElementById('header-more-lang-menu');
+  if (menu) menu.classList.add('hidden');
 }
 
 function toggleLanguageMenu() {
@@ -3143,11 +3203,15 @@ function closeLanguageMenu() {
   if (menu) menu.classList.add('hidden');
 }
 
-// Close language dropdown if clicking outside
+// Close language dropdowns if clicking outside
 document.addEventListener('click', (e) => {
   const container = document.getElementById('lang-selector-container');
   if (container && !container.contains(e.target)) {
     closeLanguageMenu();
+  }
+  const headerContainer = document.getElementById('header-more-lang-container');
+  if (headerContainer && !headerContainer.contains(e.target)) {
+    closeHeaderMoreLangMenu();
   }
 });
 
@@ -3306,8 +3370,25 @@ function analyzeQueryComplexity(query) {
   }
 }
 
-// Multi-model cascade: fast, intelligent, zero-cost (includes groq/compound-mini with 70,000 TPM limit)
-const MODEL_CASCADE = ['qwen/qwen3.8-27b', 'groq/compound-mini', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.6-27b'];
+// Script pattern detection for Indian language verification
+const SCRIPT_PATTERNS = {
+  hi: /[\u0900-\u097F]/g, // Devanagari (Hindi)
+  mr: /[\u0900-\u097F]/g, // Devanagari (Marathi)
+  te: /[\u0C00-\u0C7F]/g, // Telugu
+  ta: /[\u0B80-\u0BFF]/g, // Tamil
+  kn: /[\u0C80-\u0CFF]/g, // Kannada
+  ml: /[\u0D00-\u0D7F]/g, // Malayalam
+  bn: /[\u0980-\u09FF]/g, // Bengali
+  gu: /[\u0A80-\u0AFF]/g  // Gujarati
+};
+
+function verifyLanguageScript(text, targetCode) {
+  if (!text || targetCode === 'en') return true;
+  const pattern = SCRIPT_PATTERNS[targetCode];
+  if (!pattern) return true;
+  const matches = text.match(pattern);
+  return Boolean(matches && matches.length >= 20);
+}
 
 async function callGroqRAG(userQuery) {
   const { contextText, sources } = retrieveContext(userQuery);
@@ -3317,19 +3398,40 @@ async function callGroqRAG(userQuery) {
 
   let langInstruction = '';
   if (lang.code !== 'en') {
-    langInstruction = `\nCRITICAL LANGUAGE MANDATE: You MUST respond entirely and fluently in ${lang.name} (${lang.native}). Retain standard statutory legal citations (e.g., Section 3(p), Section 3(e), Section 3(d), SBB Form-1, NBA Form-3, CSIR-TKDL, Chou-Talalay CI) in Latin notation alongside descriptive translations in ${lang.native}.`;
+    langInstruction = `
+════════════════════════════════════════════════════════════════════════════════
+STRICT MANDATORY LANGUAGE DIRECTIVE:
+- TARGET LANGUAGE: ${lang.name} (${lang.native})
+- THE USER HAS EXPLICITLY CHOSEN TO COMMUNICATE IN ${lang.name} (${lang.native}).
+- YOU MUST GENERATE YOUR ENTIRE RESPONSE 100% IN ${lang.name} (${lang.native} SCRIPT).
+- DO NOT RESPOND IN ENGLISH even if the user query or context is written in English.
+- Translate all reasoning, scientific insights, headings, and legal explanations into fluent, natural ${lang.name} (${lang.native}).
+- Keep statutory citations (e.g., Section 3(p), Section 3(e), Section 3(d), Section 39, SBB Form-1, NBA Form-3, CSIR-TKDL, Chou-Talalay CI) in Latin script inside parentheses alongside the ${lang.native} explanation for legal precision.
+════════════════════════════════════════════════════════════════════════════════`;
   }
 
   const systemPrompt = `You are "IP-SAKTI Sahayak", an authoritative sovereign IP & regulatory AI copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), CSIR-TKDL prior-art concordance, classical Ayurvedic science, and the IP-SAKTI platform itself.
 
-YOUR MANDATE:
-1. Provide legally precise, scientifically grounded, and evidence-anchored answers.
-2. SCHOLARSHIP HARMONY: When asked about clinical diseases or classical formulations (e.g., cancer treatments, rasayanas, metabolic disorders):
-   - First, explain the classical Ayurvedic medical understanding with authentic scholarly depth: cite classical terminology (e.g., Arbuda / Granthi for neoplasms), foundational treatises (*Sushruta Samhita*, *Charaka Samhita*), Tridoshic pathology (Kapha-Vata aggravation, Rakta/Mamsa Dhatus), and classical botanicals (*Withania somnifera* / Ashwagandha with withaferin A, *Curcuma longa* / Haridra with curcuminoids, *Bauhinia variegata* / Kanchnar Guggulu).
-   - Second, explain the statutory IP translation under Indian Patents Act 1970: how classical recipes are barred under Section 3(p) as traditional knowledge, but can be patented if formulated as standardized enriched fractions proving non-obvious synergy under Section 3(e) (CI < 0.8) or significantly enhanced therapeutic bioavailability under Section 3(d) via novel delivery systems (phytosomes, liposomes).
-   - Third, highlight mandatory regulatory compliance: CSIR-TKDL prior-art search and Biological Diversity Act 2002 clearance (SBB Form-1 intimation and NBA Form-3 approval).
-3. If asked about the platform or website, explain the 5-step Intake Wizard (#intake-1 to #intake-5), TKDL search (#tkdl), ABS compliance (#abs), and escalation to Empaneled Counsel (#escalation).
-4. ${complexity.instruction}
+MANDATORY RESPONSE STRUCTURE & COMPREHENSIVE CONTEXT:
+In every response, you MUST provide deep, evidence-grounded legal and scientific context divided into clear, formatted sections:
+
+1. **Direct Assessment & Executive Verdict**:
+   A clear, unambiguous statement addressing the user's specific product, query, or legal hurdle.
+
+2. **Classical Ayurvedic & Botanical Context**:
+   Cite foundational Ayurvedic treatises (*Charaka Samhita*, *Sushruta Samhita*, *Astanga Hridaya*), traditional concepts (Rasayana, Kashaya, Svarasa, Taila, Arbuda, Shothahara), and active phytochemical fractions (*Withania somnifera* withanolides, *Curcuma longa* curcuminoids, *Piper longum* piperine co-carrier).
+
+3. **🏛️ Statutory Context & Legal Grounding (Patents & BDA)**:
+   - **Patents Act 1970 § 3(p)**: Explain how classical recipes/traditional knowledge face absolute exclusion as non-inventions unless inventive character is demonstrated.
+   - **Patents Act 1970 § 3(e)**: Detail synergistic combination requirements (e.g., Chou-Talalay Combination Index CI < 0.8, proving combination produces greater effect than individual ingredients).
+   - **Patents Act 1970 § 3(d)**: Explain the standard of significantly enhanced therapeutic bioavailability when novel formulations or delivery carriers (nano-phytosomes, liposomes, SNEDDS) are used.
+   - **Biological Diversity Act 2002 § 39 & ABS Rules**: Detail mandatory clearance requirements: State Biodiversity Board (SBB) Form-1 for domestic commercial utilization and National Biodiversity Authority (NBA) Form-3 prior approval before filing foreign patents.
+   - **CSIR-TKDL Prior-Art Concordance**: Reference how international examiners search the 430,000+ formulations in TKDL to cite prior art.
+
+4. **Actionable Compliance & Strategic Roadmap**:
+   Concrete, practical next steps for the innovator (e.g., comparative in-vitro bioavailability assays, HPLC standardization, SBB intimation, or using the IP-SAKTI 5-step Intake Wizard #intake-1).
+
+${complexity.instruction}
 ${langInstruction}
 
 STATUTORY & PLATFORM KNOWLEDGE BASE (RETRIEVED VIA RAG):
@@ -3341,10 +3443,14 @@ ${contextText}`;
     content: m.text
   }));
 
+  const userQueryAugmented = lang.code !== 'en'
+    ? `[MANDATORY: Respond in ${lang.name} (${lang.native} script)]\n${userQuery}`
+    : userQuery;
+
   const messages = [
     { role: 'system', content: systemPrompt },
     ...recentHistory,
-    { role: 'user', content: userQuery }
+    { role: 'user', content: userQueryAugmented }
   ];
 
   if (!apiKey) {
@@ -3356,7 +3462,7 @@ ${contextText}`;
     };
   }
 
-  // Multi-model retry cascade with dynamic adaptive token limit (220-580 max_tokens to strictly honor OTPM limit and avoid token waste)
+  // Multi-model retry cascade with dynamic adaptive token limit (220-650 max_tokens)
   for (let model of MODEL_CASCADE) {
     try {
       const response = await fetch(GROQ_CONFIG.endpoint, {
@@ -3369,7 +3475,7 @@ ${contextText}`;
           model: model,
           messages: messages,
           temperature: 0.2,
-          max_tokens: complexity.maxTokens
+          max_tokens: Math.max(complexity.maxTokens, 450)
         })
       });
 
@@ -3385,8 +3491,52 @@ ${contextText}`;
       }
 
       const data = await response.json();
-      const content = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning || '';
+      let content = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning || '';
       if (!content) continue;
+
+      // =============================================
+      // LANGUAGE VERIFICATION & RECOVERY GATE
+      // =============================================
+      if (lang.code !== 'en' && !verifyLanguageScript(content, lang.code)) {
+        console.warn(`Language mismatch detected: response missing ${lang.name} script. Running verification & translation pass...`);
+        try {
+          const transResp = await fetch(GROQ_CONFIG.endpoint, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${apiKey}`,
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              model: model,
+              messages: [
+                {
+                  role: 'system',
+                  content: `You are an expert bilingual Indian patent attorney and Ayurvedic scholar. Translate the following legal response completely and accurately into ${lang.name} (${lang.native} script). 
+All prose, headings, bullet points, and advice MUST be written in natural, fluent ${lang.name} (${lang.native}). 
+Retain statutory citations (e.g. Section 3(p), Section 3(e), Section 3(d), Section 39, Form-1, Form-3, CSIR-TKDL) in Latin characters in parentheses alongside their ${lang.native} translations for legal accuracy.`
+                },
+                {
+                  role: 'user',
+                  content: content
+                }
+              ],
+              temperature: 0.1,
+              max_tokens: Math.max(complexity.maxTokens + 180, 550)
+            })
+          });
+
+          if (transResp.ok) {
+            const transData = await transResp.json();
+            const transText = transData.choices?.[0]?.message?.content || transData.choices?.[0]?.message?.reasoning;
+            if (transText && verifyLanguageScript(transText, lang.code)) {
+              content = transText;
+              console.log(`Language verification complete: response converted to verified ${lang.name} (${lang.code}).`);
+            }
+          }
+        } catch (transErr) {
+          console.warn('Language verification translation pass error:', transErr.message);
+        }
+      }
 
       return {
         text: content,
