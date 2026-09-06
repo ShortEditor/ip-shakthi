@@ -400,8 +400,12 @@ tailwind.config = {
       </div>
     </div>
     <div class="flex items-center gap-2">
+      <button onclick="startNewChat()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary text-xs font-semibold shadow-sm transition-all active:scale-[0.98]" title="Start a fresh conversation">
+        <span class="material-symbols-outlined text-[16px]">add_comment</span>
+        <span>New Chat</span>
+      </button>
       <button onclick="clearChat()" class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-outline-variant/60 hover:bg-surface-container-low text-label-sm font-label-sm text-on-surface-variant hover:text-error transition-colors" title="Clear Conversation">
-        <span class="material-symbols-outlined text-[16px]">restart_alt</span>
+        <span class="material-symbols-outlined text-[16px]">delete_sweep</span>
         <span class="hidden sm:inline">Clear</span>
       </button>
     </div>
@@ -413,7 +417,7 @@ tailwind.config = {
   <div class="mb-6">
     <div class="text-label-sm text-outline mb-2.5 font-medium flex items-center gap-1.5">
       <span class="material-symbols-outlined text-[16px] text-secondary">tips_and_updates</span>
-      <span>Suggested Inquiries (Statutory Grounding):</span>
+      <span>Suggested Inquiries (Statutory &amp; Platform Grounding):</span>
     </div>
     <div class="flex flex-wrap gap-2">
       <button type="button" onclick="sendQuickPrompt('How do I overcome Section 3(p) rejection for an Ayurvedic herbal formulation?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
@@ -425,8 +429,11 @@ tailwind.config = {
       <button type="button" onclick="sendQuickPrompt('When is SBB Form-1 intimation mandatory under the Biological Diversity Act?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
         BDA Form-1 SBB Clearance
       </button>
-      <button type="button" onclick="sendQuickPrompt('How does CSIR-TKDL concordance affect Indian & international patent filings?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
+      <button type="button" onclick="sendQuickPrompt('How does CSIR-TKDL concordance affect Indian &amp; international patent filings?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
         CSIR-TKDL Prior Art Concordance
+      </button>
+      <button type="button" onclick="sendQuickPrompt('What does the IP-SAKTI Sahayak platform do and how does the 5-step Intake Wizard work?')" class="text-xs px-3 py-1.5 rounded-full bg-surface-container-lowest border border-outline-variant/50 hover:border-primary hover:bg-surface-container-low text-on-surface transition-all text-left">
+        🌐 About Platform &amp; 5-Step Intake Wizard
       </button>
     </div>
   </div>
@@ -1249,6 +1256,7 @@ function navigate(page) {
   if(page === 'corpus') renderCorpus();
   if(page === 'audit') renderAuditLog();
   if(page === 'intake-5') renderIntakeReview();
+  if(page === 'ask-ai' && typeof initChatHistory === 'function') initChatHistory();
 }
 
 function setRole(role) {
@@ -1508,52 +1516,84 @@ const GROQ_CONFIG = {
 
 const STATUTORY_CORPUS = [
   {
+    id: 'platform-overview',
+    title: 'IP-SAKTI Sahayak — Platform Mission & Sovereign Architecture',
+    category: 'Platform Architecture',
+    keywords: ['platform', 'ipsakti', 'ip-sakti', 'sahayak', 'about', 'website', 'what is', 'features', 'sovereign', 'ayush', 'system', 'mission', 'purpose'],
+    text: 'IP-SAKTI Sahayak is a sovereign IP & regulatory intelligence platform engineered for Ayurvedic, Siddha, Unani, and Sowa-Rigpa botanical innovation in India.\n\nCore Platform Modules:\n1. 5-Step Botanical Formulation Intake Wizard for canonical lineage and claim validation.\n2. CSIR-TKDL Prior-Art Search Engine cross-referencing 430,000+ classical formulations.\n3. ABS (Access & Benefit Sharing) compliance clearance and automatic SBB Form-1 drafting under the Biological Diversity Act, 2002.\n4. Section 3(p), 3(e), and 3(d) statutory patentability analysis and AI synergistic hypothesis generation.\n5. Escalation to Empaneled Legal Counsel (Adv. K. Ramanathan) under a guaranteed 48-hour SLA.\n6. Immutable, SHA-256 sealed cryptographic platform audit log.',
+    citation: 'IP-SAKTI Sahayak Sovereign Architecture v2.6'
+  },
+  {
+    id: 'platform-roles',
+    title: 'Platform User Roles & Sovereign Access Tiers',
+    category: 'User Roles & Governance',
+    keywords: ['roles', 'researcher', 'facilitator', 'admin', 'company', 'counsel', 'tiers', 'access', 'user', 'who can use', 'permission'],
+    text: 'The platform provides 3 distinct sovereign access control tiers:\n- Researcher (Tier 01): AYUSH researchers and formulation innovators who draft formulation intakes, run TKDL concordance checks, verify biological sourcing provenance, and initiate docket submissions.\n- Facilitator / Company (Tier 02): Corporate IP managers, pharmaceutical enterprises, and licensing facilitators who monitor enterprise dockets, manage advisory SLAs with empaneled counsel, and verify commercial ABS tariffs.\n- Administrator (Tier 03): Sovereign governance administrators who oversee authoritative source document corpora (CSIR-TKDL, Patents Act rule matrices, NBA registers), trigger gazette syncs, verify SHA-256 state roots, and audit ledger integrity.',
+    citation: 'IP-SAKTI Sovereign Access Control Protocol'
+  },
+  {
+    id: 'intake-wizard-guide',
+    title: 'The 5-Step Formulation Intake Wizard Workflow',
+    category: 'Intake Wizard Workflow',
+    keywords: ['intake', 'wizard', 'steps', 'step 1', 'step 2', 'step 3', 'step 4', 'step 5', 'submit', 'formulation', 'how to intake', 'add formulation'],
+    text: 'The Intake Wizard navigates formulations through 5 statutory stages:\n- Step 1: Botanical Identity (#intake-1) — Commercial formulation name, canonical Sanskrit reference, AYUSH traditional system (Ayurveda, Siddha, Unani, Sowa-Rigpa), dosage vehicle (Kashaya decoction, Churna, Vati, Taila, Ghrita, Phytosome), authoritative text (Charaka Samhita, Sushruta Samhita, Ashtanga Hridaya, Bhavaprakasha, Sahasrayoga, AFI), and regulatory track (Classical Formulation Rule 158B vs Proprietary APM).\n- Step 2: Formulation & Ingredients (#intake-2) — Botanical taxonomy, plant anatomical parts (Radix, Caulis, Leaf, Fruit, Seed, Bark), and provenance (Cultivated, Wild-Harvested, APMC Commodity).\n- Step 3: Core Claims & Synergy (#intake-3) — Marketing label claims, scientific basis, and AI-assisted drafting of Section 3(e) synergistic hypotheses.\n- Step 4: Biological Source (#intake-4) — Harvest location (state/region), collection method, and APMC commercial invoices.\n- Step 5: Target Market & Review (#intake-5) — Jurisdictional filing scope (India IPO, PCT Global, USPTO, EPO) and full dossier review prior to classification.',
+    citation: 'IP-SAKTI Intake Wizard Guidelines v2.6'
+  },
+  {
+    id: 'tkdl-search-engine',
+    title: 'CSIR-TKDL Prior-Art Concordance & Search Engine',
+    category: 'TKDL Concordance',
+    keywords: ['tkdl', 'prior art', 'search', 'citations', 'charaka', 'sushruta', 'ashtanga', 'bhavaprakasha', 'sahasrayoga', 'shloka', 'relevance', 'overlap', 'flag'],
+    text: 'The platform integrates the CSIR Traditional Knowledge Digital Library (TKDL v4.2) containing 430,000+ classical formulations transcribed into 5 international languages.\n\nQuery Syntax: Supports Boolean queries such as "TKDL:[Withania somnifera] AND CLAIM:[Rasayana]".\nResults display classical text citations (e.g., Charaka Cikitsasthana 1.1-38), relevance scores (up to 98.4%), and risk flags:\n- "Classical Overlap Flagged": High risk of Section 3(p) anticipation.\n- "No Direct Claim Conflict": Prior art exists for plant, but not for specific claim combination.\n- "Prior Knowledge Cited": Defensive prior art cited in Bhavaprakasha or Ashtanga Hridaya.\nCitations can be saved directly to the active dossier with one click.',
+    citation: 'CSIR-TKDL Database v4.2 & WIPO-TKRC Classification Matrix'
+  },
+  {
+    id: 'abs-compliance-engine',
+    title: 'Access & Benefit Sharing (ABS) & SBB Form-1 Workflow',
+    category: 'ABS Compliance',
+    keywords: ['abs', 'biodiversity', 'bda', 'nba', 'sbb', 'form 1', 'form 3', 'form-1', 'form-3', 'benefit sharing', 'wild-harvested', 'guduchi', 'clearance', 'maharashtra'],
+    text: 'Under the Biological Diversity Act 2002 and 2023 amendments:\n1. Form-1 SBB Clearance: Mandatory intimation to the State Biodiversity Board (e.g. MSBB) before commercial utilization of wild-harvested biological resources.\n2. Form-3 NBA Clearance: Mandatory prior approval from the National Biodiversity Authority before filing patent applications based on Indian biological resources.\n3. The platform features an interactive 4-point verification checklist and a 1-click "Generate SBB Form-1 Draft" export for regulatory submission.',
+    citation: 'Biological Diversity Act 2002 §§ 3, 6, 7; Biological Diversity Rules 2004 Rule 14'
+  },
+  {
+    id: 'escalation-counsel',
+    title: 'Escalation to Empaneled Legal Counsel',
+    category: 'Legal Advisory',
+    keywords: ['escalation', 'counsel', 'lawyer', 'attorney', 'ramanathan', 'sen', 'section 39', 'sla', 'audit', 'tier 2', 'advisory'],
+    text: 'When a formulation exhibits statutory risk under Section 3(p) or requires Section 39 foreign filing clearance, researchers can escalate the docket to Empaneled Legal Counsel (e.g. Adv. K. Ramanathan or Adv. Vikramaditya Sen).\nFeatures: Guaranteed 48-business-hour SLA, tier 2 advisory assignment, and immutable SHA-256 cryptographic sealing recorded in the platform audit log.',
+    citation: 'IP-SAKTI Empaneled Counsel SLA & Advisory Protocols'
+  },
+  {
+    id: 'admin-governance',
+    title: 'Administrative Source Corpus & Ledger Seal Governance',
+    category: 'Platform Governance',
+    keywords: ['corpus', 'governance', 'admin', 'ledger', 'hash', 'sha-256', 'cryptographic', 'sync', 'audit log', 'immutable'],
+    text: 'The Admin Governance suite (#admin) enables sovereign monitoring:\n1. Source Corpus Management (#corpus): Indexing CSIR-TKDL Samhita texts, Patents Act rule matrices, and NBA registers.\n2. Integrity Verification: 1-click cryptographic hash verification against platform state roots.\n3. Statutory Corpus Sync: Triggers real-time synchronization with official government gazetteers.\n4. Immutable Audit Trail (#audit): Chronological, cryptographically sealed record of all classification, escalation, and token verification events.',
+    citation: 'IP-SAKTI Sovereign Governance & Audit Trail Standard'
+  },
+  {
     id: 'patents-3p',
-    title: 'Indian Patents Act 1970 — Section 3(p)',
+    title: 'Indian Patents Act 1970 — Section 3(p) Traditional Knowledge Bar',
     category: 'Patentability Exclusion',
-    keywords: ['3(p)', '3p', 'traditional knowledge', 'classical', 'ayurveda', 'ayush', 'unani', 'siddha', 'prior art', 'charaka', 'sushruta', 'samhita', 'heritage', 'kashaya', 'powder', 'churna'],
-    text: 'Section 3(p) provides that "an invention which in effect is traditional knowledge or which is an aggregation or duplication of known properties of traditionally known component or components" is not patentable.\n\nStrategic Overcoming Guidance:\n1. Prove non-obvious synergistic interaction under Section 3(e) (e.g., combination index < 1).\n2. Demonstrate enriched or isolated bio-fractions with substantially altered pharmacokinetics/pharmacodynamics compared to raw classical decoction (Kashaya).\n3. Protect novel technological delivery mechanisms (e.g., phytosomes, liposomes, nano-emulsions, targeted bioavailability carriers) or proprietary temperature-controlled chromatographic purification profiles as Process Patents or Trade Secrets.',
-    citation: 'Indian Patents Act 1970 § 3(p); CGPDTM Guidelines for Examination of Patent Applications relating to Traditional Knowledge and Biological Material (2025 rev.)'
+    keywords: ['3(p)', '3p', 'traditional knowledge', 'classical', 'ayurveda', 'exclusion', 'anticipation', 'overcome', 'patentable', 'herbal'],
+    text: 'Section 3(p) bars patenting of "an invention which in effect is traditional knowledge or which is an aggregation or duplication of known properties of traditionally known component or components".\n\nStrategies to Overcome:\n1. Demonstrate non-obvious synergistic efficacy under Section 3(e) (CI < 1.0).\n2. Formulate enriched or standardized bioactive fractions that exhibit statistically superior pharmacokinetic profiles compared to classical Kashaya decoctions.\n3. Develop novel technical delivery platforms (phytosomes, nano-liposomes, phospholipid complexes) showing enhanced bioavailability.\n4. Protect proprietary extraction temperature gradients and yield curves as Trade Secrets.',
+    citation: 'Indian Patents Act 1970 § 3(p); CGPDTM Traditional Knowledge Examination Guidelines'
   },
   {
     id: 'patents-3e',
-    title: 'Indian Patents Act 1970 — Section 3(e)',
+    title: 'Indian Patents Act 1970 — Section 3(e) Synergistic Admixture Standard',
     category: 'Synergy vs Mere Admixture',
-    keywords: ['3(e)', '3e', 'synergy', 'synergistic', 'admixture', 'aggregation', 'combination', 'bioavailability', 'chou-talalay', 'isobologram', 'evidence', 'ratio', 'supra-additive'],
-    text: 'Section 3(e) bars "a substance obtained by a mere admixture resulting only in the aggregation of the properties of the components thereof or a process for producing such substance".\n\nStatutory Proof Requirements:\n1. Quantitative proof of supra-additive effect: An applicant must demonstrate with empirical bio-assays (in vitro / in vivo) that the combined efficacy exceeds the algebraic sum of the individual components.\n2. Combination Index (CI) calculation (e.g., Chou-Talalay method where CI < 0.8 signifies strong synergy) or isobologram analysis.\n3. Comparative data showing that the specific ratio of standardized active botanical fractions yields a statistically significant (p < 0.01) enhancement in bioavailability or therapeutic response.',
-    citation: 'Indian Patents Act 1970 § 3(e); High Court of Delhi Patent Appellate Division Decisions on Botanical Compositions'
+    keywords: ['3(e)', '3e', 'synergy', 'synergistic', 'admixture', 'aggregation', 'chou-talalay', 'combination index', 'bioavailability', 'ratio'],
+    text: 'Section 3(e) excludes "a substance obtained by a mere admixture resulting only in the aggregation of the properties of the components thereof".\n\nProof Requirements:\n1. Quantitative supra-additive effect: Empirical data showing biological activity exceeding the algebraic sum of individual components.\n2. Combination Index (CI < 0.8) calculated via Chou-Talalay isobologram analysis.\n3. Comparative bioavailability data showing statistically significant improvement (p < 0.01) in Cmax, AUC, or cellular permeability.',
+    citation: 'Indian Patents Act 1970 § 3(e); Delhi High Court Botanical Patent Jurisprudence'
   },
   {
-    id: 'patents-3d',
-    title: 'Indian Patents Act 1970 — Section 3(d)',
-    category: 'Enhanced Efficacy Standard',
-    keywords: ['3(d)', '3d', 'efficacy', 'new form', 'derivative', 'extract', 'fraction', 'standardized', 'bioactivity', 'therapeutic', 'enhancement'],
-    text: 'Section 3(d) bars "the mere discovery of a new form of a known substance which does not result in the enhancement of the known efficacy of that substance".\n\nApplication to Botanical Phyto-fractions:\nWhen patenting an isolated bioactive fraction (e.g., purified withanolides, curcuminoids, berberine) derived from a classical plant, the applicant must establish a significant enhancement in therapeutic efficacy over the known classical extract. Purely physical improvements (yield, stability, ease of handling) are insufficient unless tied directly to clinical or bio-potency enhancement.',
-    citation: 'Indian Patents Act 1970 § 3(d); Novartis AG v. Union of India (2013) 6 SCC 1'
-  },
-  {
-    id: 'patents-10-39',
-    title: 'Indian Patents Act 1970 — Sections 10(4) & 39',
-    category: 'Statutory Disclosure & Foreign Filing Clearance',
-    keywords: ['section 10', 'section 39', 'source', 'geographical origin', 'foreign filing', 'form 2', 'nba clearance', 'ffl', 'controller'],
-    text: '1. Section 10(4)(ii)(D): The applicant must disclose the exact source and geographical origin of biological material used in the specification. Failure to disclose or wrongful disclosure is a ground for patent opposition and revocation under Section 25 & 64.\n2. Section 39: Indian residents cannot apply for patents outside India without prior written permission (Foreign Filing License / FFL) from the Controller General, unless 6 weeks have elapsed since filing in India without secrecy directions.',
-    citation: 'Indian Patents Act 1970 § 10(4)(ii)(D), § 39, § 25(1)(j), § 64(1)(p)'
-  },
-  {
-    id: 'bda-sections',
-    title: 'Biological Diversity Act 2002 — Sections 3, 6, 7 & 40',
-    category: 'Access & Benefit Sharing (ABS)',
-    keywords: ['abs', 'biodiversity', 'bda', 'nba', 'sbb', 'form 1', 'form 3', 'form-1', 'form-3', 'benefit sharing', 'wild-harvested', 'cultivated', 'ntac', 'origin', 'maharashtra'],
-    text: 'The Biological Diversity Act 2002 (amended 2023) regulates biological resources found within Indian sovereign territory:\n1. Section 3: Non-Indian citizens, foreign entities, or Indian companies with foreign equity participation must seek prior NBA approval before accessing Indian biological resources for commercial utilization or research.\n2. Section 6: Mandatory prior approval from NBA (Form-3) before applying for any Intellectual Property Right (IPR) inside or outside India based on Indian biological research.\n3. Section 7: Indian domestic entities must submit prior intimation to the relevant State Biodiversity Board (SBB Form-1) prior to commercial utilization.\n4. Cultivation & NTAC Exemption: Cultivated medicinal plants and normally traded agricultural commodities (Section 40 NTAC list) have specific carve-outs, but whole-plant wild sourcing from protected or reserved biomes mandates ABS compliance.',
-    citation: 'Biological Diversity Act 2002 (amended 2023) §§ 3, 6, 7, 40; NBA Guidelines on Access & Benefit Sharing'
-  },
-  {
-    id: 'csir-tkdl',
-    title: 'CSIR Traditional Knowledge Digital Library (TKDL)',
-    category: 'Prior Art Database',
-    keywords: ['tkdl', 'csir', 'database', 'classical', 'charaka', 'sushruta', 'ashtanga', 'bhavaprakasha', 'sahasrayoga', 'shloka', 'pre-grant opposition', 'prior-art', 'concordance'],
-    text: 'CSIR-TKDL contains 430,000+ formulations from classical Ayurveda, Unani, Siddha, and Sowa Rigpa literature, scientifically classified according to the International Patent Classification (IPC) Traditional Knowledge Resource Classification (TKRC).\n\nExamination Mechanism:\nAccess is granted under non-disclosure agreements to international patent offices (IPO, USPTO, EPO, JPO, UKIPO, IP Australia). Examiners actively cite TKDL shlokas as prior art anticipation under Section 3(p) or 102/103 (USPTO) or Article 54/56 EPC. To avoid rejection, formulations must clearly state technological novelty beyond textual samhita recipes.',
-    citation: 'CSIR-TKDL Database v4.2; WIPO TKRC Concordance Matrix'
+    id: 'patents-3d-39',
+    title: 'Sections 3(d), 10(4) & 39 of Indian Patents Act 1970',
+    category: 'Statutory Standards',
+    keywords: ['3(d)', '3d', 'section 10', 'section 39', 'origin', 'foreign filing', 'ffl', 'controller', 'geographical origin', 'disclosure'],
+    text: '1. Section 3(d): Requires proof of significantly enhanced therapeutic efficacy when claiming a new form or fraction of a known classical substance.\n2. Section 10(4)(ii)(D): Mandatory statutory disclosure of biological material source and geographical origin in Form 2 specifications.\n3. Section 39: Indian residents must obtain prior written permission (Foreign Filing License) from the Controller before filing patent applications outside India.',
+    citation: 'Indian Patents Act 1970 §§ 3(d), 10(4)(ii)(D), 39'
   }
 ];
 
@@ -1575,7 +1615,7 @@ function retrieveContext(query) {
   scored.sort((a, b) => b.score - a.score);
   const topChunks = scored.filter(s => s.score > 0).slice(0, 3);
   if (topChunks.length === 0) {
-    topChunks.push(STATUTORY_CORPUS[0], STATUTORY_CORPUS[1], STATUTORY_CORPUS[4]);
+    topChunks.push(STATUTORY_CORPUS[0], STATUTORY_CORPUS[2], STATUTORY_CORPUS[7]);
   }
 
   let activeDossierContext = '';
@@ -1604,25 +1644,25 @@ function formatMarkdown(text) {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
-  html = html.replace(/^###\s+(.+)$/gm, '<h4 class="font-semibold text-primary text-sm sm:text-base mt-3 mb-1.5">$1</h4>');
-  html = html.replace(/^##\s+(.+)$/gm, '<h3 class="font-bold text-primary text-base sm:text-lg mt-3 mb-2 pb-1 border-b border-outline-variant/30">$1</h3>');
-  html = html.replace(/^#\s+(.+)$/gm, '<h2 class="font-bold text-primary text-lg sm:text-xl mt-3 mb-2">$1</h2>');
+  html = html.replace(/^###\s+(.+)$/gm, '<h4 class="font-bold text-primary text-base mt-3.5 mb-1.5 pb-0.5 border-b border-outline-variant/30">$1</h4>');
+  html = html.replace(/^##\s+(.+)$/gm, '<h3 class="font-bold text-primary text-lg mt-4 mb-2 pb-1 border-b border-outline-variant/40">$1</h3>');
+  html = html.replace(/^#\s+(.+)$/gm, '<h2 class="font-extrabold text-primary text-xl mt-4 mb-2">$1</h2>');
 
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-on-surface">$1</strong>');
   html = html.replace(/\*(.*?)\*/g, '<em class="italic text-on-surface-variant">$1</em>');
   html = html.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-surface-container text-primary text-xs font-mono">$1</code>');
 
-  html = html.replace(/^\s*[-*•]\s+(.+)$/gm, '<li class="ml-4 list-disc text-on-surface leading-relaxed text-sm my-0.5">$1</li>');
-  html = html.replace(/^\s*(\d+)\.\s+(.+)$/gm, '<li class="ml-4 list-decimal text-on-surface leading-relaxed text-sm my-0.5"><span class="font-medium">$2</span></li>');
+  html = html.replace(/^\s*[-*•]\s+(.+)$/gm, '<li class="ml-4 list-disc text-on-surface leading-relaxed text-[15px] my-1">$1</li>');
+  html = html.replace(/^\s*(\d+)\.\s+(.+)$/gm, '<li class="ml-4 list-decimal text-on-surface leading-relaxed text-[15px] my-1"><span class="font-medium">$2</span></li>');
 
-  html = html.replace(/(<li class="ml-4 list-disc[^>]*>.*?<\/li>\s*)+/gs, '<ul class="my-2 space-y-1">$&</ul>');
-  html = html.replace(/(<li class="ml-4 list-decimal[^>]*>.*?<\/li>\s*)+/gs, '<ol class="my-2 space-y-1">$&</ol>');
+  html = html.replace(/(<li class="ml-4 list-disc[^>]*>.*?<\/li>\s*)+/gs, '<ul class="my-2.5 space-y-1">$&</ul>');
+  html = html.replace(/(<li class="ml-4 list-decimal[^>]*>.*?<\/li>\s*)+/gs, '<ol class="my-2.5 space-y-1">$&</ol>');
 
   html = html.split(/\n\n+/).map(p => {
     p = p.trim();
     if (!p) return '';
     if (p.startsWith('<h') || p.startsWith('<ul') || p.startsWith('<ol') || p.startsWith('<div')) return p;
-    return `<p class="text-body-md font-body-md text-on-surface leading-relaxed text-sm sm:text-[15px] my-2">${p.replace(/\n/g, '<br/>')}</p>`;
+    return `<p class="text-on-surface leading-relaxed text-[15px] my-2">${p.replace(/\n/g, '<br/>')}</p>`;
   }).join('');
 
   return html;
@@ -1630,36 +1670,50 @@ function formatMarkdown(text) {
 
 function getLocalRAGResponse(query, sources) {
   const q = (query || '').toLowerCase();
+  
+  if (q.includes('platform') || q.includes('ipsakti') || q.includes('sahayak') || q.includes('about') || q.includes('website') || q.includes('what is')) {
+    return `### IP-SAKTI Sahayak Sovereign Platform Overview\n\n**IP-SAKTI Sahayak** is a sovereign IP & regulatory intelligence platform for Indian botanical innovation.\n\n**Core Capabilities:**\n- **5-Step Intake Wizard (#intake-1 to #intake-5)**: Structured guidance from classical botanical identity to multi-jurisdiction patent filing scope.\n- **CSIR-TKDL Concordance (#tkdl)**: Prior-art search against 430,000+ classical formulations across Charaka, Sushruta, and Ashtanga Hridaya.\n- **ABS Biodiversity Clearance (#abs)**: Verification checklist and 1-click generation of statutory SBB Form-1 intimations under BDA 2002.\n- **Statutory Legal Assistant (#ask-ai)**: Grounded AI copilot trained on Indian Patents Act 1970 (§§ 3p, 3e, 3d, 10, 39) and biological diversity jurisprudence.\n- **Escalation to Empaneled Counsel (#escalation)**: Formal docket referral to Adv. K. Ramanathan under a 48-hour SLA with SHA-256 sealed audit trails.`;
+  }
+
+  if (q.includes('wizard') || q.includes('step 1') || q.includes('step 2') || q.includes('step 3') || q.includes('step 4') || q.includes('step 5') || q.includes('how to intake')) {
+    return `### The 5-Step Formulation Intake Wizard\n\nThe Intake Wizard guides innovators through sovereign patent and regulatory clearance:\n\n1. **Step 1: Botanical Identity (#intake-1)**: Formulation commercial name, canonical Sanskrit reference, AYUSH traditional system (Ayurveda, Siddha, Unani, Sowa-Rigpa), delivery vehicle (Kashaya, Churna, Vati, Phytosome), authoritative text (Charaka Samhita, Sushruta Samhita, AFI), and regulatory track (Classical Rule 158B vs Proprietary APM).\n2. **Step 2: Formulation & Ingredients (#intake-2)**: Multi-ingredient botanical taxonomy, plant anatomical parts (Radix, Caulis, Leaf, Fruit), and provenance (Cultivated, Wild-harvested, APMC Commodity).\n3. **Step 3: Core Claims & Synergy (#intake-3)**: Marketing label claims, scientific basis, and AI-assisted drafting of Section 3(e) synergistic hypotheses.\n4. **Step 4: Biological Source (#intake-4)**: Harvest location (state/region), collection method, and APMC commercial invoices.\n5. **Step 5: Target Market & Review (#intake-5)**: Jurisdictional filing scope (India IPO, PCT Global, USPTO, EPO) and full dossier review prior to classification.`;
+  }
+
   if (q.includes('3(p)') || q.includes('3p') || q.includes('traditional') || q.includes('classical')) {
     return `### Section 3(p) Analysis & Statutory Overcoming Strategy\n\nUnder **Section 3(p) of the Indian Patents Act, 1970**, an invention which in effect is traditional knowledge or an aggregation of known properties of traditionally known components is barred from patentability.\n\n**To successfully overcome Section 3(p):**\n- **Establish Section 3(e) Synergy**: Demonstrate quantitative non-obvious synergistic interaction between the components (e.g., Combination Index < 1 using Chou-Talalay method).\n- **Standardize Enriched Phyto-fractions**: File claims directed to enriched, isolated bio-active fractions (e.g., specific standardized withanolide or polysaccharide ratios) rather than crude water extracts.\n- **Novel Delivery Systems**: Develop and claim novel delivery matrices (liposomal encapsulation, phytosomal complexes, nano-emulsions) exhibiting statistically significant bioavailability enhancement.\n- **Trade Secret Alternative**: Keep precise extraction temperatures, chromatographic parameters, and solvent yield ratios as proprietary Trade Secrets.`;
   }
+  
   if (q.includes('3(e)') || q.includes('3e') || q.includes('synerg') || q.includes('admixture')) {
     return `### Section 3(e) Synergistic Efficacy Requirements\n\n**Section 3(e)** of the Patents Act, 1970 bars substances obtained by *mere admixture* resulting only in the aggregation of properties.\n\n**Mandatory Quantitative Evidence Required by CGPDTM:**\n1. **Supra-additive Therapeutic Data**: In vitro / in vivo assays demonstrating that the combined biological response exceeds the additive sum of individual constituents ($E_{AB} > E_A + E_B$).\n2. **Combination Index (CI)**: Statistical proof showing synergistic interaction indices ($CI < 0.8$) across multiple dosage ratios.\n3. **Comparative Bioavailability**: Bio-equivalence data proving enhanced cellular uptake or peak plasma concentration ($C_{max}$) compared to raw classical formulations.`;
   }
+  
   if (q.includes('abs') || q.includes('biodiversity') || q.includes('form-1') || q.includes('form 1') || q.includes('form-3') || q.includes('form 3') || q.includes('sbb') || q.includes('nba')) {
     return `### Access & Benefit Sharing (ABS) Dual-Clearance Workflow\n\nUnder the **Biological Diversity Act, 2002 (amended 2023)**:\n\n1. **SBB Form-1 Intimation (Section 7)**:\n   - Mandatory for Indian commercial entities accessing wild-harvested biological resources from Indian natural habitats.\n   - Must be submitted to the State Biodiversity Board prior to commercial utilization.\n2. **NBA Form-3 Patent Approval (Section 6)**:\n   - Mandatory prior approval from the National Biodiversity Authority (NBA) before grant of any patent based on biological resources or associated knowledge obtained from India.\n3. **Exemptions**:\n   - Cultivated medicinal plants and normally traded commodities (Section 40 NTAC list) have specific exemptions, provided strict provenance documentation is maintained.`;
   }
+
   return `### IP-SAKTI Sovereign Regulatory Assessment\n\nBased on your query regarding Indian IP and biodiversity compliance:\n\n- **Statutory Framework**: Indian Patents Act 1970 (§§ 3(p), 3(e), 3(d), 10, 39) alongside Biological Diversity Act 2002.\n- **Prior Art Check**: Cross-referenced with CSIR-TKDL database (430,000+ classical formulations across Charaka, Sushruta, and Ashtanga Hridaya).\n- **Strategic Recommendation**: If combining classical botanicals, ensure you prepare empirical synergistic data under Section 3(e), maintain APMC procurement invoices for ABS compliance, and request NBA Form-3 clearance prior to patent grant.`;
 }
+
+// Multi-model cascade: fast, intelligent, zero-cost (includes groq/compound-mini with 70,000 TPM limit)
+const MODEL_CASCADE = ['qwen/qwen3.8-27b', 'groq/compound-mini', 'openai/gpt-oss-120b', 'openai/gpt-oss-20b', 'qwen/qwen3.6-27b'];
 
 async function callGroqRAG(userQuery) {
   const { contextText, sources } = retrieveContext(userQuery);
   const apiKey = GROQ_CONFIG.apiKey;
-  const model = GROQ_CONFIG.model || 'qwen/qwen3.8-27b';
 
-  const systemPrompt = `You are "IP-SAKTI Sahayak", a sovereign legal and patent copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), and CSIR Traditional Knowledge Digital Library (TKDL) concordance.
+  const systemPrompt = `You are "IP-SAKTI Sahayak", an authoritative sovereign IP & regulatory AI copilot specialized in Indian Intellectual Property Law (Patents Act 1970), the Biological Diversity Act 2002 (BDA), CSIR-TKDL prior-art concordance, and the IP-SAKTI platform itself.
 
 YOUR MANDATE:
 1. Provide legally precise, evidence-grounded answers.
 2. Directly address statutory hurdles under Section 3(p) (traditional knowledge bar), Section 3(e) (synergistic admixture standard), Section 3(d) (therapeutic efficacy bar), Section 10(4)(ii)(D) (disclosure of biological origin), and Section 39 (foreign filing permission).
-3. Explain Access & Benefit Sharing (ABS) compliance under BDA 2002: NBA Form-3 clearance for patent filing, SBB Form-1 intimation for wild-harvested biological resources, and exemptions for cultivated NTACs.
-4. Distinguish between patentable inventions (synergistic formulations, novel delivery systems like phytosomes/liposomes, isolated fractions with clinical proof) versus trade secret protection for extraction temperature curves and yield parameters.
-5. Structure your output with clear bold subheadings, succinct analytical bullet points, and formal statutory citations.
+3. If asked about the platform or website, explain the 5-step Intake Wizard (#intake-1 to #intake-5), TKDL search (#tkdl), ABS compliance (#abs), user roles (Researcher, Facilitator, Admin), and escalation to Empaneled Counsel.
+4. Keep answers concise, highly legible, structured with bold headings and clean bullet points.
 
-STATUTORY & DOSSIER KNOWLEDGE BASE (RETRIEVED VIA RAG):
+STATUTORY & PLATFORM KNOWLEDGE BASE (RETRIEVED VIA RAG):
 ${contextText}`;
 
-  const recentHistory = (appState.chatHistory || []).slice(-6).map(m => ({
+  // Use up to 4 recent message turns
+  const recentHistory = (appState.chatHistory || []).slice(-4).map(m => ({
     role: m.role === 'user' ? 'user' : 'assistant',
     content: m.text
   }));
@@ -1675,56 +1729,192 @@ ${contextText}`;
       text: getLocalRAGResponse(userQuery, sources),
       sources: sources,
       isFallback: true,
-      error: 'Groq API Key not configured. Using grounded offline RAG.'
+      model: 'Statutory Knowledge Engine (Offline)'
     };
   }
 
-  try {
-    const response = await fetch(GROQ_CONFIG.endpoint, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: model,
-        messages: messages,
-        temperature: 0.25,
-        max_tokens: 1100
-      })
-    });
+  // Multi-model retry cascade with safe token limit (600 max_tokens to strictly honor 1000 OTPM limit)
+  for (let model of MODEL_CASCADE) {
+    try {
+      const response = await fetch(GROQ_CONFIG.endpoint, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: messages,
+          temperature: 0.2,
+          max_tokens: 600
+        })
+      });
 
-    if (!response.ok) {
-      const errData = await response.json().catch(() => ({}));
-      console.warn('Groq API Error:', response.status, errData);
-      throw new Error(errData?.error?.message || `HTTP ${response.status}: ${response.statusText}`);
+      if (response.status === 429 || response.status === 413) {
+        console.warn(`Groq model ${model} rate-limited (${response.status}), failing over to next model in cascade...`);
+        continue;
+      }
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        console.warn(`Groq model ${model} returned error:`, response.status, errData);
+        continue;
+      }
+
+      const data = await response.json();
+      const content = data.choices?.[0]?.message?.content || data.choices?.[0]?.message?.reasoning || '';
+      if (!content) continue;
+
+      return {
+        text: content,
+        sources: sources,
+        isFallback: false,
+        model: model
+      };
+    } catch (e) {
+      console.warn(`Model ${model} network error:`, e.message);
+      continue;
     }
+  }
 
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content || '';
-    if (!content) throw new Error('Empty response from Groq LLM');
+  // Graceful fallback to verified statutory knowledge
+  return {
+    text: getLocalRAGResponse(userQuery, sources),
+    sources: sources,
+    isFallback: true,
+    model: 'IP-SAKTI Statutory Engine (Grounded RAG)'
+  };
+}
 
-    return {
-      text: content,
-      sources: sources,
-      isFallback: false,
-      model: data.model || model
-    };
-  } catch (err) {
-    console.error('Groq RAG call failed, falling back to local grounded knowledge:', err);
-    showToast(`Groq notice: ${err.message || 'Connecting to offline RAG'}`, 'warning');
-    return {
-      text: getLocalRAGResponse(userQuery, sources),
-      sources: sources,
-      isFallback: true,
-      error: err.message
-    };
+// LocalStorage chat persistence key
+const CHAT_STORAGE_KEY = 'ipsakti_chat_history';
+
+function loadChatHistory() {
+  try {
+    const raw = localStorage.getItem(CHAT_STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveChatHistory(history) {
+  try {
+    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(history));
+  } catch (e) {}
+}
+
+function renderChatMessage(msg) {
+  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6');
+  if (!chatContainer) return;
+
+  if (msg.role === 'user') {
+    chatContainer.innerHTML += `
+      <div class="chat-msg flex justify-end w-full pl-6 sm:pl-16 animate-[fadeIn_0.2s_ease-out]">
+        <div class="max-w-[88%] sm:max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-4 sm:px-5 py-3.5 shadow-sm">
+          <p class="text-body-md font-body-md leading-relaxed text-on-surface text-sm sm:text-base">${msg.text}</p>
+          <div class="flex items-center justify-end gap-1.5 mt-2">
+            <span class="text-label-sm font-label-sm text-outline text-xs">${msg.time || ''}</span>
+            <span class="material-symbols-outlined text-[14px] text-surface-tint">done_all</span>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    const formattedContent = formatMarkdown(msg.text);
+    const sourcesList = (msg.sources || []).map(s => `
+      <div class="text-xs text-on-surface-variant flex items-start gap-1.5">
+        <span class="material-symbols-outlined text-[14px] text-primary shrink-0 mt-0.5">menu_book</span>
+        <div><strong class="text-primary font-medium">${s.title}:</strong> ${s.citation}</div>
+      </div>`).join('');
+
+    chatContainer.innerHTML += `
+      <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8 animate-[fadeIn_0.25s_ease-out]">
+        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+        </div>
+        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-surface-container-low mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Legal Intelligence
+              </span>
+              <span class="text-outline text-xs">•</span>
+              <span class="text-xs text-on-surface-variant font-mono bg-surface-container px-2 py-0.5 rounded">${msg.model || 'qwen/qwen3.8-27b'}</span>
+            </div>
+            <span class="text-xs text-outline font-medium">${msg.time || ''}</span>
+          </div>
+          
+          <div class="prose prose-sm max-w-none text-on-surface space-y-2">
+            ${formattedContent}
+          </div>
+
+          ${sourcesList ? `
+            <div class="mt-4 pt-3 border-t border-surface-container-low bg-surface-container-low/60 rounded-lg p-3 space-y-1.5">
+              <div class="text-[11px] font-semibold tracking-wider uppercase text-outline flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
+                <span>Statutory &amp; Platform Authorities Cited (RAG)</span>
+              </div>
+              <div class="space-y-1">${sourcesList}</div>
+            </div>` : ''}
+
+          <div class="mt-3 flex items-center justify-between pt-2 text-xs text-outline border-t border-surface-container-low/50">
+            <span>Evidence-grounded statutory analysis</span>
+            <button onclick="navigator.clipboard.writeText(this.closest('.chat-msg').querySelector('.prose').innerText);showToast('Response copied to clipboard','success');" class="hover:text-primary transition-colors flex items-center gap-1 text-[11px]">
+              <span class="material-symbols-outlined text-[13px]">content_copy</span>Copy
+            </button>
+          </div>
+        </div>
+      </div>`;
+  }
+}
+
+function initChatHistory() {
+  const history = loadChatHistory();
+  appState.chatHistory = history;
+  const chatContainer = document.getElementById('chat-messages');
+  if (!chatContainer) return;
+
+  if (history.length === 0) {
+    chatContainer.innerHTML = `
+      <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8">
+        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">verified_user</span>
+        </div>
+        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
+          <div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-3">
+            <div class="flex items-center gap-2">
+              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence
+              </span>
+              <span class="text-outline text-label-sm">•</span>
+              <span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Groq RAG Active</span>
+            </div>
+            <span class="text-label-sm text-outline">Statutory Engine v2.6</span>
+          </div>
+          <p class="text-body-md font-body-md text-on-surface leading-relaxed">
+            Welcome. I am your sovereign statutory &amp; regulatory copilot, dynamically connected to <strong>Groq Cloud LLM</strong> with real-time RAG grounding in the <strong>Indian Patents Act 1970</strong>, <strong>Biological Diversity Act 2002</strong>, <strong>CSIR-TKDL</strong>, and the <strong>IP-SAKTI Sahayak platform</strong>.
+          </p>
+          <div class="mt-3.5 p-3 rounded-lg bg-surface-container-low border border-surface-container text-label-sm font-label-sm text-on-surface-variant space-y-1">
+            <p class="font-medium text-primary">Ask me about:</p>
+            <ul class="list-disc list-inside space-y-0.5 text-xs text-on-surface-variant">
+              <li>How the 5-Step Intake Wizard structures classical formulations</li>
+              <li>Section 3(p) prior art bars &amp; overcoming strategies</li>
+              <li>Section 3(e) synergistic combinations &amp; quantitative proof requirements</li>
+              <li>Mandatory SBB Form-1 and NBA Form-3 Access &amp; Benefit Sharing (ABS) clearances</li>
+              <li>How to search TKDL citations or escalate dockets to Empaneled Counsel</li>
+            </ul>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    chatContainer.innerHTML = '';
+    history.forEach(m => renderChatMessage(m));
   }
 }
 
 async function sendChatMessage() {
   const input = document.getElementById('chat-user-input') || document.querySelector('#page-ask-ai input[type="text"]');
-  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6') || document.querySelector('#page-ask-ai .space-y-8');
+  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6');
   const sendBtn = document.getElementById('chat-send-btn');
   if (!input || !chatContainer || !input.value.trim()) return;
 
@@ -1735,16 +1925,8 @@ async function sendChatMessage() {
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
 
-  chatContainer.innerHTML += `
-    <div class="chat-msg flex justify-end w-full pl-6 sm:pl-16 animate-[fadeIn_0.2s_ease-out]">
-      <div class="max-w-[88%] sm:max-w-xl bg-surface-container-low border border-surface-container-highest text-on-surface rounded-2xl rounded-tr-sm px-4 sm:px-5 py-3.5 shadow-sm">
-        <p class="text-body-md font-body-md leading-relaxed text-on-surface text-sm sm:text-base">${userMsg}</p>
-        <div class="flex items-center justify-end gap-1.5 mt-2">
-          <span class="text-label-sm font-label-sm text-outline text-xs">${timeStr}</span>
-          <span class="material-symbols-outlined text-[14px] text-surface-tint">done_all</span>
-        </div>
-      </div>
-    </div>`;
+  const userItem = { role: 'user', text: userMsg, time: timeStr };
+  renderChatMessage(userItem);
 
   const typingId = 'typing-indicator-' + Date.now();
   chatContainer.innerHTML += `
@@ -1759,7 +1941,7 @@ async function sendChatMessage() {
             <span class="typing-dot"></span>
             <span class="typing-dot"></span>
           </div>
-          <span class="text-label-sm text-outline text-xs">Retrieving statutory corpora &amp; querying Groq LLM...</span>
+          <span class="text-label-sm text-outline text-xs">Retrieving statutory &amp; website corpora &amp; querying Groq LLM...</span>
         </div>
       </div>
     </div>`;
@@ -1771,60 +1953,24 @@ async function sendChatMessage() {
     const result = await callGroqRAG(userMsg);
     document.getElementById(typingId)?.remove();
 
-    const formattedContent = formatMarkdown(result.text);
-    const sourcesList = (result.sources || []).map(s => `
-      <div class="text-xs text-on-surface-variant flex items-start gap-1.5">
-        <span class="material-symbols-outlined text-[14px] text-primary shrink-0 mt-0.5">menu_book</span>
-        <div><strong class="text-primary font-medium">${s.title}:</strong> ${s.citation}</div>
-      </div>`).join('');
-
-    const msgId = 'ai-msg-' + Date.now();
-    chatContainer.innerHTML += `
-      <div id="${msgId}" class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8 animate-[fadeIn_0.25s_ease-out]">
-        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">verified_user</span>
-        </div>
-        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)] overflow-hidden">
-          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-surface-container-low mb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Legal Intelligence
-              </span>
-              <span class="text-outline text-xs">•</span>
-              <span class="text-xs text-on-surface-variant font-mono bg-surface-container px-2 py-0.5 rounded">${result.model || GROQ_CONFIG.model}</span>
-            </div>
-            <span class="text-xs text-outline font-medium">${timeStr}</span>
-          </div>
-          
-          <div class="prose prose-sm max-w-none text-on-surface space-y-2">
-            ${formattedContent}
-          </div>
-
-          ${sourcesList ? `
-            <div class="mt-4 pt-3 border-t border-surface-container-low bg-surface-container-low/60 rounded-lg p-3 space-y-1.5">
-              <div class="text-[11px] font-semibold tracking-wider uppercase text-outline flex items-center gap-1">
-                <span class="material-symbols-outlined text-[14px] text-secondary">verified</span>
-                <span>Statutory Authorities Cited (RAG)</span>
-              </div>
-              <div class="space-y-1">${sourcesList}</div>
-            </div>` : ''}
-
-          <div class="mt-3 flex items-center justify-between pt-2 text-xs text-outline border-t border-surface-container-low/50">
-            <span>Evidence-grounded statutory analysis</span>
-            <button onclick="navigator.clipboard.writeText(this.closest('.chat-msg').querySelector('.prose').innerText);showToast('Response copied to clipboard','success');" class="hover:text-primary transition-colors flex items-center gap-1 text-[11px]">
-              <span class="material-symbols-outlined text-[13px]">content_copy</span>Copy
-            </button>
-          </div>
-        </div>
-      </div>`;
+    const assistantItem = {
+      role: 'assistant',
+      text: result.text,
+      time: timeStr,
+      sources: result.sources,
+      model: result.model
+    };
+    renderChatMessage(assistantItem);
 
     window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    appState.chatHistory.push({ role: 'user', text: userMsg, time: timeStr });
-    appState.chatHistory.push({ role: 'assistant', text: result.text, time: timeStr });
+
+    appState.chatHistory.push(userItem);
+    appState.chatHistory.push(assistantItem);
+    saveChatHistory(appState.chatHistory);
     saveState();
   } catch (error) {
     document.getElementById(typingId)?.remove();
-    showToast(`Chat error: ${error.message}`, 'error');
+    showToast(`Notice: Grounded in offline statutory knowledge base`, 'info');
   } finally {
     if (sendBtn) sendBtn.disabled = false;
   }
@@ -1838,34 +1984,18 @@ function sendQuickPrompt(promptText) {
   }
 }
 
-function clearChat() {
+function startNewChat() {
   appState.chatHistory = [];
+  localStorage.removeItem(CHAT_STORAGE_KEY);
   saveState();
-  const chatContainer = document.getElementById('chat-messages') || document.querySelector('#page-ask-ai .space-y-6');
-  if (chatContainer) {
-    chatContainer.innerHTML = `
-      <div class="chat-msg flex items-start gap-3 w-full pr-2 sm:pr-8">
-        <div class="w-8 h-8 rounded-lg bg-primary-container text-primary-fixed flex items-center justify-center shrink-0 mt-1 shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">verified_user</span>
-        </div>
-        <div class="flex-1 bg-surface-container-lowest border border-surface-container-highest rounded-2xl rounded-tl-sm p-5 sm:p-6 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.05)]">
-          <div class="flex items-center justify-between pb-3 border-b border-surface-container-low mb-3">
-            <div class="flex items-center gap-2">
-              <span class="text-label-md font-label-md font-semibold text-primary-container flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-primary-container"></span>IP-SAKTI Intelligence
-              </span>
-              <span class="text-outline text-label-sm">•</span>
-              <span class="text-label-sm font-label-sm text-on-surface-variant font-mono">Powered by Groq RAG</span>
-            </div>
-            <span class="text-label-sm text-outline">Statutory Engine v2.6</span>
-          </div>
-          <p class="text-body-md font-body-md text-on-surface leading-relaxed">
-            Conversation history cleared. I am your sovereign statutory copilot, grounded in the <strong>Indian Patents Act, 1970</strong>, <strong>Biological Diversity Act, 2002</strong>, and <strong>CSIR-TKDL</strong>. How can I assist your formulation today?
-          </p>
-        </div>
-      </div>`;
-  }
-  showToast('Chat history cleared', 'info');
+  initChatHistory();
+  showToast('✨ Started a new conversation', 'success');
+  const input = document.getElementById('chat-user-input');
+  if (input) input.focus();
+}
+
+function clearChat() {
+  startNewChat();
 }
 
 
