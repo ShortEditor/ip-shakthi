@@ -1,0 +1,111 @@
+<USER_REQUEST>
+I went through all three — the PDF spec, your live Vercel build, and your Telugu-English notes — plus a peek at the recording. Here's the full picture, organized so you can act on it directly.
+
+## Big-picture verdict first
+
+Your live build (dossiers, TKDL search, ABS Form-1 flow, expert escalation, audit log, admin corpus manager) is **functionally very close to the PS** — this is good, most of the hard thinking is done. The main risk for SIH judging isn't missing features, it's **tone**. Words like "Sovereign," "Statutory Engine," "Docket," "Grounded Botanical Intelligence," "Cryptographically sealed" are everywhere. Judges evaluate against the problem statement's actual language (practitioners, MSMEs, plain guidance) — an overly dramatic sci-fi/legal register can read as style covering for substance, and it also contradicts your own PDF guide, which is deliberately simple. **Tone down the copy**, keep the functionality.
+
+---
+
+## 1. USER login
+
+**Remove**
+- Step 5 "Target Market" in the Intake Wizard — not needed for a plain user.
+
+**Change Step 5 to:**
+- Show **Confidence Score + Safety/Classification summary** (High/Med/Low, per your PDF's own table — don't invent new labels like "Moderate (Mitigable)")
+- A **"Download Report"** button right there
+- Below that, an **"Ask a Query to Human Expert"** box — user types a question, submits, and the **expert's reply is displayed back to the user** in the same thread once answered
+
+**Add to Results Dashboard**
+- After the Jurisdiction section, add a **"My Cases"** tab — every query the user has asked (to AI or escalated to expert) should be saved and viewable here, not just the docket/dossier list.
+
+**Add (new, cross-cutting)**
+- "How do I use this product?" — simple usage guidance
+- "Ingredients" shown as a **clean table** (name, part used, source), not buried in a form field
+
+**Keep:** Steps 1–4 of the wizard, TKDL prior-art check, ABS flag, jurisdiction toggle, Ask AI chat — these already match the PS well.
+
+**User's flow, confirmed correct:** Ask → Analyse → Understand → Decide (Act)
+
+---
+
+## 2. COMPANY login
+
+**Remove / rename**
+- "Dockets" as a vague dashboard label → Company Dashboard should just show **the company's own products**, nothing extra.
+- "IP Route" → rename to **"IP Portfolio"** (per-product status across Patent/Trademark/GI/Copyright/Trade Secret, not a generic "route").
+
+**Add**
+- **Product Documents** section under Evidence: Certificates, Test Reports, IP Documents, License Certificates, Expert Reports — each with **Upload → View → Download → Share with Expert** actions.
+- **Reports** section generating the exact summary format from your notes (Product → Classification → IP opportunities → TK → ABS → per-country requirements → Evidence count → Expert review flag → Download).
+- **Expert Cases** section — list of cases sent to a human expert, each showing Question → AI Analysis → Evidence → Expert status (e.g. "🟡 Expert reviewing").
+- **Formulation wizard, step 5** (company side, unlike user side — here you *keep* the market step but upgrade it): show **expected revenue by target country + confidence score**, with a report download.
+- **Compliance / Evidence Checklist** widget: Missing documents, Expiring documents, Updated regulations, Pending expert reviews — plus one-click download of any report/form.
+- Same **"How to use"** + **ingredients table** modules as User.
+- Team roles: add **"Employee – View only"** as a 4th role alongside IP Manager (Full), Researcher (Products), Regulatory (Compliance).
+
+**Final Company nav — replace whatever exists with exactly this:**
+```
+🏠 Dashboard
+🌿 Products → Product Passport
+🛡️ IP Portfolio
+📋 Regulatory Compliance
+🌱 ABS
+🌍 Market Access
+📁 Documents
+📊 Reports
+👨⚖️ Expert Cases
+👥 Team Members
+```
+
+**Company flow:** Products → Protect (IP) → Comply (Regulatory) → Commercialise (Market)
+
+---
+
+## 3. EXPERT / IP Facilitator
+
+Your notes say this explicitly: **nothing extra needed here** — what you have is close to right. Just confirm the landing screen is the **Case Queue** (priority-sorted, showing product, flagged issue, TK overlap, jurisdiction, AI confidence) instead of a generic dashboard — your current build already does this reasonably well.
+
+**Keep exactly:** Case Queue → Case Details → AI Analysis → Evidence/Sources → Product Documents → Expert Review → Add Comments → Request More Info → Send Final Guidance → Case History.
+
+**Flow:** Review → Verify → Guide → Resolve
+
+---
+
+## 4. ADMIN
+
+Also confirmed as "keep as-is" in your notes. Just make sure the nav is trimmed to exactly:
+```
+Users · Companies · Experts · Cases · Knowledge Base · Sources · Jurisdictions · Languages · Monitoring · Audit Logs
+```
+Nothing extra beyond this — resist the temptation to add more admin bells and whistles; simplicity here reads better for judges too.
+
+**Flow:** Control → Update → Monitor → Audit
+
+---
+
+## Priority order if time is short before submission
+
+1. **Rewrite the copy tone** across all screens (drop "Sovereign/Statutory Engine" language) — cheapest fix, biggest credibility gain.
+2. **Fix User Step 5** (remove Market Target → confidence/safety + report + Ask Expert).
+3. **Add "My Cases" to Results Dashboard.**
+4. **Rebuild Company nav** to the 10-item list above (this is your biggest structural gap right now).
+5. Ingredients table + "How to use" — quick win, shows product-level polish.
+6. Expert/Admin — leave mostly untouched, just prune to the confirmed list.
+
+If you want, I can turn this into a one-page checklist doc (Word/PDF) you can literally tick off before the deadline — just say the word.
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-09-07T09:44:48+05:30.
+
+The user's current state is as follows:
+Active Document: c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\index.html (LANGUAGE_HTML)
+Cursor is on line: 1
+Other open documents:
+- c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\server.js (LANGUAGE_JAVASCRIPT)
+- c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\.env (LANGUAGE_UNSPECIFIED)
+- c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\index.html (LANGUAGE_HTML)
+- c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\package.json (LANGUAGE_JSON)
+- c:\Users\Admin\Desktop\astra 6\stitch_ip_sakti_sahayak_legal_platform (4)\stitch_ip_sakti_sahayak_legal_platform\api\config.js (LANGUAGE_JAVASCRIPT)
+</ADDITIONAL_METADATA>

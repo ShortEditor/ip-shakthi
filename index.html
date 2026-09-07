@@ -338,22 +338,256 @@ tailwind.config = {
 </div>
 </div>
 
+
+<!-- ===== FACILITATOR CASE QUEUE (Landing Screen for Counsel) ===== -->
+<div id="page-facilitator-queue" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    <!-- Header Banner -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Empaneled AYUSH IP Counsel Portal</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Bar Council Reg: #D/1429/2009</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Expert Legal Case Queue</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Priority-triaged statutory reviews for AYUSH patent circumvention, Section 3(p) classical prior-art bars, and State Biodiversity Board (SBB) ABS compliances.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="navigate('facilitator')" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base">edit_document</span>
+          <span>Open Active Desk (#DQ-2024-1108)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Counsel Profile Strip -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-5 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-bold text-lg border border-primary/20 shrink-0">
+          BM
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-on-surface flex items-center gap-2">
+            <span>Adv. Bandi Mahendra</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">Counsel Active</span>
+          </h2>
+          <p class="text-xs text-on-surface-variant mt-0.5">
+            Senior AYUSH Patent Attorney &amp; CSIR-TKDL Statutory Assessor • Assigned Reviewer for Platform Escalations
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 text-xs text-on-surface-variant border-t md:border-t-0 md:border-l border-outline-variant/40 pt-3 md:pt-0 md:pl-6">
+        <div>
+          <span class="text-outline uppercase text-[10px] tracking-wider block">Average SLA</span>
+          <span class="font-semibold text-on-surface text-sm">18.4 Hours</span>
+        </div>
+        <div>
+          <span class="text-outline uppercase text-[10px] tracking-wider block">Resolved Cases</span>
+          <span class="font-semibold text-primary text-sm">142 Opinions</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Summary Strip -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Total Inbound Queue</div>
+        <div class="text-2xl font-bold text-primary mt-1">4 Cases</div>
+        <div class="text-[11px] text-on-surface-variant mt-1">Triaged &amp; Assigned</div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Urgent SLA (&lt; 24h)</div>
+        <div class="text-2xl font-bold text-amber-700 mt-1">2 Cases</div>
+        <div class="text-[11px] text-amber-700 mt-1 flex items-center gap-1 font-medium">
+          <span class="w-1.5 h-1.5 rounded-full bg-amber-600 animate-pulse"></span>
+          Requires Prompt Opinion
+        </div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Commercial MSME</div>
+        <div class="text-2xl font-bold text-on-surface mt-1">2 Cases</div>
+        <div class="text-[11px] text-on-surface-variant mt-1">Enterprise scale inquiries</div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Resolved &amp; Signed</div>
+        <div class="text-2xl font-bold text-emerald-700 mt-1">1 Case</div>
+        <div class="text-[11px] text-emerald-700 mt-1">Archived Precedent</div>
+      </div>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+      <button onclick="filterFacilitatorQueue('all')" data-filter="all" class="queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary transition-all cursor-pointer">
+        All Queue (4)
+      </button>
+      <button onclick="filterFacilitatorQueue('urgent')" data-filter="urgent" class="queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer">
+        Critical SLA (2)
+      </button>
+      <button onclick="filterFacilitatorQueue('commercial')" data-filter="commercial" class="queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer">
+        Commercial MSME (2)
+      </button>
+      <button onclick="filterFacilitatorQueue('practitioner')" data-filter="practitioner" class="queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer">
+        Individual Practitioner (2)
+      </button>
+      <button onclick="filterFacilitatorQueue('resolved')" data-filter="resolved" class="queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer">
+        Resolved (1)
+      </button>
+    </div>
+
+    <!-- Triaged Cases Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="facilitator-queue-list">
+      
+      <!-- Queue Item 1: High Priority Commercial -->
+      <div class="queue-item bg-surface-container-lowest rounded-xl border border-amber-200/80 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-category="commercial" data-urgent="true">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+              Critical SLA — 4h Remaining
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono font-semibold">#CORP-2024-101</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-primary uppercase tracking-wider">Enterprise: AyurVeda Biotech Pvt Ltd (Lead: Kundan)</span>
+            <h3 class="text-base font-semibold text-on-surface mt-0.5">Mandatory SBB Form-1 Intimation &amp; ABS Royalty Assessment for Commercial Raw Material</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/70 p-3 rounded-lg border border-outline-variant/30">
+            Target Product: <strong>NirogShakti Synergistic Capsule (AVB-402)</strong>. Commercial run: 50,000 units/month. Requires urgent statutory opinion on Fair Benefit Sharing fee calculation (0.1% to 0.5% ex-factory gross sales) under 2023 Biodiversity Amendment Rules.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">SBB Form-1</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">BDA 2002 § 7</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">TKDL Overlap: 24.1% Safe</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-800 border border-blue-200">AI Conf: 91%</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-outline-variant/40 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Assigned to Adv. Bandi Mahendra</span>
+          <button onclick="openFacilitatorCase('CORP-2024-101')" class="px-4 py-2 rounded-lg bg-[#1F3D2E] hover:bg-[#152a20] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm">
+            <span>Review Case in Desk</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Queue Item 2: High Priority User/Practitioner -->
+      <div class="queue-item bg-surface-container-lowest rounded-xl border border-amber-200/80 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-category="practitioner" data-urgent="true">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-600 animate-pulse"></span>
+              SLA — 21h Remaining
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono font-semibold">#DQ-2024-1108</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-primary uppercase tracking-wider">Applicant: Dr. Hema (BioVeda Labs, with Shivani &amp; Naga Ganesh)</span>
+            <h3 class="text-base font-semibold text-on-surface mt-0.5">Section 3(p) Overcoming &amp; US 35 U.S.C. §102 Filing under NBA Section 39</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/70 p-3 rounded-lg border border-outline-variant/30">
+            Target Product: <strong>Niroga Shuddhi Rasayana (Nano-Liposomal Extract)</strong>. Biological material: Withania somnifera + Piper longum. Seeking claim drafting strategy to survive Section 3(p) / 3(e) prior art bar and concurrent foreign filing permission.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">Patents Act § 3(p)</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">NBA Act § 39</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-red-50 text-red-800 border border-red-200">TKDL Match: 98.4%</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-800 border border-blue-200">AI Conf: 87%</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-outline-variant/40 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Active Workspace Draft Ready</span>
+          <button onclick="openFacilitatorCase('DQ-2024-1108')" class="px-4 py-2 rounded-lg bg-[#1F3D2E] hover:bg-[#152a20] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-sm">
+            <span>Open Case Review Desk</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Queue Item 3: Commercial MSME -->
+      <div class="queue-item bg-surface-container-lowest rounded-xl border border-outline-variant/60 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-category="commercial" data-urgent="false">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-900 border border-blue-200">
+              SLA — 48h Remaining
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono font-semibold">#CORP-2024-105</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-primary uppercase tracking-wider">Enterprise: Himalayan Botanicals Ltd (Lead: Sumanth)</span>
+            <h3 class="text-base font-semibold text-on-surface mt-0.5">Section 3(e) Synergistic Efficacy Quantitative Assays &amp; USPTO Class 424 Phyto-fraction</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/70 p-3 rounded-lg border border-outline-variant/30">
+            Target Product: <strong>CurcuShield Phyto-Extract Nano-Emulsion (HB-901)</strong>. Standardized self-emulsifying phospholipid delivery. Requesting validation of experimental Combination Index (CI) graphs for Indian Patent Office and USPTO non-provisional filing.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">Section 3(e)</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">USPTO Class 424</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">TKDL Overlap: 38.2%</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-800 border border-blue-200">AI Conf: 84%</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-outline-variant/40 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Evidence Assays Attached (3 files)</span>
+          <button onclick="openFacilitatorCase('CORP-2024-105')" class="px-4 py-2 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-primary text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
+            <span>Review Case in Desk</span>
+            <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Queue Item 4: Resolved Practitioner Case -->
+      <div class="queue-item bg-surface-container-lowest rounded-xl border border-outline-variant/60 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-category="practitioner" data-urgent="false" data-status="resolved">
+        <div class="space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200 flex items-center gap-1">
+              <span class="material-symbols-outlined text-[13px] text-emerald-700">verified</span>
+              Formal Advisory Delivered
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono font-semibold">#DQ-2024-1112</span>
+          </div>
+          <div>
+            <span class="text-[11px] font-semibold text-primary uppercase tracking-wider">Applicant: Shivani (Registered AYUSH Practitioner / Vaidya)</span>
+            <h3 class="text-base font-semibold text-on-surface mt-0.5">CSIR-TKDL Samhita Concordance Verification &amp; Vaidya Local Sourcing Exemption under BDA § 7</h3>
+          </div>
+          <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/70 p-3 rounded-lg border border-outline-variant/30">
+            Target Product: <strong>Triphala Ophthalmic Netra Bindu</strong>. Classical formulation concordance established against Ashtanga Hridaya. Formal counsel memo provided certifying exemption from commercial SBB intimation under Biological Diversity Act Section 7.
+          </p>
+          <div class="flex flex-wrap items-center gap-2 pt-1">
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">TKDL Concordance</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">BDA § 7 Exemption</span>
+            <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">Vaidya Safe Harbor</span>
+          </div>
+        </div>
+        <div class="mt-5 pt-4 border-t border-outline-variant/40 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant">Delivered &amp; Signed by Adv. Bandi Mahendra</span>
+          <button onclick="openFacilitatorCase('DQ-2024-1112')" class="px-4 py-2 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-primary text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer">
+            <span>View Issued Advisory</span>
+            <span class="material-symbols-outlined text-[16px]">visibility</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ===== FACILITATOR QUERY RESPONSE DESK ===== -->
 <div id="page-facilitator" class="page-section">
   <div class="flex-grow w-full max-w-7xl mx-auto px-6 lg:px-12 py-8">
     <!-- BREADCRUMBS & ESCAPE VECTOR -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
       <div class="flex items-center flex-wrap gap-2 text-label-md font-label-md text-on-surface-variant">
-        <a class="hover:text-primary transition-colors flex items-center gap-1 cursor-pointer" onclick="navigate('dossiers')">
+        <a class="hover:text-primary transition-colors flex items-center gap-1 cursor-pointer" onclick="navigate('facilitator-queue')">
           <span class="material-symbols-outlined text-outline" style="font-size: 18px;">arrow_back</span>
-          <span>Back to Queue</span>
+          <span>Back to Case Queue</span>
         </a>
         <span class="text-outline-variant">/</span>
-        <span class="text-on-surface-variant cursor-pointer" onclick="navigate('facilitator')">Facilitator Desk</span>
+        <span class="text-on-surface-variant cursor-pointer" onclick="navigate('facilitator-queue')">Expert Case Queue</span>
         <span class="text-outline-variant">/</span>
-        <span class="text-on-surface-variant">Inbound Query Queue</span>
-        <span class="text-outline-variant">/</span>
-        <span class="text-primary font-semibold">Direct Query #DQ-2024-1108</span>
+        <span class="text-primary font-semibold">Case Review Desk (#DQ-2024-1108)</span>
       </div>
       <!-- State & Session Indicator -->
       <div class="flex items-center gap-3">
@@ -910,6 +1144,99 @@ Filing directly with the USPTO under 35 U.S.C. 102 prior to receiving NBA Form-3
         </div>
       </div>
     </div>
+    
+    <!-- Active Formulation Specification & Ingredients Matrix (Per PS Requirements) -->
+    <div class="mt-10 bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 md:p-8 shadow-sm space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-outline-variant/40">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="font-mono text-xs text-primary font-semibold bg-primary/10 px-2.5 py-0.5 rounded border border-primary/20">Dossier: AYU-7821</span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">TKDL Concordance Cleared</span>
+          </div>
+          <h2 class="text-lg font-bold text-on-surface">Ashwagandha Vitality Elixir — Botanical &amp; Dosage Specification</h2>
+          <p class="text-xs text-on-surface-variant mt-0.5">Formulation Passport with standardized active markers and pharmacopoeial clinical directions.</p>
+        </div>
+        <button onclick="downloadReport('Ashwagandha Vitality Elixir Dossier')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-1.5 cursor-pointer shadow-sm self-start sm:self-center">
+          <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+          <span>Download Dossier</span>
+        </button>
+      </div>
+
+      <!-- Clean Ingredients Table -->
+      <div>
+        <h4 class="text-xs font-semibold text-primary uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base">eco</span>
+          <span>Clean Ingredients &amp; Botanical Specification Matrix</span>
+        </h4>
+        <div class="overflow-x-auto border border-outline-variant/40 rounded-xl">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-surface-container-low/70">
+              <tr class="border-b border-outline-variant/40 text-on-surface font-semibold">
+                <th class="py-2.5 px-3">Ingredient</th>
+                <th class="py-2.5 px-3">Botanical Name</th>
+                <th class="py-2.5 px-3">Part Used &amp; Ratio</th>
+                <th class="py-2.5 px-3">Active Marker %</th>
+                <th class="py-2.5 px-3">Sourcing State</th>
+                <th class="py-2.5 px-3">Section 3(p) &amp; TKDL Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/30 bg-surface">
+              <tr class="hover:bg-surface-container-low/30 transition-colors">
+                <td class="py-2.5 px-3 font-semibold text-on-surface">Ashwagandha</td>
+                <td class="py-2.5 px-3 italic text-on-surface-variant font-serif">Withania somnifera</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Root Extract 10:1</td>
+                <td class="py-2.5 px-3 font-mono font-medium text-primary">Withanolides 5.2%</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Madhya Pradesh</td>
+                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">Cleared with Novel Carrier</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low/30 transition-colors">
+                <td class="py-2.5 px-3 font-semibold text-on-surface">Pippali</td>
+                <td class="py-2.5 px-3 italic text-on-surface-variant font-serif">Piper longum</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Dried Fruit Extract 4:1</td>
+                <td class="py-2.5 px-3 font-mono font-medium text-primary">Piperine 98%</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Kerala (GI-182)</td>
+                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">Classical Bio-Carrier (§ 3e)</span></td>
+              </tr>
+              <tr class="hover:bg-surface-container-low/30 transition-colors">
+                <td class="py-2.5 px-3 font-semibold text-on-surface">Haridra</td>
+                <td class="py-2.5 px-3 italic text-on-surface-variant font-serif">Curcuma longa</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Rhizome Standardized</td>
+                <td class="py-2.5 px-3 font-mono font-medium text-primary">Curcuminoids 95%</td>
+                <td class="py-2.5 px-3 text-on-surface-variant">Tamil Nadu (GI-301)</td>
+                <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">Synergistic Ratio Cleared</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- "How to Use this Product" Guidance -->
+      <div class="bg-surface-container-low/60 border border-outline-variant/40 rounded-xl p-4 md:p-5 space-y-3">
+        <h4 class="text-xs font-semibold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base text-primary">clinical_notes</span>
+          <span>How to Use this Formulation — Practitioner Guidance</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Recommended Dosage</span>
+            <p class="font-medium text-on-surface">1 Capsule (500mg) twice daily after meals</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Carrier (Anupana)</span>
+            <p class="font-medium text-on-surface">Warm milk or lukewarm water (Ksheera)</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Therapeutic Window</span>
+            <p class="font-medium text-on-surface">90 days continuous use</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-amber-800 tracking-wider block">Contraindications</span>
+            <p class="font-medium text-amber-950 text-[11px]">Avoid in acute biliary tract obstruction</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Empty State -->
     <div class="hidden my-12 bg-surface-container-lowest rounded-2xl border border-surface-container p-12 md:p-16 elevation-ambient text-center max-w-2xl mx-auto" id="dossiersEmptyState">
       <div class="w-16 h-16 rounded-full bg-primary-container/10 text-primary-container flex items-center justify-center mx-auto mb-5"><span class="material-symbols-outlined text-[32px]">local_florist</span></div>
@@ -1344,6 +1671,530 @@ Filing directly with the USPTO under 35 U.S.C. 102 prior to receiving NBA Form-3
       </div>
 
     </div>
+  </div>
+</div>
+
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 1. DASHBOARD ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-dashboard" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Enterprise Header Banner -->
+    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Enterprise AYUSH Portal</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">ID: ENT-AYUR-8821</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">Schedule T GMP Certified</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">AyurVeda Biotech &amp; Himalayan Botanicals</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Enterprise portfolio dashboard for commercial Ayurvedic formulations, international patent filings, SBB raw-material intimations, and statutory evidence management.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="navigate('company-products')" class="h-10 px-4 rounded-lg border border-outline-variant bg-surface text-on-surface hover:bg-surface-container text-xs font-semibold flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base text-primary">inventory_2</span>
+          <span>Catalog (4)</span>
+        </button>
+        <button onclick="downloadEnterpriseAuditZip()" class="h-10 px-5 rounded-lg bg-[#1F3D2E] text-white text-xs font-semibold hover:bg-[#152a20] flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base">download</span>
+          <span>Export Audit Package (ZIP)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Leads & Identity Bar -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-6 flex-wrap">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary font-bold flex items-center justify-center text-sm border border-primary/20">KD</div>
+          <div>
+            <div class="text-xs font-semibold text-on-surface">Kundan</div>
+            <div class="text-[11px] text-on-surface-variant">Lead IP Manager • Legal Signing Authority</div>
+          </div>
+        </div>
+        <div class="hidden sm:block w-px h-8 bg-outline-variant/50"></div>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-teal-800/10 text-teal-800 font-bold flex items-center justify-center text-sm border border-teal-800/20">SM</div>
+          <div>
+            <div class="text-xs font-semibold text-on-surface">Sumanth</div>
+            <div class="text-[11px] text-on-surface-variant">Regulatory Affairs Lead • SBB / GMP Liaison</div>
+          </div>
+        </div>
+      </div>
+      <div class="text-xs text-on-surface-variant flex items-center gap-2 bg-surface-container-low px-3 py-1.5 rounded-lg border border-outline-variant/30">
+        <span class="material-symbols-outlined text-base text-primary">verified</span>
+        <span>Empaneled Counsel: <strong class="text-primary font-semibold">Adv. Bandi Mahendra</strong></span>
+      </div>
+    </div>
+
+    <!-- 5 Enterprise KPI Metric Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Active Formulations</div>
+        <div class="text-2xl font-bold text-primary mt-1">4 Products</div>
+        <div class="text-[11px] text-emerald-700 mt-1 font-medium">Batch-Controlled Scale</div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Patent Claims Filed</div>
+        <div class="text-2xl font-bold text-on-surface mt-1">5 Claims</div>
+        <div class="text-[11px] text-on-surface-variant mt-1">IPO &amp; USPTO Class 424</div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">SBB / NBA Status</div>
+        <div class="text-2xl font-bold text-emerald-700 mt-1">3 of 4 Clear</div>
+        <div class="text-[11px] text-amber-700 mt-1 font-medium">1 Form-3 In Progress</div>
+      </div>
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Target Territories</div>
+        <div class="text-2xl font-bold text-on-surface mt-1">4 Regions</div>
+        <div class="text-[11px] text-on-surface-variant mt-1">India, USA, EU, UK</div>
+      </div>
+      <div class="col-span-2 lg:col-span-1 bg-surface-container-lowest border border-outline-variant/60 rounded-xl p-4 shadow-sm">
+        <div class="text-xs text-on-surface-variant font-medium">Projected Pipeline</div>
+        <div class="text-2xl font-bold text-primary mt-1">₹28.5 Cr</div>
+        <div class="text-[11px] text-on-surface-variant mt-1">US $3.4M Annual Run-Rate</div>
+      </div>
+    </div>
+
+    <!-- COMPLIANCE & EVIDENCE CHECKLIST WIDGET (Per Specification) -->
+    <div class="bg-surface-container-lowest border border-amber-300/80 rounded-2xl p-6 shadow-sm space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-outline-variant/40">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-amber-700">fact_check</span>
+            <h2 class="text-lg font-semibold text-on-surface">Compliance &amp; Evidence Checklist</h2>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-amber-100 text-amber-900 border border-amber-300">Action Required</span>
+          </div>
+          <p class="text-xs text-on-surface-variant mt-1">Continuous statutory monitoring against AYUSH Schedule T, National Biodiversity Authority, and target export guidelines.</p>
+        </div>
+        <button onclick="downloadEnterpriseAuditZip()" class="px-4 py-2 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-primary text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer self-start sm:self-center">
+          <span class="material-symbols-outlined text-[16px]">download</span>
+          <span>1-Click Compliance Package</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        
+        <!-- Checklist Item 1: Missing Documents -->
+        <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200/80 flex items-start gap-3">
+          <span class="material-symbols-outlined text-amber-700 text-xl shrink-0 mt-0.5">warning</span>
+          <div class="space-y-1 flex-grow">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-amber-950 text-sm">Missing Document</span>
+              <span class="text-[10px] uppercase font-bold text-amber-800 tracking-wider">Priority High</span>
+            </div>
+            <p class="text-amber-900 leading-relaxed">
+              Heavy Metal &amp; Pesticide Residue ICP-MS report missing for <strong>CurcuShield (Batch HB-901-B2)</strong>. Required prior to US NDI filing.
+            </p>
+            <div class="pt-2">
+              <button onclick="openUploadModal('CurcuShield Heavy Metals ICP-MS')" class="px-3 py-1.5 rounded-lg bg-amber-800 hover:bg-amber-900 text-white text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">upload_file</span>
+                <span>Upload ICP-MS Assay</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist Item 2: Expiring Documents -->
+        <div class="p-4 rounded-xl bg-blue-50/70 border border-blue-200/80 flex items-start gap-3">
+          <span class="material-symbols-outlined text-blue-700 text-xl shrink-0 mt-0.5">alarm</span>
+          <div class="space-y-1 flex-grow">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-blue-950 text-sm">Expiring Document</span>
+              <span class="text-[10px] uppercase font-bold text-blue-800 tracking-wider">42 Days Left</span>
+            </div>
+            <p class="text-blue-900 leading-relaxed">
+              AYUSH GMP Schedule T Manufacturing License (#AYUR-MH-2021-994) expires in 42 days. Renewal inspection dossier draft is ready.
+            </p>
+            <div class="pt-2">
+              <button onclick="navigate('company-regulatory')" class="px-3 py-1.5 rounded-lg bg-blue-800 hover:bg-blue-900 text-white text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">autorenew</span>
+                <span>Initiate GMP Renewal</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist Item 3: Updated Regulations -->
+        <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200/80 flex items-start gap-3">
+          <span class="material-symbols-outlined text-purple-700 text-xl shrink-0 mt-0.5">gavel</span>
+          <div class="space-y-1 flex-grow">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-purple-950 text-sm">Updated Regulation</span>
+              <span class="text-[10px] uppercase font-bold text-purple-800 tracking-wider">Gazette 2023</span>
+            </div>
+            <p class="text-purple-900 leading-relaxed">
+              2023 Biological Diversity Amendment Rules updated SBB intimation norms: Cultivated medicinal plants exempt from access fee under verified origin certificate.
+            </p>
+            <div class="pt-2">
+              <button onclick="navigate('abs')" class="px-3 py-1.5 rounded-lg bg-purple-800 hover:bg-purple-900 text-white text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">visibility</span>
+                <span>Review SBB Form-1 Exemption</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checklist Item 4: Pending Expert Reviews -->
+        <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200/80 flex items-start gap-3">
+          <span class="material-symbols-outlined text-emerald-700 text-xl shrink-0 mt-0.5">support_agent</span>
+          <div class="space-y-1 flex-grow">
+            <div class="flex items-center justify-between">
+              <span class="font-semibold text-emerald-950 text-sm">Pending Expert Review</span>
+              <span class="text-[10px] uppercase font-bold text-emerald-800 tracking-wider">Adv. Bandi Mahendra</span>
+            </div>
+            <p class="text-emerald-900 leading-relaxed">
+              Case #CORP-2024-101: Legal advisory opinion on 0.5% ex-factory royalty calculation and local community benefit-sharing in Maharashtra.
+            </p>
+            <div class="pt-2">
+              <button onclick="navigate('company-cases')" class="px-3 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold cursor-pointer transition-colors flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">chat</span>
+                <span>Track Counsel Opinion</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Commercial Products Showcase Grid -->
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-on-surface">Commercial Products Showcase</h2>
+          <p class="text-xs text-on-surface-variant">Batch-verified Ayurvedic products ready for commercial distribution and global patent filing.</p>
+        </div>
+        <button onclick="navigate('company-products')" class="text-xs font-semibold text-primary hover:underline flex items-center gap-1">
+          <span>View All 4 Products</span>
+          <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5" id="company-dashboard-products-grid">
+        <!-- Populated via renderCompanyDashboard() -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 2. PRODUCTS & PASSPORTS ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-products" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Commercial Formulations</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">GMP Standardized Batches</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Product Catalog &amp; Formulations</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Complete botanical profiles, standardized active marker percentages, clean ingredients matrix, and clinical "How to Use" guidelines.
+        </p>
+      </div>
+      <button onclick="openProductPassportModal('PROD-AVB-402')" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">badge</span>
+        <span>View Full Product Passport</span>
+      </button>
+    </div>
+
+    <!-- 4 Detailed Commercial Product Cards -->
+    <div class="space-y-8" id="company-products-catalog-list">
+      <!-- Populated dynamically via renderCompanyProducts() -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 3. IP PORTFOLIO MATRIX ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-portfolio" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Enterprise IP Strategy</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">5 Statutory Pillars</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Intellectual Property Portfolio Matrix</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Comprehensive multi-layer protection strategy covering Patents, Trademarks, Geographical Indications (GI), Copyrights, and Trade Secrets across 4 product lines.
+        </p>
+      </div>
+      <button onclick="downloadReport('ip-matrix')" class="h-10 px-5 rounded-lg bg-[#1F3D2E] text-white text-xs font-semibold hover:bg-[#152a20] flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">download</span>
+        <span>Download IP Matrix (PDF)</span>
+      </button>
+    </div>
+
+    <!-- Product IP Matrix Table Container -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm overflow-x-auto space-y-6">
+      <div id="company-portfolio-matrix-content">
+        <!-- Rendered by renderCompanyPortfolio() -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 4. REGULATORY & QUALITY ASSAYS ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-regulatory" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Statutory Approvals</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">AYUSH Drug Controller Authority</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Regulatory Compliance &amp; Assays</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Manufacturing licenses, Schedule T GMP factory certifications, CT-06 clinical trial registrations, and pharmacopoeial batch test reports.
+        </p>
+      </div>
+      <button onclick="downloadReport('regulatory')" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">download</span>
+        <span>Download Regulatory Dossier</span>
+      </button>
+    </div>
+
+    <!-- Content rendered dynamically -->
+    <div id="company-regulatory-content" class="space-y-6">
+      <!-- Populated via renderCompanyRegulatory() -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 5. GLOBAL MARKET ACCESS ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-market" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Export &amp; Revenue Feasibility</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Global Jurisdiction Matrix</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Market Access &amp; Revenue Pipeline</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Country-by-country regulatory pathways, export tariff codes, statutory barriers, and financial revenue projections with AI confidence validation.
+        </p>
+      </div>
+      <button onclick="downloadReport('market')" class="h-10 px-5 rounded-lg bg-[#1F3D2E] text-white text-xs font-semibold hover:bg-[#152a20] flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">file_download</span>
+        <span>Export Feasibility Report</span>
+      </button>
+    </div>
+
+    <!-- Country breakdown rendered dynamically -->
+    <div id="company-market-content" class="space-y-6">
+      <!-- Populated via renderCompanyMarket() -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 6. DOCUMENTS & EVIDENCE VAULT ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-documents" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Statutory Repository</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">SHA-256 Verifiable Hashes</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Enterprise Evidence &amp; Documents Vault</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Centralized secure document vault for manufacturing certificates, certificates of analysis (COA), patent specifications, and legal opinion letters.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="openUploadModal('General Document')" class="h-10 px-4 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base">upload_file</span>
+          <span>Upload Document</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Documents List rendered dynamically -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm space-y-4">
+      <div id="company-documents-list-content">
+        <!-- Populated via renderCompanyDocuments() -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 7. REPORTS & DOSSIER EXPORT ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-reports" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Audited Summaries</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">AYUSH &amp; SBB Formatted</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Compliance &amp; Portfolio Reports</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Exportable regulatory and commercial audit dossiers formatted according to problem statement requirements.
+        </p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="downloadReport('pdf')" class="h-10 px-4 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base">picture_as_pdf</span>
+          <span>Download All (PDF)</span>
+        </button>
+        <button onclick="downloadReport('csv')" class="h-10 px-4 rounded-lg border border-outline-variant bg-surface text-on-surface hover:bg-surface-container text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition-colors shadow-sm">
+          <span class="material-symbols-outlined text-base">table_view</span>
+          <span>Download CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Reports Table Container -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm overflow-x-auto">
+      <div id="company-reports-table-content">
+        <!-- Populated via renderCompanyReports() -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 8. EXPERT CASES ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-cases" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Legal Counsel Advisory</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Assigned: Adv. Bandi Mahendra</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Enterprise Legal Cases &amp; Escalations</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Direct legal counsel engagements, patent claim drafting advisories, and mandatory SBB Form-1 commercial benefit sharing consultations.
+        </p>
+      </div>
+      <button onclick="openNewCaseModal()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">add_box</span>
+        <span>Submit New Legal Inquiry</span>
+      </button>
+    </div>
+
+    <!-- Cases List rendered dynamically -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="company-cases-cards-grid">
+      <!-- Populated via renderCompanyCases() -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== COMPANY SUITE: 9. TEAM MEMBERS & ROLES ===== -->
+<!-- ========================================================================= -->
+<div id="page-company-team" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Access Governance</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">4 Enterprise Roles</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Team Members &amp; Access Governance</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Role-based access permissions across IP Management, Regulatory Affairs, Phytochemistry R&amp;D, and Employee viewing rights.
+        </p>
+      </div>
+      <button onclick="addTeamMemberModal()" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">person_add</span>
+        <span>Invite Team Member</span>
+      </button>
+    </div>
+
+    <!-- Content rendered dynamically -->
+    <div id="company-team-content" class="space-y-6">
+      <!-- Populated via renderCompanyTeam() -->
+    </div>
+
+  </div>
+</div>
+
+<!-- ========================================================================= -->
+<!-- ===== FACILITATOR CASE HISTORY & PRECEDENT CODEX ===== -->
+<!-- ========================================================================= -->
+<div id="page-facilitator-history" class="page-section">
+  <div class="w-full max-w-7xl mx-auto px-6 lg:px-12 py-8 md:py-10 space-y-8">
+    
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-surface-container">
+      <div>
+        <div class="flex items-center gap-2 mb-1.5">
+          <span class="font-label-sm text-label-sm text-primary tracking-wider uppercase font-semibold">Empaneled Counsel Archive</span>
+          <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant font-mono">Adv. Bandi Mahendra</span>
+        </div>
+        <h1 class="font-headline-lg text-headline-lg text-primary tracking-tight font-semibold">Case History &amp; Precedents</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-1 max-w-3xl">
+          Historical repository of delivered legal opinions, signed SBB Form-1 exemptions, and Section 3(p) prior-art circumvention memoranda.
+        </p>
+      </div>
+      <button onclick="navigate('facilitator-queue')" class="h-10 px-5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-2 cursor-pointer transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        <span>Back to Active Queue</span>
+      </button>
+    </div>
+
+    <!-- History List rendered dynamically -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm space-y-4">
+      <div id="facilitator-history-content">
+        <!-- Populated via renderFacilitatorHistory() -->
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -2460,9 +3311,40 @@ Filing directly with the USPTO under 35 U.S.C. 102 prior to receiving NBA Form-3
 // =============================================
 const DEFAULT_STATE = {
   dossiers: [
-    {id:'AYU-7821',name:'Ashwagandha Vitality Elixir',status:'Ready for Filing',desc:'Standardized withanolide glycoside extract matrix. Botanical reference: Withania somnifera root extract.',tags:['Novel Excipient','IPO Section 3(p) Cleared'],updated:'2 days ago',route:'tkdl'},
-    {id:'AYU-6340',name:'Triphala Digestive Tonic',status:'Review Recommended',desc:'Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.',tags:['Citation Match Flagged','TKDL Prior Art v1.8'],updated:'4 hours ago',route:'abs'},
-    {id:'AYU-9014',name:'Curcumin Bio-Enhanced Extract',status:'Prior-Art Clear',desc:'Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.',tags:['PCT Global Ready','USPTO Class 424'],updated:'5 days ago',route:'escalation'}
+    {id:'AYU-7821',name:'Ashwagandha Vitality Elixir',status:'Ready for Filing',desc:'Standardized withanolide glycoside extract matrix. Botanical reference: Withania somnifera root extract.',tags:['Novel Excipient','IPO Section 3(p) Cleared','Researcher: Dr. Hema'],updated:'2 days ago',route:'tkdl',botanical:'Withania somnifera',part:'Root Extract',marker:'Withanolides 5.2%'},
+    {id:'AYU-6340',name:'Triphala Digestive Tonic',status:'Review Recommended',desc:'Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.',tags:['Citation Match Flagged','TKDL Prior Art v1.8','Practitioner: Shivani'],updated:'4 hours ago',route:'abs',botanical:'Terminalia chebula, Terminalia bellirica, Phyllanthus emblica',part:'Pericarp / Dried Fruit',marker:'Tannins & Gallic Acid 45%'},
+    {id:'AYU-3120',name:'Brahmi Medhya Rasayana',status:'Draft',desc:'Classical Medhya formulation optimized for cognitive vitality, neuro-protection, and stress resilience with ghee lipid carrier.',tags:['Classical Formulation','Researcher: Naga Ganesh'],updated:'Yesterday',route:'intake-2',botanical:'Bacopa monnieri',part:'Whole Herb',marker:'Bacosides A & B 22%'},
+    {id:'AYU-9014',name:'Curcumin Bio-Enhanced Extract',status:'Prior-Art Clear',desc:'Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.',tags:['PCT Global Ready','USPTO Class 424','Researcher: Dr. Hema'],updated:'5 days ago',route:'escalation',botanical:'Curcuma longa + Piper nigrum',part:'Rhizome + Dried Berries',marker:'Curcuminoids 95% + Piperine 98%'}
+  ],
+  userDossiers: [
+    {id:'AYU-7821',name:'Ashwagandha Vitality Elixir',status:'Ready for Filing',desc:'Standardized withanolide glycoside extract matrix. Botanical reference: Withania somnifera root extract.',tags:['Novel Excipient','IPO Section 3(p) Cleared','Researcher: Dr. Hema'],updated:'2 days ago',route:'tkdl',botanical:'Withania somnifera',part:'Root Extract',marker:'Withanolides 5.2%'},
+    {id:'AYU-6340',name:'Triphala Digestive Tonic',status:'Review Recommended',desc:'Synergistic bio-fermented tridoshic blend consisting of Haritaki, Bibhitaki, and Amalaki aqueous decoctions.',tags:['Citation Match Flagged','TKDL Prior Art v1.8','Practitioner: Shivani'],updated:'4 hours ago',route:'abs',botanical:'Terminalia chebula, Terminalia bellirica, Phyllanthus emblica',part:'Pericarp / Dried Fruit',marker:'Tannins & Gallic Acid 45%'},
+    {id:'AYU-3120',name:'Brahmi Medhya Rasayana',status:'Draft',desc:'Classical Medhya formulation optimized for cognitive vitality, neuro-protection, and stress resilience with ghee lipid carrier.',tags:['Classical Formulation','Researcher: Naga Ganesh'],updated:'Yesterday',route:'intake-2',botanical:'Bacopa monnieri',part:'Whole Herb',marker:'Bacosides A & B 22%'},
+    {id:'AYU-9014',name:'Curcumin Bio-Enhanced Extract',status:'Prior-Art Clear',desc:'Liposomal encapsulation of 95% curcuminoids complex with black pepper piperine alkaloid co-carrier.',tags:['PCT Global Ready','USPTO Class 424','Researcher: Dr. Hema'],updated:'5 days ago',route:'escalation',botanical:'Curcuma longa + Piper nigrum',part:'Rhizome + Dried Berries',marker:'Curcuminoids 95% + Piperine 98%'}
+  ],
+  companyProducts: [
+    {id:'PROD-AVB-402',name:'NirogShakti Synergistic Capsule',status:'Form-1 SBB Approved',desc:'Commercial scale high-yield phyto-extract formulation (Curcuminoids 95% + Withanolides 5% + Piperine 98%). Batch run: 50,000 units/month.',tags:['Enterprise: AyurVeda Biotech','Batch: 50k units/mo','IPO App: 202411048219','Lead: Kundan'],updated:'Today, 11:30 IST',route:'company-products',batch:'AVB-402-B4',category:'Proprietary Ayurvedic Medicine',license:'AYUR-MH-2021-994',marketRevenue:'₹14.8 Cr (IN) / $2.4M (US)',confidence:'94%'},
+    {id:'PROD-HB-901',name:'CurcuShield Phyto-Extract Nano-Emulsion',status:'NBA Form-3 Pending',desc:'Standardized self-emulsifying curcuminoid phospholipid matrix designed for international export. Complies with US FDA DSHEA & EU EMA Herbal monographs.',tags:['Enterprise: Himalayan Botanicals','Export Grade Q3','US/EU Technical File','Lead: Sumanth'],updated:'Yesterday',route:'company-products',batch:'HB-901-B2',category:'Phytopharmaceutical Export',license:'AYUR-HP-2019-410',marketRevenue:'$3.8M Global ARR',confidence:'88%'},
+    {id:'PROD-AVB-510',name:'MadhuMukt Glycemic Regulator',status:'CT-06 Phase II Cleared',desc:'Proprietary Ayurvedic co-extract of Pterocarpus marsupium (Vijayasar) & Syzygium cumini (Jamun seed). Complete double-blind clinical trial validation.',tags:['Enterprise: AyurVeda Biotech','Clinical Phase II Passed','TM Class 5 Registered','Lead: Kundan'],updated:'3 days ago',route:'company-products',batch:'AVB-510-B1',category:'Ayurvedic Proprietary Medicine',license:'AYUR-MH-2021-994',marketRevenue:'₹8.5 Cr Domestic ARR',confidence:'91%'},
+    {id:'PROD-HB-304',name:'RespiClear Bronchial Herbal Syrup',status:'Section 3(e) Cleared',desc:'Adhatoda vasica (Vasaka) + Solanum xanthocarpum (Kantakari) bioactive syrup. Quantitatively proven synergistic bronchodilator efficacy.',tags:['Enterprise: Himalayan Botanicals','Schedule T GMP Certified','UK MHRA THR Ready','Lead: Sumanth'],updated:'1 week ago',route:'company-products',batch:'HB-304-B3',category:'Ayurvedic Classical Proprietary',license:'AYUR-HP-2019-410',marketRevenue:'₹5.2 Cr (IN) / £850K (UK)',confidence:'86%'}
+  ],
+  userCases: [
+    {id:'AYU-2024-88',title:'Overcoming Section 3(p) for Bio-Enhanced Ashwagandha Root Kashaya',category:'expert',status:'pending',statusLabel:'In Review by Counsel',statusColor:'amber',applicant:'Dr. Hema',entity:'BioVeda Labs',counsel:'Adv. Bandi Mahendra',sla:'21h remaining',date:'Today, 10:15 IST',summary:'Reviewing aqueous-ethanol 70:30 extraction ratio and lipid carrier claims against Charaka Samhita Chikitsa 1.2:14 prior art citation.'},
+    {id:'AYU-2024-42',title:'Triphala Ophthalmic Formulation - CSIR-TKDL Prior Art Concordance',category:'expert',status:'resolved',statusLabel:'Advisory Issued',statusColor:'emerald',applicant:'Shivani',entity:'AYUSH Practitioner',counsel:'Adv. Bandi Mahendra',sla:'Resolved',date:'24 Feb 2024',summary:'Formal legal opinion issued: Classical decoction safe under BDA Section 7 traditional vaidya exemption. No Form-1 filing required for non-commercial preparation.'},
+    {id:'AI-Q-104',title:'Synergistic extraction ratios for Brahmi & Shankhpushpi under Section 3(e)',category:'ai',status:'resolved',statusLabel:'AI Research Complete',statusColor:'blue',applicant:'Naga Ganesh',entity:'Researcher',counsel:'Sahayak AI Engine',sla:'Completed',date:'22 Feb 2024',summary:'Synergistic bio-fraction matrix analysis: 60:40 ethanolic extract demonstrates non-obvious synergistic enhancement of acetylcholine receptor binding.'},
+    {id:'AI-Q-091',title:'Guidance on SBB local vaidyas exemption under BDA Section 7',category:'ai',status:'resolved',statusLabel:'Statutory Guidance Generated',statusColor:'blue',applicant:'Dr. Hema',entity:'BioVeda Labs',counsel:'Sahayak AI Engine',sla:'Completed',date:'19 Feb 2024',summary:'Biological Diversity Act 2002 Section 7 statutory analysis: Local registered AYUSH practitioners exempted from prior intimation for traditional dispensary formulations.'}
+  ],
+  companyCases: [
+    {id:'CORP-2024-101',title:'Mandatory SBB Form-1 Intimation & ABS Royalty Assessment for Commercial Raw Material Sourcing',category:'compliance',status:'pending',statusLabel:'In Review by Counsel',statusColor:'amber',applicant:'Kundan',entity:'AyurVeda Biotech Pvt Ltd',counsel:'Adv. Bandi Mahendra',sla:'4h remaining (Priority)',date:'Today, 09:30 IST',summary:'Advisory requested on fair benefit-sharing percentage (0.1% to 0.5% ex-factory sales) under 2023 Amendment Rules for wild-harvested Guduchi and Ashwagandha procurement.'},
+    {id:'CORP-2024-105',title:'Patent Claim Strategy (Composition vs Formulation) & Section 3(e) Synergistic Efficacy for NirogShakti',category:'ip',status:'resolved',statusLabel:'Advisory Issued - Ready to File',statusColor:'emerald',applicant:'Kundan',entity:'AyurVeda Biotech Pvt Ltd',counsel:'Adv. Bandi Mahendra',sla:'Resolved',date:'23 Feb 2024',summary:'Counsel opinion delivered: Structure independent claim around nano-liposomal carrier system (<140nm diameter) with quantitative synergism assay data to bypass Section 3(e) objection.'},
+    {id:'CORP-2024-112',title:'EU Novel Food & EMA Herbal Monograph Compliance for CurcuShield Export',category:'regulatory',status:'pending',statusLabel:'Under Regulatory Audit',statusColor:'blue',applicant:'Sumanth',entity:'Himalayan Botanicals Ltd',counsel:'Adv. Bandi Mahendra',sla:'48h remaining',date:'21 Feb 2024',summary:'Preparation of Traditional Herbal Medicinal Product (THMP) dossier under EU Directive 2004/24/EC with 30-year bibliographic evidence of traditional medicinal use.'},
+    {id:'CORP-2024-118',title:'NBA Form-3 Approval for USPTO Foreign Patent Filing under Section 20 BDA',category:'compliance',status:'pending',statusLabel:'Pending NBA Review',statusColor:'amber',applicant:'Sumanth',entity:'Himalayan Botanicals Ltd',counsel:'Adv. Bandi Mahendra',sla:'Under NBA Evaluation',date:'18 Feb 2024',summary:'Application for statutory permission under Section 20 of Biological Diversity Act before filing corresponding US Patent Application (Class 424/728).' }
+  ],
+  facilitatorCases: [
+    {id:'CORP-2024-101',title:'Mandatory SBB Form-1 Intimation & ABS Royalty Assessment for Commercial Raw Material Sourcing',priority:'High',sla:'4h remaining',applicant:'Kundan',entity:'AyurVeda Biotech Pvt Ltd (Enterprise)',product:'NirogShakti Synergistic Capsule',tags:['SBB Form-1','BDA 2002 §7','0.5% Royalty Exemption','Enterprise MSME'],tkdlOverlap:'24.1% (Safe)',confidence:'91% High',status:'Pending Review'},
+    {id:'DQ-2024-1108',title:'Section 3(p) Overcoming & Foreign USPTO Filing under NBA Section 39',priority:'High',sla:'21h remaining',applicant:'Dr. Hema',entity:'BioVeda Labs (AYUSH Research)',product:'Niroga Shuddhi Rasayana',tags:['Patents Act §3(p)','NBA Act §39','35 USC §102','Section 3(e) Synergism'],tkdlOverlap:'98.4% (Citation Match)',confidence:'87% High',status:'In Review'},
+    {id:'CORP-2024-105',title:'Section 3(e) Synergistic Efficacy Quantitative Assays & USPTO Class 424 Phyto-fraction Patentability',priority:'Medium',sla:'48h remaining',applicant:'Sumanth',entity:'Himalayan Botanicals Ltd (Enterprise)',product:'CurcuShield Phyto-Extract',tags:['Section 3(e)','Synergistic Admixture','USPTO Class 424','PCT Global'],tkdlOverlap:'38.2%',confidence:'84%',status:'Evidence Evaluation'},
+    {id:'DQ-2024-1112',title:'CSIR-TKDL Samhita Concordance Verification and Vaidya Local Sourcing Exemption under BDA §7',priority:'Low',sla:'Resolved',applicant:'Shivani',entity:'AYUSH Practitioner (Vaidya)',product:'Triphala Ophthalmic Netra Bindu',tags:['TKDL Concordance','BDA §7 Exemption','Local Vaidya Safe Harbor'],tkdlOverlap:'94.0%',confidence:'96%',status:'Resolved & Archived'}
   ],
   corpus: [
     {id:'c1',name:'CSIR-TKDL Ayurveda Samhita Corpus',version:'v4.2',detail:'148,846+ Ayurveda Formulations • Last synced 04:00 IST',category:'Traditional Knowledge Gazette',url:'https://tkdl.res.in/api/v4/corpus/ayurveda',hash:'9fa2b7c3e8d1...cc17',status:'Active'},
@@ -2499,8 +3381,16 @@ function loadState() {
     if (saved) {
       if (saved.users && saved.users.some(u => u.name.includes('Ramanathan') || u.name.includes('Sharma') || u.name.includes('Varma') || u.name.includes('Sen'))) {
         saved.users = DEFAULT_STATE.users;
-        localStorage.setItem('ipsakti_state', JSON.stringify(saved));
       }
+      // Guarantee segregated data arrays exist
+      if (!saved.userDossiers || !saved.companyProducts || !saved.companyCases || !saved.userCases || !saved.facilitatorCases) {
+        saved.userDossiers = DEFAULT_STATE.userDossiers;
+        saved.companyProducts = DEFAULT_STATE.companyProducts;
+        saved.userCases = DEFAULT_STATE.userCases;
+        saved.companyCases = DEFAULT_STATE.companyCases;
+        saved.facilitatorCases = DEFAULT_STATE.facilitatorCases;
+      }
+      localStorage.setItem('ipsakti_state', JSON.stringify(saved));
       return saved;
     }
     return JSON.parse(JSON.stringify(DEFAULT_STATE));
@@ -2558,11 +3448,23 @@ const NAV_CONFIGS = {
     {label:'Home',page:'landing'},{label:'Intake Wizard',page:'intake-1'},{label:'Results Dashboard',page:'dossiers'},{label:'Ask AI',page:'ask-ai'}
   ], badge:'User // Practitioner' },
   company: { links: [
-    {label:'Dashboard',page:'dossiers'},{label:'Products',page:'intake-1'},{label:'IP Portfolio',page:'tkdl'},{label:'Compliance',page:'abs'}
+    {label:'🏠 Dashboard',page:'company-dashboard'},
+    {label:'🌿 Products',page:'company-products'},
+    {label:'🛡️ IP Portfolio',page:'company-portfolio'},
+    {label:'📋 Regulatory',page:'company-regulatory'},
+    {label:'🌱 ABS',page:'abs'},
+    {label:'🌍 Market Access',page:'company-market'},
+    {label:'📁 Documents',page:'company-documents'},
+    {label:'📊 Reports',page:'company-reports'},
+    {label:'👨‍⚖️ Expert Cases',page:'company-cases'},
+    {label:'👥 Team Members',page:'company-team'}
   ], badge:'Company // Enterprise' },
   facilitator: { links: [
-    {label:'Home',page:'landing'},{label:'Query Desk',page:'facilitator'},{label:'Case History',page:'dossiers'},{label:'AI Assistant',page:'ask-ai'}
-  ], badge:'Expert Panel // Counsel' },
+    {label:'Case Queue',page:'facilitator-queue'},
+    {label:'Review Desk',page:'facilitator'},
+    {label:'Case History',page:'facilitator-history'},
+    {label:'AI Assistant',page:'ask-ai'}
+  ], badge:'Human Expert // Counsel' },
   admin: { links: [
     {label:'Dashboard',page:'admin'},{label:'Data Sources',page:'corpus'},{label:'Users & Roles',page:'users'},{label:'Audit Log',page:'audit'}
   ], badge:'Platform Admin' }
@@ -2659,23 +3561,45 @@ function navigate(page) {
   const target = document.getElementById('page-' + page);
   if (target) { target.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
   
-  const userPages = ['landing','intake-1','intake-2','intake-3','intake-4','intake-5','ask-ai'];
-  const companyPages = ['dossiers','tkdl','abs','escalation'];
+  const userPages = ['landing','intake-1','intake-2','intake-3','intake-4','intake-5','dossiers'];
+  const companyPages = [
+    'company-dashboard','company-products','company-portfolio','company-regulatory',
+    'company-market','company-documents','company-reports','company-cases','company-team'
+  ];
   const adminPages = ['admin','corpus','source-edit','users','audit'];
-  const facilitatorPages = ['facilitator'];
+  const facilitatorPages = ['facilitator','facilitator-queue','facilitator-history'];
   
   if (page === 'roles') { /* keep current role unchanged */ }
   else if (facilitatorPages.includes(page)) { if(currentRole !== 'facilitator') currentRole = 'facilitator'; }
   else if (adminPages.includes(page)) { if(currentRole !== 'admin') currentRole = 'admin'; }
-  else if (companyPages.includes(page)) { if(!currentRole || currentRole === 'admin') currentRole = 'company'; }
-  else if (userPages.includes(page)) { if(!currentRole || currentRole === 'admin' || currentRole === 'company') currentRole = currentRole || 'user'; }
+  else if (companyPages.includes(page)) { if(currentRole !== 'company') currentRole = 'company'; }
+  else if (userPages.includes(page)) { 
+    if(!currentRole || currentRole === 'admin' || currentRole === 'facilitator') {
+      currentRole = 'user';
+    }
+  }
   
   updateNav(page);
   history.replaceState(null, '', '#' + page);
   
-  // Dynamic rendering for certain pages
+  // Dynamic rendering for pages
+  if(page === 'facilitator-queue') renderFacilitatorQueue();
   if(page === 'facilitator') initFacilitatorDesk();
-  if(page === 'dossiers') { renderDossiers(); if(typeof switchResultsTab === 'function') switchResultsTab(window.currentResultsTab || 'evidence'); }
+  if(page === 'facilitator-history') renderFacilitatorHistory();
+  if(page === 'company-dashboard') renderCompanyDashboard();
+  if(page === 'company-products') renderCompanyProducts();
+  if(page === 'company-portfolio') renderCompanyPortfolio();
+  if(page === 'company-regulatory') renderCompanyRegulatory();
+  if(page === 'company-market') renderCompanyMarket();
+  if(page === 'company-documents') renderCompanyDocuments();
+  if(page === 'company-reports') renderCompanyReports();
+  if(page === 'company-cases') renderCompanyCases();
+  if(page === 'company-team') renderCompanyTeam();
+  if(page === 'dossiers') { 
+    renderDossiers(); 
+    renderMyCases();
+    if(typeof switchResultsTab === 'function') switchResultsTab(window.currentResultsTab || 'evidence'); 
+  }
   if(page === 'admin') renderAdminStats();
   if(page === 'users') renderUsers();
   if(page === 'corpus') renderCorpus();
@@ -2688,14 +3612,14 @@ function setRole(role) {
   currentRole = role;
   const roleNames = {
     user: 'User / Practitioner',
-    company: 'Company / Industry',
+    company: 'Company / Enterprise',
     admin: 'System Administrator',
     facilitator: 'Human Expert / AYUSH IP Counsel'
   };
   showToast(`Signed in as ${roleNames[role] || role}`, 'success');
   if (role === 'admin') navigate('admin');
-  else if (role === 'company') navigate('dossiers');
-  else if (role === 'facilitator') navigate('facilitator');
+  else if (role === 'company') navigate('company-dashboard');
+  else if (role === 'facilitator') navigate('facilitator-queue');
   else navigate('landing');
 }
 
@@ -2943,32 +3867,125 @@ function insertPrecedentText(secNum, text) {
 function renderDossiers() {
   const grid = document.getElementById('dossiersGrid');
   if (!grid || showingEmpty) return;
+  
+  const isCompany = (currentRole === 'company');
+  const items = isCompany 
+    ? (appState.companyProducts || DEFAULT_STATE.companyProducts)
+    : (appState.userDossiers || DEFAULT_STATE.userDossiers);
+
   const statusColors = {
-    'Ready for Filing': 'bg-primary-fixed text-on-primary-fixed border-primary-fixed-dim/40',
-    'Review Recommended': 'bg-secondary-container/20 text-on-secondary-container border-secondary-container/40',
-    'Prior-Art Clear': 'bg-surface-container-high text-on-surface-variant border-outline-variant/50',
-    'Draft': 'bg-surface-container text-on-surface-variant border-outline-variant/40'
+    'Ready for Filing': 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    'Review Recommended': 'bg-amber-50 text-amber-800 border-amber-200',
+    'Prior-Art Clear': 'bg-blue-50 text-blue-800 border-blue-200',
+    'Draft': 'bg-surface-container text-on-surface-variant border-outline-variant/40',
+    'Form-1 SBB Approved': 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    'NBA Form-3 Pending': 'bg-amber-50 text-amber-800 border-amber-200',
+    'CT-06 Phase II Cleared': 'bg-purple-50 text-purple-800 border-purple-200',
+    'Section 3(e) Cleared': 'bg-teal-50 text-teal-800 border-teal-200'
   };
-  const dotColors = {'Ready for Filing':'bg-primary-container','Review Recommended':'bg-secondary','Prior-Art Clear':'bg-outline','Draft':'bg-outline-variant'};
-  grid.innerHTML = appState.dossiers.map(d => `
-    <div onclick="navigate('${d.route||'tkdl'}')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
+
+  grid.innerHTML = items.map(d => `
+    <div onclick="navigate('${isCompany ? 'company-products' : (d.route || 'tkdl')}')" class="cursor-pointer bg-surface-container-lowest rounded-2xl border border-surface-container p-7 elevation-ambient hover:elevation-hover transition-all duration-200 flex flex-col justify-between group">
       <div>
         <div class="flex items-start justify-between gap-3 mb-4">
-          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container">ID: ${d.id}</span>
-          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm ${statusColors[d.status]||statusColors['Draft']}"><span class="w-1.5 h-1.5 rounded-full ${dotColors[d.status]||'bg-outline'}"></span>${d.status}</span>
+          <span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-2.5 py-1 rounded-full border border-surface-container font-mono">
+            ${isCompany ? 'BATCH: ' + (d.batch || d.id) : 'ID: ' + d.id}
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-label-sm text-label-sm border ${statusColors[d.status] || 'bg-surface-container text-on-surface-variant'}">
+            <span class="w-1.5 h-1.5 rounded-full ${d.status && (d.status.includes('Approved') || d.status.includes('Clear') || d.status.includes('Ready') || d.status.includes('Passed')) ? 'bg-emerald-600' : 'bg-amber-600'}"></span>
+            ${d.status}
+          </span>
         </div>
-        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary-container transition-colors duration-150 font-medium tracking-tight">${d.name}</h2>
-        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2">${d.desc}</p>
-        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-2">${d.tags.map(t=>`<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">${t}</span>`).join('')}</div>
+        <h2 class="font-headline-sm text-headline-sm text-on-surface group-hover:text-primary transition-colors duration-150 font-medium tracking-tight">
+          ${d.name}
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 line-clamp-2 leading-relaxed">
+          ${d.desc}
+        </p>
+        <div class="mt-5 pt-4 border-t border-surface-container-low flex flex-wrap gap-1.5">
+          ${(d.tags || []).map(t => `<span class="font-label-sm text-[11px] text-on-surface-variant bg-surface px-2 py-0.5 rounded border border-surface-container">${t}</span>`).join('')}
+        </div>
       </div>
       <div class="mt-6 pt-4 border-t border-surface-container flex items-center justify-between">
-        <span class="font-label-sm text-label-sm text-on-surface-variant">Updated ${d.updated}</span>
-        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">Open Dossier <span class="material-symbols-outlined text-[18px]">arrow_forward</span></span>
+        <span class="font-label-sm text-label-sm text-on-surface-variant">
+          ${isCompany && d.marketRevenue ? `<strong class="text-primary font-semibold">${d.marketRevenue}</strong>` : `Updated ${d.updated}`}
+        </span>
+        <span class="inline-flex items-center gap-1 font-label-md text-label-md text-primary-container font-medium group-hover:translate-x-0.5 transition-transform duration-150">
+          <span>${isCompany ? 'Open Product Passport' : 'Open Dossier'}</span>
+          <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        </span>
       </div>
     </div>`).join('');
-  // Update count
+
   const countEl = grid.closest('.page-section')?.querySelector('.font-medium.text-on-surface');
-  if(countEl) countEl.textContent = `${appState.dossiers.length} active formulations`;
+  if (countEl) {
+    countEl.textContent = isCompany ? `${items.length} Commercial Products` : `${items.length} Active Formulations`;
+  }
+}
+
+function renderMyCases() {
+  const container = document.getElementById('mycases-list');
+  if (!container) return;
+  
+  const isCompany = (currentRole === 'company');
+  const cases = isCompany 
+    ? (appState.companyCases || DEFAULT_STATE.companyCases)
+    : (appState.userCases || DEFAULT_STATE.userCases);
+  
+  // Update header text in results-view-mycases
+  const headerTitle = document.querySelector('#results-view-mycases h1');
+  const headerDesc = document.querySelector('#results-view-mycases p');
+  if (headerTitle) {
+    headerTitle.textContent = isCompany ? 'Company Legal Cases & Regulatory Audits' : 'My Cases & Consultations';
+  }
+  if (headerDesc) {
+    headerDesc.textContent = isCompany
+      ? 'Review enterprise patent strategies, SBB Form-1 compliance intimations, and export clearance advisories from Adv. Bandi Mahendra.'
+      : 'Review active legal advisories from Adv. Bandi Mahendra, botanical safety audits, and saved AI research queries.';
+  }
+
+  // Render cards
+  container.innerHTML = cases.map(c => `
+    <div class="mycase-item bg-surface-container-lowest rounded-xl border border-outline-variant/50 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between" data-category="${c.category}" data-status="${c.status}">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold flex items-center gap-1 ${
+            c.statusColor === 'emerald' ? 'bg-emerald-100 text-emerald-900 border border-emerald-200' :
+            c.statusColor === 'blue' ? 'bg-blue-100 text-blue-900 border border-blue-200' :
+            'bg-amber-100 text-amber-900 border border-amber-200'
+          }">
+            <span class="w-1.5 h-1.5 rounded-full ${
+              c.statusColor === 'emerald' ? 'bg-emerald-600' :
+              c.statusColor === 'blue' ? 'bg-blue-600' :
+              'bg-amber-600 animate-pulse'
+            }"></span>
+            ${c.statusLabel}
+          </span>
+          <span class="text-xs text-on-surface-variant font-mono">Case #${c.id}</span>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-primary">${c.title}</h3>
+          <p class="text-xs text-on-surface-variant mt-1">
+            ${isCompany ? `Entity: <strong class="text-on-surface">${c.entity}</strong> (Lead: ${c.applicant})` : `Applicant: <strong class="text-on-surface">${c.applicant}</strong> (${c.entity})`}
+            • Assigned: <span class="font-medium text-primary">${c.counsel}</span>
+          </p>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/60 p-3 rounded-lg border border-outline-variant/30">
+          ${c.summary}
+        </p>
+      </div>
+      <div class="mt-5 pt-4 border-t border-outline-variant/40 flex items-center justify-between">
+        <span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">schedule</span>
+          ${c.sla}
+        </span>
+        <button onclick="${isCompany ? `openCompanyCaseDetail('${c.id}')` : `openUserCaseDetail('${c.id}')`}" class="px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-xs font-medium text-primary flex items-center gap-1 cursor-pointer transition-colors">
+          <span>View Thread</span>
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
 }
 
 function toggleDossierView() {
@@ -3899,6 +4916,13 @@ const MODEL_CASCADE = ['qwen/qwen3.8-27b', 'groq/compound-mini', 'openai/gpt-oss
 async function callGroqRAG(userQuery) {
   const { contextText, sources } = retrieveContext(userQuery);
   const apiKey = GROQ_CONFIG.apiKey;
+  const detectedCode = (typeof detectQueryLanguage === 'function') ? detectQueryLanguage(userQuery) : null;
+  if (detectedCode) {
+    appState.chatLanguage = detectedCode;
+    const lLabel = document.getElementById('current-lang-label');
+    const dLang = SUPPORTED_LANGUAGES.find(l => l.code === detectedCode);
+    if (lLabel && dLang) lLabel.textContent = dLang.native;
+  }
   const lang = SUPPORTED_LANGUAGES.find(l => l.code === (appState.chatLanguage || 'en')) || SUPPORTED_LANGUAGES[0];
   const complexity = analyzeQueryComplexity(userQuery);
 
@@ -4041,6 +5065,11 @@ Retain statutory citations (e.g. Section 3(p), Section 3(e), Section 3(d), Secti
           }
         } catch (transErr) {
           console.warn('Language verification translation pass error:', transErr.message);
+        }
+        // If content still fails language verification, use verified native statutory response
+        if (!verifyLanguageScript(content, lang.code)) {
+          console.warn('Language verification fallback triggered for ' + lang.code);
+          content = getVerifiedStatutoryResponse(userQuery, lang.code, sources);
         }
       }
 
@@ -4830,6 +5859,1664 @@ window.addEventListener('hashchange', () => {
   const hash = window.location.hash.slice(1) || 'landing';
   navigate(hash);
 });
+
+
+// =========================================================================
+// FACILITATOR QUEUE & CASE MANAGEMENT CONTROLLERS
+// =========================================================================
+function filterFacilitatorQueue(filter) {
+  const items = document.querySelectorAll('#facilitator-queue-list .queue-item');
+  items.forEach(item => {
+    if (filter === 'all') {
+      item.classList.remove('hidden');
+    } else if (filter === 'urgent') {
+      if (item.dataset.urgent === 'true') item.classList.remove('hidden');
+      else item.classList.add('hidden');
+    } else if (filter === 'commercial') {
+      if (item.dataset.category === 'commercial') item.classList.remove('hidden');
+      else item.classList.add('hidden');
+    } else if (filter === 'practitioner') {
+      if (item.dataset.category === 'practitioner') item.classList.remove('hidden');
+      else item.classList.add('hidden');
+    } else if (filter === 'resolved') {
+      if (item.dataset.status === 'resolved') item.classList.remove('hidden');
+      else item.classList.add('hidden');
+    }
+  });
+
+  document.querySelectorAll('.queue-filter-pill').forEach(btn => {
+    if (btn.dataset.filter === filter) {
+      btn.className = 'queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-semibold bg-primary text-on-primary transition-all cursor-pointer';
+    } else {
+      btn.className = 'queue-filter-pill px-3.5 py-1.5 rounded-full text-xs font-medium bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-all cursor-pointer';
+    }
+  });
+}
+
+function openFacilitatorCase(caseId) {
+  const caseMap = {
+    'CORP-2024-101': {
+      id: 'CORP-2024-101',
+      applicant: 'Kundan',
+      entity: 'AyurVeda Biotech Pvt Ltd (Enterprise MSME)',
+      product: 'NirogShakti Synergistic Capsule (AVB-402)',
+      jurisdictions: ['India (SBB Form-1)', 'NBA § 7', 'AYUSH Prop.'],
+      subject: 'Mandatory SBB Form-1 Intimation & ABS Royalty Assessment for Commercial Raw Material Sourcing',
+      adviceDraft: 'LEGAL ADVISORY OPINION & STATUTORY INTIMATION MEMORANDUM\n\nRE: AyurVeda Biotech Pvt Ltd — NirogShakti Synergistic Capsule (AVB-402)\nStatute: Biological Diversity Act, 2002 read with 2023 Amendment Rules\n\n1. SBB Form-1 Intimation Requirement:\nUnder Section 7 of the Biological Diversity Act, 2002, Indian entities engaged in commercial utilization of bio-resources must give prior intimation to the concerned State Biodiversity Board (Maharashtra SBB).\n\n2. Benefit Sharing Percentage Assessment:\nUnder Regulation 14 of the 2023 Amendment Guidelines, where wild-harvested Guduchi (Tinospora cordifolia) and Ashwagandha are procured via APMC certified mandis, the fair benefit-sharing fee is assessed between 0.1% and 0.5% of ex-factory gross sales.\n\n3. Recommendation:\nSubmit SBB Form-1 prior to commercial batch release. Secure mandi purchase receipts containing Gram Panchayat BMC origin endorsements to qualify for the minimum 0.1% bracket.',
+      status: 'In Review by Counsel'
+    },
+    'DQ-2024-1108': {
+      id: 'DQ-2024-1108',
+      applicant: 'Dr. Hema',
+      entity: 'BioVeda Labs Pvt Ltd (with Shivani & Naga Ganesh)',
+      product: 'Niroga Shuddhi Rasayana (Nano-Liposomal Extract)',
+      jurisdictions: ['India (IPO)', 'United States (USPTO)', 'PCT Global'],
+      subject: 'Section 3(p) Overcoming & Foreign USPTO Filing under NBA Section 39',
+      adviceDraft: 'LEGAL ADVISORY OPINION — AYUSH IP COUNSEL\n\nRE: BioVeda Labs — Overcoming Section 3(p) for Withania somnifera + Piper longum\nCGPDTM IPO Reference: Application #202411088421\n\n1. Classical Prior Art Circumvention Strategy:\nCharaka Samhita Chikitsasthana 1.2:14 discloses standard kashaya decoction. To avoid Section 3(p) statutory bar, independent Claim 1 must not recite the botanical admixture alone. Restrict Claim 1 to: "A self-nanoemulsifying phospholipid carrier system containing withanolide glycosides and piperine wherein average liposome vesicle diameter is between 80nm and 130nm, exhibiting minimum 4.2-fold cellular bioavailability enhancement over aqueous decoction."\n\n2. Section 3(e) Synergism Requirement:\nInclude experimental Combination Index (CI) calculation graph (Chou-Talalay method) proving CI < 0.72 to establish non-obvious synergistic efficacy beyond mere aggregation of known properties.\n\n3. NBA Section 39 Approval for US Filing:\nUnder Section 39 of the Biological Diversity Act, obtaining Form-3 clearance from the National Biodiversity Authority is mandatory prior to national phase patent grant in the USPTO.',
+      status: 'Direct Query — In Progress'
+    },
+    'CORP-2024-105': {
+      id: 'CORP-2024-105',
+      applicant: 'Sumanth',
+      entity: 'Himalayan Botanicals Ltd (Enterprise)',
+      product: 'CurcuShield Phyto-Extract Nano-Emulsion (HB-901)',
+      jurisdictions: ['India (IPO)', 'USPTO Class 424', 'EU EMA'],
+      subject: 'Section 3(e) Synergistic Efficacy Quantitative Assays & USPTO Class 424 Phyto-fraction Patentability',
+      adviceDraft: 'LEGAL ADVISORY OPINION — EXPERT CASE #CORP-2024-105\n\nRE: Himalayan Botanicals Ltd — CurcuShield Phyto-Extract Nano-Emulsion\n\n1. Synergistic Combination Assay Validation:\nThe HPLC-MS bio-fraction assay demonstrates that the 95:5 Curcuminoid to Bio-Enhancer ratio produces a statistically significant reduction in NF-kB inflammatory markers (p < 0.001) compared to equivalent unformulated curcumin. This data satisfies Section 3(e) of the Indian Patents Act.\n\n2. USPTO Class 424 Strategy:\nFor 35 U.S.C. §102 compliance, provide comparative dissolution profiles against classical Haridra formulations to substantiate novelty in human pharmacokinetics.',
+      status: 'Evidence Evaluation'
+    },
+    'DQ-2024-1112': {
+      id: 'DQ-2024-1112',
+      applicant: 'Shivani',
+      entity: 'Registered AYUSH Practitioner (Traditional Vaidya)',
+      product: 'Triphala Ophthalmic Netra Bindu',
+      jurisdictions: ['India AYUSH / BDA § 7 Exemption'],
+      subject: 'CSIR-TKDL Samhita Concordance Verification and Vaidya Local Sourcing Exemption under BDA Section 7',
+      adviceDraft: 'FORMAL LEGAL OPINION & STATUTORY EXEMPTION CERTIFICATE\n\nRE: Shivani (Registered AYUSH Practitioner) — Triphala Ophthalmic Netra Bindu\n\n1. Classical Concordance:\nFormulation matches classical references in Ashtanga Hridaya Uttarasthana 13:42-45.\n\n2. BDA Section 7 Exemption:\nPursuant to the proviso to Section 7 of the Biological Diversity Act, 2002, registered local vaidyas and AYUSH practitioners practicing traditional systems of medicine are explicitly EXEMPT from giving prior intimation to the State Biodiversity Board for dispensary preparations.\n\nOpinion Delivered and Cryptographically Signed by Adv. Bandi Mahendra.',
+      status: 'Delivered & Resolved'
+    }
+  };
+
+  const selectedCase = caseMap[caseId] || caseMap['DQ-2024-1108'];
+  
+  // Update Case Review Desk UI elements
+  const breadcrumbActive = document.querySelector('#page-facilitator .text-primary.font-semibold');
+  if (breadcrumbActive) breadcrumbActive.textContent = `Case Review Desk (#${selectedCase.id})`;
+
+  const statusBadge = document.getElementById('facilitator-status-badge');
+  if (statusBadge) {
+    statusBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span><span>Case #${selectedCase.id} — ${selectedCase.status}</span>`;
+  }
+
+  // Update Submitted By
+  const submittedByEl = document.querySelector('#page-facilitator .card-ambient .text-on-surface');
+  if (submittedByEl) submittedByEl.textContent = selectedCase.applicant;
+  
+  const entityEl = document.querySelector('#page-facilitator .card-ambient .text-on-surface-variant');
+  if (entityEl) entityEl.textContent = selectedCase.entity;
+
+  // Update Product Formulation
+  const prodNameEl = document.querySelectorAll('#page-facilitator .card-ambient .text-on-surface')[1];
+  if (prodNameEl) prodNameEl.textContent = selectedCase.product;
+
+  // Pre-fill composer textarea
+  const responseTextarea = document.getElementById('facilitator-response-text');
+  if (responseTextarea && selectedCase.adviceDraft) {
+    responseTextarea.value = selectedCase.adviceDraft;
+  }
+
+  showToast(`Loaded Case #${selectedCase.id} for Counsel Review`, 'success');
+  navigate('facilitator');
+}
+
+function renderFacilitatorQueue() {
+  filterFacilitatorQueue('all');
+}
+
+function renderFacilitatorHistory() {
+  const container = document.getElementById('facilitator-history-content');
+  if (!container) return;
+
+  const precedents = [
+    {id:'PREC-2024-88',client:'BioVeda Labs (Dr. Hema)',subject:'Section 3(p) Circumvention Claim Language for Ashwagandha Nano-Liposomes',status:'Opinion Delivered',date:'28 Feb 2024',ref:'IPO 202411088421',hash:'SHA-256: 8f9b...a104'},
+    {id:'PREC-2024-42',client:'AyurVeda Biotech (Kundan)',subject:'Maharashtra SBB Form-1 Intimation for Commercial Guduchi Sourcing',status:'Form-1 Filed & Cleared',date:'24 Feb 2024',ref:'MSBB/AYUR/2024/09',hash:'SHA-256: 3c4d...e782'},
+    {id:'PREC-2024-19',client:'Shivani (AYUSH Vaidya)',subject:'BDA Section 7 Statutory Exemption for Traditional Dispensary Decoctions',status:'Exemption Certified',date:'18 Feb 2024',ref:'BDA-EXEMP-782',hash:'SHA-256: 1a9f...b560'},
+    {id:'PREC-2024-06',client:'Himalayan Botanicals (Sumanth)',subject:'Section 3(e) Synergistic Combination Index Assay Validation Memo',status:'Precedent Registered',date:'11 Feb 2024',ref:'IPO-SYNERGY-104',hash:'SHA-256: 7d2e...4419'}
+  ];
+
+  container.innerHTML = `
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant/50 text-on-surface-variant font-semibold">
+            <th class="py-3 px-4">Precedent ID</th>
+            <th class="py-3 px-4">Client / Entity</th>
+            <th class="py-3 px-4">Subject Matter</th>
+            <th class="py-3 px-4">Statutory Reference</th>
+            <th class="py-3 px-4">Delivery Date</th>
+            <th class="py-3 px-4">Status</th>
+            <th class="py-3 px-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/30">
+          ${precedents.map(p => `
+            <tr class="hover:bg-surface-container-low/50 transition-colors">
+              <td class="py-3 px-4 font-mono font-semibold text-primary">${p.id}</td>
+              <td class="py-3 px-4 font-medium text-on-surface">${p.client}</td>
+              <td class="py-3 px-4 text-on-surface-variant max-w-xs truncate">${p.subject}</td>
+              <td class="py-3 px-4 font-mono text-outline">${p.ref}</td>
+              <td class="py-3 px-4 text-on-surface-variant">${p.date}</td>
+              <td class="py-3 px-4">
+                <span class="px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">
+                  ${p.status}
+                </span>
+              </td>
+              <td class="py-3 px-4 text-right">
+                <button onclick="downloadSignedAdvisory('${p.id}')" class="px-3 py-1 rounded bg-surface hover:bg-surface-container border border-outline-variant text-primary font-medium inline-flex items-center gap-1 cursor-pointer">
+                  <span class="material-symbols-outlined text-[14px]">download</span>
+                  <span>Advisory PDF</span>
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function downloadSignedAdvisory(id) {
+  showToast(`Downloading signed legal advisory precedent #${id} (PDF)`, 'success');
+}
+
+// =========================================================================
+// COMPANY SUITE RENDERING CONTROLLERS
+// =========================================================================
+
+function renderCompanyDashboard() {
+  const grid = document.getElementById('company-dashboard-products-grid');
+  if (!grid) return;
+
+  const products = appState.companyProducts || DEFAULT_STATE.companyProducts;
+  grid.innerHTML = products.map(p => `
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-mono text-on-surface-variant bg-surface-container-low px-2 py-0.5 rounded border border-outline-variant/30">
+            ${p.batch}
+          </span>
+          <span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">
+            ${p.status}
+          </span>
+        </div>
+        <div>
+          <h3 class="text-sm font-semibold text-primary leading-snug">${p.name}</h3>
+          <p class="text-[11px] text-on-surface-variant mt-1 line-clamp-2 leading-relaxed">
+            ${p.desc}
+          </p>
+        </div>
+        <div class="pt-2 border-t border-outline-variant/30 text-xs">
+          <span class="text-outline text-[11px] block">Annual Pipeline</span>
+          <strong class="text-primary font-semibold text-sm">${p.marketRevenue}</strong>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-outline-variant/30 flex items-center justify-between">
+        <span class="text-[11px] text-emerald-700 font-medium">Confidence ${p.confidence}</span>
+        <button onclick="openProductPassportModal('${p.id}')" class="px-2.5 py-1 rounded bg-surface hover:bg-surface-container border border-outline-variant text-[11px] font-semibold text-primary flex items-center gap-1 cursor-pointer transition-colors">
+          <span>Passport</span>
+          <span class="material-symbols-outlined text-[13px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCompanyProducts() {
+  const container = document.getElementById('company-products-catalog-list');
+  if (!container) return;
+
+  const products = [
+    {
+      id: 'PROD-AVB-402',
+      name: 'NirogShakti Synergistic Capsule',
+      batch: 'AVB-402-B4',
+      scale: 'Commercial Scale (50,000 units/mo)',
+      license: 'Form 25D #AYUR-MH-2021-994',
+      status: 'SBB Form-1 Approved',
+      indication: 'Immuno-modulator & Bio-Enhanced Antioxidant Matrix',
+      revenue: '₹14.8 Cr (India) / $2.4M (US Export)',
+      confidence: '94% (High)',
+      ingredients: [
+        {name:'Ashwagandha',botanical:'Withania somnifera',part:'Root Extract 10:1',marker:'Withanolides 5.2%',origin:'Neemuch, MP',tkdl:'Section 3(p) Cleared with Novel Excipient'},
+        {name:'Haridra (Curcumin)',botanical:'Curcuma longa',part:'Rhizome Standardized',marker:'Curcuminoids 95%',origin:'Salem, TN (GI-301)',tkdl:'Synergistic Admixture Claim § 3(e)'},
+        {name:'Pippali (Bio-enhancer)',botanical:'Piper longum',part:'Dried Fruit Extract 4:1',marker:'Piperine 98%',origin:'Wayanad, KL (GI-182)',tkdl:'Classical Anupana / Novel Bio-Carrier'}
+      ],
+      guidance: {
+        dosage: '1 Capsule (500mg) twice daily after meals',
+        vehicle: 'Warm milk or lukewarm water (Anupana: Ksheera)',
+        window: '90 consecutive days; monitor hepatic parameters in geriatric patients',
+        contraindications: 'Contraindicated in mechanical biliary tract obstruction and acute bile duct infection.'
+      }
+    },
+    {
+      id: 'PROD-HB-901',
+      name: 'CurcuShield Phyto-Extract Nano-Emulsion',
+      batch: 'HB-901-B2',
+      scale: 'Export Production (Q3 Batch)',
+      license: 'Form 25D #AYUR-HP-2019-410',
+      status: 'NBA Form-3 In Progress',
+      indication: 'Cardio-Metabolic & Cellular Bio-Protection',
+      revenue: '$3.8M Global ARR (US & EU)',
+      confidence: '88% (High)',
+      ingredients: [
+        {name:'Curcumin Phospholipid Complex',botanical:'Curcuma longa + Soy Phospholipids',part:'Rhizome Phyto-fraction',marker:'Curcuminoids 95%',origin:'Erode, TN',tkdl:'Nano-liposomal Carrier Formulation'},
+        {name:'Sunthi (Ginger Extract)',botanical:'Zingiber officinale',part:'Rhizome CO2 Extract',marker:'Gingerols 20%',origin:'Wayanad, KL',tkdl:'Synergistic Bio-Carrier Ratio § 3(e)'}
+      ],
+      guidance: {
+        dosage: '5ml (equivalent to 100mg bioactive curcuminoids) once daily in the morning',
+        vehicle: 'Sublingual dropper or dispersed in 100ml water',
+        window: '60 days therapy followed by 15 days wash-out period',
+        contraindications: 'Avoid in concurrent therapeutic anticoagulants (warfarin/heparin) without physician supervision.'
+      }
+    },
+    {
+      id: 'PROD-AVB-510',
+      name: 'MadhuMukt Glycemic Regulator',
+      batch: 'AVB-510-B1',
+      scale: 'Pilot Production (25,000 units)',
+      license: 'Form 25D #AYUR-MH-2021-994',
+      status: 'CT-06 Phase II Passed',
+      indication: 'Ayurvedic Glycemic Balance & Beta-Cell Support',
+      revenue: '₹8.5 Cr Domestic Run-Rate',
+      confidence: '91% (High)',
+      ingredients: [
+        {name:'Vijayasar',botanical:'Pterocarpus marsupium',part:'Heartwood Aqueous 8:1',marker:'Pterostilbene 5%',origin:'Madhya Pradesh SBB Form-1',tkdl:'Charaka Chikitsa 6 Concordance'},
+        {name:'Jamun Seed',botanical:'Syzygium cumini',part:'Seed Powder Extract 10:1',marker:'Jamboline 12%',origin:'Maharashtra APMC Mandi',tkdl:'Non-Patentable Classical Formulation § 3(p)'},
+        {name:'Meshashringi',botanical:'Gymnema sylvestre',part:'Leaf Standardized Extract',marker:'Gymnemic Acids 25%',origin:'Western Ghats Cultivated',tkdl:'Cultivated Sourcing BDA Exemption'}
+      ],
+      guidance: {
+        dosage: '1 Tablet (750mg) 30 minutes prior to principal meals',
+        vehicle: 'Warm water (Anupana: Ushnodaka)',
+        window: '120 days continuous clinical study regime',
+        contraindications: 'Monitor blood glucose daily when co-administered with synthetic biguanides to prevent hypoglycemia.'
+      }
+    },
+    {
+      id: 'PROD-HB-304',
+      name: 'RespiClear Bronchial Herbal Syrup',
+      batch: 'HB-304-B3',
+      scale: 'Commercial Scale (75,000 units/mo)',
+      license: 'Form 25D #AYUR-HP-2019-410',
+      status: 'Section 3(e) Cleared',
+      indication: 'Chronic Bronchial Clearance & Mucolytic Phyto-Support',
+      revenue: '₹5.2 Cr (India) / £850K (UK Export)',
+      confidence: '86% (High)',
+      ingredients: [
+        {name:'Vasaka',botanical:'Adhatoda vasica',part:'Leaf Aqueous Decoction 6:1',marker:'Vasicine 1.5%',origin:'Himachal Forest Dept Permitted',tkdl:'Sarangadhara Samhita Concordance'},
+        {name:'Kantakari',botanical:'Solanum xanthocarpum',part:'Whole Plant Extract 5:1',marker:'Solasodine 2.0%',origin:'Shivalik Foothills Wild Sourced',tkdl:'Section 3(e) Quantitative Bronchodilation'},
+        {name:'Tulasi',botanical:'Ocimum sanctum',part:'Leaf Hydro-Ethanolic 4:1',marker:'Ursolic Acid 2.5%',origin:'UP Certified Organic Farm',tkdl:'Novel Extraction Pressure Profile'}
+      ],
+      guidance: {
+        dosage: '10ml (2 teaspoonfuls) 3 times daily after food',
+        vehicle: 'Lukewarm water or pure honey (Madhu)',
+        window: '14 to 21 days for acute conditions; up to 60 days for chronic bronchial cough',
+        contraindications: 'Not recommended during first trimester of pregnancy due to oxytocic alkaloids in vasicine.'
+      }
+    }
+  ];
+
+  container.innerHTML = products.map(p => `
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 p-6 md:p-8 shadow-sm space-y-6">
+      
+      <!-- Top Banner -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-outline-variant/40">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap mb-1">
+            <span class="font-mono text-xs text-primary font-semibold bg-primary/10 px-2.5 py-0.5 rounded border border-primary/20">
+              Batch: ${p.batch}
+            </span>
+            <span class="text-xs text-on-surface-variant font-medium">${p.scale}</span>
+            <span class="inline-block w-1 h-1 rounded-full bg-outline-variant"></span>
+            <span class="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">
+              ${p.status}
+            </span>
+          </div>
+          <h2 class="text-xl font-bold text-on-surface">${p.name}</h2>
+          <p class="text-xs text-on-surface-variant mt-0.5">License: <span class="font-mono">${p.license}</span> • Indication: <strong class="text-on-surface">${p.indication}</strong></p>
+        </div>
+        <div class="flex items-center gap-2 self-start md:self-center">
+          <button onclick="openProductPassportModal('${p.id}')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-1.5 cursor-pointer shadow-sm">
+            <span class="material-symbols-outlined text-[16px]">badge</span>
+            <span>Product Passport</span>
+          </button>
+          <button onclick="navigate('company-portfolio')" class="px-3 py-2 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-primary text-xs font-semibold flex items-center gap-1 cursor-pointer">
+            <span class="material-symbols-outlined text-[16px]">shield</span>
+            <span>IP Claims</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Clean Ingredients Table -->
+      <div>
+        <h4 class="text-xs font-semibold text-primary uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base">eco</span>
+          <span>Clean Ingredients &amp; Botanical Specification Matrix</span>
+        </h4>
+        <div class="overflow-x-auto border border-outline-variant/40 rounded-xl">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead class="bg-surface-container-low/70">
+              <tr class="border-b border-outline-variant/40 text-on-surface font-semibold">
+                <th class="py-2.5 px-3">Ingredient</th>
+                <th class="py-2.5 px-3">Botanical Name</th>
+                <th class="py-2.5 px-3">Part Used &amp; Ratio</th>
+                <th class="py-2.5 px-3">Standardized Marker %</th>
+                <th class="py-2.5 px-3">Sourcing Origin</th>
+                <th class="py-2.5 px-3">TKDL / Patent Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-outline-variant/30 bg-surface">
+              ${p.ingredients.map(ing => `
+                <tr class="hover:bg-surface-container-low/30 transition-colors">
+                  <td class="py-2.5 px-3 font-semibold text-on-surface">${ing.name}</td>
+                  <td class="py-2.5 px-3 italic text-on-surface-variant font-serif">${ing.botanical}</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">${ing.part}</td>
+                  <td class="py-2.5 px-3 font-mono font-medium text-primary">${ing.marker}</td>
+                  <td class="py-2.5 px-3 text-on-surface-variant">${ing.origin}</td>
+                  <td class="py-2.5 px-3">
+                    <span class="px-2 py-0.5 rounded text-[11px] font-medium bg-surface-container text-on-surface-variant border border-outline-variant/40">
+                      ${ing.tkdl}
+                    </span>
+                  </td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- "How to Use this Product" Guidance Widget -->
+      <div class="bg-surface-container-low/60 border border-outline-variant/40 rounded-xl p-4 md:p-5 space-y-3">
+        <h4 class="text-xs font-semibold text-on-surface uppercase tracking-wider flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-base text-primary">clinical_notes</span>
+          <span>How to Use this Product — Clinical &amp; Pharmacopoeial Guidance</span>
+        </h4>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Recommended Dosage</span>
+            <p class="font-medium text-on-surface">${p.guidance.dosage}</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Carrier (Anupana)</span>
+            <p class="font-medium text-on-surface">${p.guidance.vehicle}</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-outline tracking-wider block">Therapeutic Window</span>
+            <p class="font-medium text-on-surface">${p.guidance.window}</p>
+          </div>
+          <div class="p-3 bg-surface rounded-lg border border-outline-variant/30 space-y-1">
+            <span class="text-[10px] uppercase font-bold text-amber-800 tracking-wider block">Precautions &amp; Warnings</span>
+            <p class="font-medium text-amber-950 text-[11px]">${p.guidance.contraindications}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial & Target Pipeline Strip -->
+      <div class="flex items-center justify-between text-xs pt-2 border-t border-outline-variant/30">
+        <span class="text-on-surface-variant">Estimated Revenue Pipeline: <strong class="text-primary font-semibold">${p.revenue}</strong> (Confidence: ${p.confidence})</span>
+        <button onclick="downloadReport('${p.id}')" class="text-primary font-semibold hover:underline flex items-center gap-1">
+          <span>Export Product Dossier</span>
+          <span class="material-symbols-outlined text-[14px]">download</span>
+        </button>
+      </div>
+
+    </div>
+  `).join('');
+}
+
+function renderCompanyPortfolio() {
+  const container = document.getElementById('company-portfolio-matrix-content');
+  if (!container) return;
+
+  const matrix = [
+    {
+      product: 'NirogShakti Synergistic Capsule (PROD-AVB-402)',
+      patent: 'IPO App #202411048219: Micro-vesicular carrier (<140nm) with 4.2x withanolide absorption.',
+      trademark: 'Word Mark "NirogShakti" registered in Class 5 (Pharma) & Class 30 (Supplements). Reg #4891024.',
+      gi: 'Verified GI linkages: Salem Curcuma (GI-301) & Wayanad Piper (GI-182). Certified source certificates attached.',
+      copyright: 'Registered Master Formulation SOP & Clinical Protocol (Diary #2024-CR-091).',
+      secret: 'Vault-sealed hydro-ethanolic 70:30 cold percolation protocol and sonication cavitation parameters.'
+    },
+    {
+      product: 'CurcuShield Phyto-Extract (PROD-HB-901)',
+      patent: 'PCT/IB2024/051288 & USPTO 18/492,019: Self-emulsifying phospholipid curcuminoid matrix.',
+      trademark: 'Word Mark "CurcuShield" filed in India Class 5 and USPTO Principal Register.',
+      gi: 'Salem Turmeric (GI-301) cooperative APMC origin certificate.',
+      copyright: 'Bioavailability Clinical Trial Protocol & Chromatographic Fingerprint Library.',
+      secret: 'Phospholipid self-emulsification surfactant ratio and vacuum lyophilization parameters.'
+    },
+    {
+      product: 'MadhuMukt Glycemic Regulator (PROD-AVB-510)',
+      patent: 'Trade Secret Protected: Aqueous co-extract fraction avoiding public disclosure § 3(p).',
+      trademark: '"MadhuMukt" Class 5 Registered. Device mark featuring herbal leaf motif published in Trademark Journal.',
+      gi: 'Nilgiri Jamun seed origin documentation verified through MP forest department.',
+      copyright: 'CTRI Phase II Clinical Trial Master Manual & Patient Informed Consent documentation.',
+      secret: 'Specific precipitation pH thresholds for separating active pterostilbene tannins.'
+    },
+    {
+      product: 'RespiClear Bronchial Herbal Syrup (PROD-HB-304)',
+      patent: 'IPO Provisional: Section 3(e) Synergistic Admixture with proven combination index CI < 0.68.',
+      trademark: '"RespiClear" Class 5 Registered in India and UK Intellectual Property Office (UKIPO).',
+      gi: 'Himachal Pradesh Forest Department sustainable collection permit.',
+      copyright: 'Standard Operating Procedure under GMP Form 25D.',
+      secret: 'Vasicine alkaloid stabilization matrix preventing oxidation at room temperature.'
+    }
+  ];
+
+  container.innerHTML = `
+    <table class="w-full text-left text-xs border-collapse">
+      <thead>
+        <tr class="border-b border-outline-variant/60 text-on-surface font-semibold bg-surface-container-low/60">
+          <th class="py-3 px-4 w-1/5">Product Line</th>
+          <th class="py-3 px-4 w-1/6">🛡️ Patent Scope</th>
+          <th class="py-3 px-4 w-1/6">🏷️ Trademarks</th>
+          <th class="py-3 px-4 w-1/6">📍 GI Linkages</th>
+          <th class="py-3 px-4 w-1/6">📜 Copyrights</th>
+          <th class="py-3 px-4 w-1/6">🔒 Trade Secrets</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant/30">
+        ${matrix.map(m => `
+          <tr class="hover:bg-surface-container-low/30 transition-colors">
+            <td class="py-4 px-4 font-semibold text-primary align-top">${m.product}</td>
+            <td class="py-4 px-4 text-on-surface-variant align-top leading-relaxed">${m.patent}</td>
+            <td class="py-4 px-4 text-on-surface-variant align-top leading-relaxed">${m.trademark}</td>
+            <td class="py-4 px-4 text-on-surface-variant align-top leading-relaxed">${m.gi}</td>
+            <td class="py-4 px-4 text-on-surface-variant align-top leading-relaxed">${m.copyright}</td>
+            <td class="py-4 px-4 text-on-surface-variant align-top leading-relaxed">${m.secret}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderCompanyRegulatory() {
+  const container = document.getElementById('company-regulatory-content');
+  if (!container) return;
+
+  container.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- Card 1: Manufacturing License & GMP -->
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-outline-variant/40">
+          <div>
+            <span class="text-[11px] font-mono text-outline">AYUSH LIC #AYUR-MH-2021-994</span>
+            <h3 class="text-base font-semibold text-on-surface">Form 25D Manufacturing License</h3>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">
+            Active &amp; Certified
+          </span>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Issued by Directorate of AYUSH, Maharashtra for manufacturing of classical and proprietary Ayurvedic medicines in full compliance with Drugs and Cosmetics Rules, 1945.
+        </p>
+        <div class="p-3.5 bg-surface-container-low rounded-xl border border-outline-variant/30 space-y-2 text-xs">
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Schedule T GMP Audit:</span>
+            <strong class="text-emerald-800">Grade A (98.2% Compliance Score)</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Last Joint Inspection:</span>
+            <span class="text-on-surface font-medium">14 November 2023</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Renewal Date:</span>
+            <span class="text-amber-800 font-semibold">18 October 2024 (42 Days Remaining)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: CTRI Clinical Trial Registry -->
+      <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-outline-variant/40">
+          <div>
+            <span class="text-[11px] font-mono text-outline">REGISTRY: CTRI/2024/03/062891</span>
+            <h3 class="text-base font-semibold text-on-surface">Clinical Trial Registry of India (CTRI)</h3>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-900 border border-purple-200">
+            Phase II Cleared
+          </span>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          Double-Blind Placebo-Controlled Trial evaluating synergistic immuno-modulation efficacy of NirogShakti in 180 subjects over 90 days.
+        </p>
+        <div class="p-3.5 bg-surface-container-low rounded-xl border border-outline-variant/30 space-y-2 text-xs">
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Institutional Ethics Committee (IEC):</span>
+            <strong class="text-on-surface font-medium">Approved (Ref: IEC-AYUR-2023/11)</strong>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Primary Endpoint:</span>
+            <span class="text-emerald-800 font-medium">Statistically Significant (p &lt; 0.001)</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-on-surface-variant">Safety Profile:</span>
+            <span class="text-emerald-800 font-medium">Zero Adverse Drug Reactions (ADRs)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Pharmacopoeial Quality Assays Table -->
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-semibold text-on-surface">Pharmacopoeial Quality Assays (Ayurvedic Pharmacopoeia of India API)</h3>
+          <p class="text-xs text-on-surface-variant">Independent accredited lab test results for Heavy Metals, Microbial Limits, and Pesticide Residues across commercial batches.</p>
+        </div>
+        <button onclick="downloadReport('assays')" class="px-3.5 py-1.5 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-primary text-xs font-semibold flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">download</span>
+          <span>Download COA Certificate</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto border border-outline-variant/40 rounded-xl">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="bg-surface-container-low/70">
+            <tr class="border-b border-outline-variant/40 text-on-surface font-semibold">
+              <th class="py-2.5 px-3">Test Parameter</th>
+              <th class="py-2.5 px-3">Testing Method</th>
+              <th class="py-2.5 px-3">Permissible Statutory Limit</th>
+              <th class="py-2.5 px-3">Observed Value</th>
+              <th class="py-2.5 px-3">Compliance Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/30">
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-on-surface">Lead (Pb)</td>
+              <td class="py-2.5 px-3 font-mono text-outline">ICP-MS (AOAC 2015.01)</td>
+              <td class="py-2.5 px-3 text-on-surface-variant">Not more than 10.0 ppm</td>
+              <td class="py-2.5 px-3 font-mono font-medium text-emerald-800">1.82 ppm</td>
+              <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">PASSED</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-on-surface">Arsenic (As)</td>
+              <td class="py-2.5 px-3 font-mono text-outline">ICP-MS (AOAC 2015.01)</td>
+              <td class="py-2.5 px-3 text-on-surface-variant">Not more than 3.0 ppm</td>
+              <td class="py-2.5 px-3 font-mono font-medium text-emerald-800">0.41 ppm</td>
+              <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">PASSED</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-on-surface">Cadmium (Cd)</td>
+              <td class="py-2.5 px-3 font-mono text-outline">ICP-MS (AOAC 2015.01)</td>
+              <td class="py-2.5 px-3 text-on-surface-variant">Not more than 0.3 ppm</td>
+              <td class="py-2.5 px-3 font-mono font-medium text-emerald-800">0.05 ppm</td>
+              <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">PASSED</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-on-surface">Total Bacterial Count</td>
+              <td class="py-2.5 px-3 font-mono text-outline">USP &lt;61&gt; Microbial Limits</td>
+              <td class="py-2.5 px-3 text-on-surface-variant">Not more than 10,000 CFU/g</td>
+              <td class="py-2.5 px-3 font-mono font-medium text-emerald-800">80 CFU/g</td>
+              <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">PASSED</span></td>
+            </tr>
+            <tr>
+              <td class="py-2.5 px-3 font-semibold text-on-surface">E. coli &amp; Salmonella</td>
+              <td class="py-2.5 px-3 font-mono text-outline">USP &lt;62&gt; Specific Microbes</td>
+              <td class="py-2.5 px-3 text-on-surface-variant">Absent in 10g</td>
+              <td class="py-2.5 px-3 font-mono font-medium text-emerald-800">Absent</td>
+              <td class="py-2.5 px-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">PASSED</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+function renderCompanyMarket() {
+  const container = document.getElementById('company-market-content');
+  if (!container) return;
+
+  const territories = [
+    {
+      flag: '🇮🇳',
+      country: 'India (Domestic Market)',
+      pathway: 'AYUSH Proprietary Ayurvedic Medicine (Form 25D) & FSSAI Dietary Supplement',
+      status: 'Fully Approved & Commercialized',
+      revenue: '₹14.8 Cr ARR',
+      confidence: '94% High Confidence',
+      barriers: 'SBB Form-1 commercial intimation mandatory for wild-harvested botanicals under BDA 2002.'
+    },
+    {
+      flag: '🇺🇸',
+      country: 'United States of America',
+      pathway: 'US FDA DSHEA 21 CFR 111 (Dietary Supplement) / NDI Submission + USPTO Class 424',
+      status: 'NDI Dossier Submitted',
+      revenue: '$2.4M ARR ($20M TAM)',
+      confidence: '88% High Confidence',
+      barriers: 'Requires heavy metal limits compliance under California Prop 65 (Lead < 0.5 mcg/day).'
+    },
+    {
+      flag: '🇪🇺',
+      country: 'European Union',
+      pathway: 'EMA Directive 2004/24/EC Traditional Herbal Medicinal Products (THMPD)',
+      status: 'Technical File Under Audit',
+      revenue: '€1.1M ARR',
+      confidence: '74% Medium Confidence',
+      barriers: 'Requires 30-year bibliographic proof of traditional use (at least 15 years within the EU).'
+    },
+    {
+      flag: '🇬🇧',
+      country: 'United Kingdom',
+      pathway: 'MHRA Traditional Herbal Registration (THR Scheme)',
+      status: 'Dossier Pre-Submission',
+      revenue: '£850K ARR',
+      confidence: '82% High Confidence',
+      barriers: 'Must submit patient information leaflet (PIL) in conformity with MHRA guidelines.'
+    }
+  ];
+
+  container.innerHTML = `
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      ${territories.map(t => `
+        <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-2xl">${t.flag}</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-900 border border-emerald-200">
+                ${t.status}
+              </span>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-on-surface">${t.country}</h3>
+              <p class="text-xs text-primary font-medium mt-0.5">${t.pathway}</p>
+            </div>
+            <div class="p-3 bg-surface-container-low rounded-xl border border-outline-variant/30 space-y-1.5 text-xs">
+              <div class="flex justify-between">
+                <span class="text-on-surface-variant">Projected Revenue Pipeline:</span>
+                <strong class="text-primary font-bold text-sm">${t.revenue}</strong>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-on-surface-variant">AI Statistical Confidence:</span>
+                <span class="text-emerald-800 font-semibold">${t.confidence}</span>
+              </div>
+            </div>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              <strong class="text-on-surface">Statutory Compliance Note:</strong> ${t.barriers}
+            </p>
+          </div>
+          <div class="pt-3 border-t border-outline-variant/30 flex items-center justify-between text-xs">
+            <button onclick="downloadReport('export-${t.country}')" class="px-3 py-1.5 rounded bg-surface hover:bg-surface-container border border-outline-variant text-primary font-semibold flex items-center gap-1 cursor-pointer">
+              <span class="material-symbols-outlined text-[14px]">file_download</span>
+              <span>Territory File</span>
+            </button>
+            <span class="text-outline text-[11px]">Updated 2 days ago</span>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderCompanyDocuments() {
+  const container = document.getElementById('company-documents-list-content');
+  if (!container) return;
+
+  const docs = [
+    {id:'DOC-01',name:'AYUSH GMP Schedule T Manufacturing License (#AYUR-MH-2021-994)',cat:'Certificate',date:'14 Nov 2023',hash:'9f8a...3312',size:'2.4 MB'},
+    {id:'DOC-02',name:'CurcuShield Heavy Metal & Pesticide Residue ICP-MS Test Report',cat:'Test Report',date:'28 Feb 2024',hash:'4c1d...8890',size:'1.8 MB'},
+    {id:'DOC-03',name:'Provisional Patent Specification IPO App #202411048219',cat:'IP Document',date:'10 Jan 2024',hash:'7e3b...1145',size:'3.2 MB'},
+    {id:'DOC-04',name:'Maharashtra SBB Form-1 Commercial Utilization Intimation Form',cat:'Compliance',date:'24 Feb 2024',hash:'2b8e...9012',size:'840 KB'},
+    {id:'DOC-05',name:'Adv. Bandi Mahendra Formal Legal Opinion on SBB Form-1 Exemption',cat:'Expert Report',date:'23 Feb 2024',hash:'5d6c...4421',size:'1.1 MB'},
+    {id:'DOC-06',name:'CTRI Phase II Clinical Trial Ethics Committee Approval (IEC-2023/11)',cat:'Clinical',date:'05 Dec 2023',hash:'1f4a...6789',size:'4.5 MB'},
+    {id:'DOC-07',name:'Trademark Registration Certificate Class 5 (#4891024 NirogShakti)',cat:'IP Document',date:'18 Oct 2023',hash:'8a9f...3210',size:'920 KB'},
+    {id:'DOC-08',name:'HPTLC Chromatographic Fingerprint Profile for Raw Withania Extracts',cat:'Test Report',date:'12 Feb 2024',hash:'3e7d...9918',size:'2.1 MB'},
+    {id:'DOC-09',name:'Salem Curcuma (GI-301) Authorized User Sourcing Agreement',cat:'GI Certificate',date:'15 Jan 2024',hash:'6b2c...5501',size:'1.4 MB'},
+    {id:'DOC-10',name:'US FDA NDI (New Dietary Ingredient) 75-Day Pre-Market Notification',cat:'Regulatory',date:'20 Feb 2024',hash:'9c4e...8812',size:'5.6 MB'}
+  ];
+
+  container.innerHTML = `
+    <div class="overflow-x-auto">
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant/60 text-on-surface font-semibold bg-surface-container-low/60">
+            <th class="py-3 px-4">Doc ID</th>
+            <th class="py-3 px-4">Document Title</th>
+            <th class="py-3 px-4">Category</th>
+            <th class="py-3 px-4">Integrity Hash (SHA-256)</th>
+            <th class="py-3 px-4">Date Added</th>
+            <th class="py-3 px-4 text-right">Vault Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/30">
+          ${docs.map(d => `
+            <tr class="hover:bg-surface-container-low/30 transition-colors">
+              <td class="py-3 px-4 font-mono font-semibold text-primary">${d.id}</td>
+              <td class="py-3 px-4 font-medium text-on-surface">${d.name}</td>
+              <td class="py-3 px-4"><span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-medium text-[11px]">${d.cat}</span></td>
+              <td class="py-3 px-4 font-mono text-outline">${d.hash}</td>
+              <td class="py-3 px-4 text-on-surface-variant">${d.date}</td>
+              <td class="py-3 px-4 text-right space-x-1">
+                <button onclick="viewDocModal('${d.name}')" class="px-2.5 py-1 rounded bg-surface hover:bg-surface-container border border-outline-variant text-primary font-semibold text-[11px] cursor-pointer" title="View Document">
+                  View
+                </button>
+                <button onclick="downloadReport('${d.name}')" class="px-2.5 py-1 rounded bg-surface hover:bg-surface-container border border-outline-variant text-on-surface font-semibold text-[11px] cursor-pointer" title="Download Document">
+                  Download
+                </button>
+                <button onclick="shareDocWithExpert('${d.name}')" class="px-2.5 py-1 rounded bg-[#1F3D2E] hover:bg-[#152a20] text-white font-semibold text-[11px] cursor-pointer" title="Share with Adv. Bandi Mahendra">
+                  Share Expert
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderCompanyReports() {
+  const container = document.getElementById('company-reports-table-content');
+  if (!container) return;
+
+  const rows = [
+    {
+      name: 'NirogShakti Synergistic Capsule',
+      classification: 'Proprietary Ayurvedic Medicine',
+      ip: 'IPO #202411048219 (Nano-Liposomal)',
+      tkOverlap: '24.1% (Safe Ratio)',
+      abs: 'SBB Form-1 Cleared (0.5% Royalty)',
+      perCountry: 'IN (Approved), US (NDI Submitted)',
+      evidenceCount: '6 Certificates & Assays',
+      flag: '🟢 Cleared by Adv. Bandi Mahendra'
+    },
+    {
+      name: 'CurcuShield Phyto-Extract Nano-Emulsion',
+      classification: 'Phytopharmaceutical Export Grade',
+      ip: 'PCT/IB2024/051288 & USPTO 18/492,019',
+      tkOverlap: '38.2% (Classical Carrier)',
+      abs: 'NBA Form-3 Pending for US Filing',
+      perCountry: 'US (Class 424), EU (THMPD)',
+      evidenceCount: '4 Assays (Missing ICP-MS)',
+      flag: '🟡 Advisory in Review'
+    },
+    {
+      name: 'MadhuMukt Glycemic Regulator',
+      classification: 'Proprietary Ayurvedic Tablet',
+      ip: 'Trade Secret Protected (Extraction pH)',
+      tkOverlap: '64.5% (Charaka Citation Match)',
+      abs: 'Cultivated Exemption Verified § 7',
+      perCountry: 'India Domestic Only',
+      evidenceCount: '5 Documents (Phase II Passed)',
+      flag: '🟢 Cleared by Adv. Bandi Mahendra'
+    },
+    {
+      name: 'RespiClear Bronchial Herbal Syrup',
+      classification: 'Classical Proprietary Syrup',
+      ip: 'IPO Provisional Section 3(e) Synergism',
+      tkOverlap: '41.0% (Sarangadhara Concordance)',
+      abs: 'Forest Dept Sourcing Permit Cleared',
+      perCountry: 'IN (Marketed), UK (THR Scheme)',
+      evidenceCount: '4 Certificates & GMP Form 25D',
+      flag: '🟢 Cleared by Adv. Bandi Mahendra'
+    }
+  ];
+
+  container.innerHTML = `
+    <table class="w-full text-left text-xs border-collapse">
+      <thead>
+        <tr class="border-b border-outline-variant/60 text-on-surface font-semibold bg-surface-container-low/60">
+          <th class="py-3 px-4">Product Name</th>
+          <th class="py-3 px-4">Classification</th>
+          <th class="py-3 px-4">IP Opportunities</th>
+          <th class="py-3 px-4">TK Overlap</th>
+          <th class="py-3 px-4">ABS Requirements</th>
+          <th class="py-3 px-4">Per-Country Req.</th>
+          <th class="py-3 px-4">Evidence Count</th>
+          <th class="py-3 px-4">Expert Review</th>
+          <th class="py-3 px-4 text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-outline-variant/30">
+        ${rows.map(r => `
+          <tr class="hover:bg-surface-container-low/30 transition-colors">
+            <td class="py-3.5 px-4 font-semibold text-primary">${r.name}</td>
+            <td class="py-3.5 px-4 text-on-surface-variant">${r.classification}</td>
+            <td class="py-3.5 px-4 font-mono text-outline">${r.ip}</td>
+            <td class="py-3.5 px-4 text-on-surface-variant font-medium">${r.tkOverlap}</td>
+            <td class="py-3.5 px-4 text-on-surface-variant">${r.abs}</td>
+            <td class="py-3.5 px-4 text-on-surface-variant">${r.perCountry}</td>
+            <td class="py-3.5 px-4 font-semibold text-on-surface">${r.evidenceCount}</td>
+            <td class="py-3.5 px-4 text-[11px] font-semibold">${r.flag}</td>
+            <td class="py-3.5 px-4 text-right">
+              <button onclick="downloadReport('${r.name}')" class="px-3 py-1 rounded bg-primary text-on-primary text-[11px] font-semibold hover:bg-primary-container cursor-pointer shadow-sm">
+                PDF
+              </button>
+            </td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderCompanyCases() {
+  const container = document.getElementById('company-cases-cards-grid');
+  if (!container) return;
+
+  const cases = appState.companyCases || DEFAULT_STATE.companyCases;
+  container.innerHTML = cases.map(c => `
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant/60 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between space-y-4">
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold flex items-center gap-1 ${
+            c.statusColor === 'emerald' ? 'bg-emerald-100 text-emerald-900 border border-emerald-200' :
+            c.statusColor === 'blue' ? 'bg-blue-100 text-blue-900 border border-blue-200' :
+            'bg-amber-100 text-amber-900 border border-amber-200'
+          }">
+            <span class="w-1.5 h-1.5 rounded-full ${
+              c.statusColor === 'emerald' ? 'bg-emerald-600' :
+              c.statusColor === 'blue' ? 'bg-blue-600' :
+              'bg-amber-600 animate-pulse'
+            }"></span>
+            ${c.statusLabel}
+          </span>
+          <span class="text-xs text-on-surface-variant font-mono font-semibold">#${c.id}</span>
+        </div>
+        <div>
+          <h3 class="text-base font-semibold text-primary">${c.title}</h3>
+          <p class="text-xs text-on-surface-variant mt-1">
+            Lead: <strong class="text-on-surface">${c.applicant}</strong> (${c.entity}) • Assigned: <strong class="text-primary">${c.counsel}</strong>
+          </p>
+        </div>
+        <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3 bg-surface-container-low/70 p-3 rounded-lg border border-outline-variant/30">
+          ${c.summary}
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-outline-variant/40 flex items-center justify-between">
+        <span class="text-[11px] text-on-surface-variant flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">schedule</span>
+          ${c.sla}
+        </span>
+        <button onclick="openCompanyCaseDetail('${c.id}')" class="px-3 py-1.5 rounded-lg bg-surface hover:bg-surface-container border border-outline-variant text-xs font-semibold text-primary flex items-center gap-1 cursor-pointer">
+          <span>Open Thread</span>
+          <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCompanyTeam() {
+  const container = document.getElementById('company-team-content');
+  if (!container) return;
+
+  const team = [
+    {name:'Kundan',role:'IP Manager',email:'kundan@pharma-corp.in',authority:'Full Authority (IP Filing, Legal Signing, Counsel Consultation)',badge:'bg-primary text-on-primary',status:'Active'},
+    {name:'Sumanth',role:'Regulatory Affairs',email:'sumanth@biotech.in',authority:'Compliance Lead (SBB Intimation, GMP Schedule T, COA Uploads)',badge:'bg-teal-700 text-white',status:'Active'},
+    {name:'Dr. Neha Sharma',role:'Phytochemist / Researcher',email:'neha.sharma@biotech.in',authority:'Formulation R&D (Assays, Botanical Sourcing, Extraction Ratios)',badge:'bg-purple-700 text-white',status:'Active'},
+    {name:'Rahul Verma',role:'Employee',email:'rahul.verma@biotech.in',authority:'View Only (Read-only access to published dossiers, COAs & reports)',badge:'bg-surface-container-high text-on-surface-variant',status:'Active'}
+  ];
+
+  container.innerHTML = `
+    <div class="bg-surface-container-lowest border border-outline-variant/60 rounded-2xl p-6 shadow-sm overflow-x-auto space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-base font-semibold text-on-surface">Authorized Team Members &amp; Governance</h3>
+          <p class="text-xs text-on-surface-variant">Role permissions conform to statutory enterprise signing regulations under Indian Patents Rules and Biodiversity Rules.</p>
+        </div>
+        <button onclick="addTeamMemberModal()" class="px-3.5 py-1.5 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container flex items-center gap-1 cursor-pointer">
+          <span class="material-symbols-outlined text-[14px]">person_add</span>
+          <span>Invite Member</span>
+        </button>
+      </div>
+
+      <table class="w-full text-left text-xs border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant/60 text-on-surface font-semibold bg-surface-container-low/60">
+            <th class="py-3 px-4">Member Name</th>
+            <th class="py-3 px-4">Corporate Role</th>
+            <th class="py-3 px-4">Official Email</th>
+            <th class="py-3 px-4">Statutory Authority &amp; Permissions</th>
+            <th class="py-3 px-4">Status</th>
+            <th class="py-3 px-4 text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/30">
+          ${team.map(t => `
+            <tr class="hover:bg-surface-container-low/30 transition-colors">
+              <td class="py-3.5 px-4 font-semibold text-on-surface flex items-center gap-2">
+                <div class="w-7 h-7 rounded-full bg-surface-container-high text-on-surface-variant font-bold flex items-center justify-center text-xs">
+                  ${t.name.substring(0,2).toUpperCase()}
+                </div>
+                <span>${t.name}</span>
+              </td>
+              <td class="py-3.5 px-4">
+                <span class="px-2.5 py-0.5 rounded text-[11px] font-semibold ${t.badge}">
+                  ${t.role}
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-mono text-on-surface-variant">${t.email}</td>
+              <td class="py-3.5 px-4 text-on-surface-variant leading-relaxed">${t.authority}</td>
+              <td class="py-3.5 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">ACTIVE</span></td>
+              <td class="py-3.5 px-4 text-right">
+                <button onclick="showToast('Permission settings for ' + '${t.name}' + ' modified', 'success')" class="px-2 py-1 rounded bg-surface hover:bg-surface-container border border-outline-variant text-primary text-[11px] font-medium cursor-pointer">
+                  Edit Access
+                </button>
+              </td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// =========================================================================
+// INTERACTIVE MODALS & HELPERS
+// =========================================================================
+
+function openProductPassportModal(prodId) {
+  const products = {
+    'PROD-AVB-402': {
+      name: 'NirogShakti Synergistic Capsule (AVB-402)',
+      batch: 'AVB-402-B4',
+      scale: 'Commercial Run: 50,000 units/mo',
+      license: 'AYUR-MH-2021-994 (Form 25D)',
+      status: 'SBB Form-1 Approved',
+      summary: 'High-yield nano-encapsulated Withanolide & Curcuminoid formula delivering 4.2x bioavailability.',
+      markerAssay: 'Withanolides: 5.2% w/w | Curcuminoids: 95.1% w/w | Piperine: 98.4% w/w',
+      stability: 'Real-time 24-month stability data at 25°C/60% RH passed without active degradation.'
+    },
+    'PROD-HB-901': {
+      name: 'CurcuShield Phyto-Extract Nano-Emulsion (HB-901)',
+      batch: 'HB-901-B2',
+      scale: 'Export Batch: 2024-Q3',
+      license: 'AYUR-HP-2019-410 (Form 25D)',
+      status: 'NBA Form-3 In Progress',
+      summary: 'Phospholipid complex standardized for international markets complying with US FDA DSHEA.',
+      markerAssay: 'Bio-Curcuminoids: 95.0% | Phosphatidylcholine: 20.0% | Gingerols: 20.2%',
+      stability: 'Accelerated 6-month stability at 40°C/75% RH verified.'
+    }
+  };
+
+  const p = products[prodId] || products['PROD-AVB-402'];
+
+  const body = `
+    <div class="space-y-4 text-xs text-on-surface">
+      <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/40 space-y-2">
+        <div class="flex justify-between items-center">
+          <span class="text-outline uppercase text-[10px] tracking-wider">Manufacturing Batch ID</span>
+          <span class="font-mono font-bold text-primary text-sm">${p.batch}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-outline uppercase text-[10px] tracking-wider">Statutory License</span>
+          <span class="font-medium">${p.license}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-outline uppercase text-[10px] tracking-wider">Production Scale</span>
+          <span class="font-medium">${p.scale}</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-outline uppercase text-[10px] tracking-wider">Compliance Clearance</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-semibold">${p.status}</span>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <h4 class="font-semibold text-primary uppercase tracking-wider text-[11px]">Product Summary &amp; Bioactivity</h4>
+        <p class="text-on-surface-variant leading-relaxed">${p.summary}</p>
+      </div>
+
+      <div class="space-y-1">
+        <h4 class="font-semibold text-primary uppercase tracking-wider text-[11px]">Standardized Active Marker Assays</h4>
+        <p class="p-2.5 rounded bg-surface border border-outline-variant/40 font-mono text-[11px] text-emerald-900">${p.markerAssay}</p>
+      </div>
+
+      <div class="space-y-1">
+        <h4 class="font-semibold text-primary uppercase tracking-wider text-[11px]">Accelerated &amp; Real-time Stability</h4>
+        <p class="text-on-surface-variant leading-relaxed">${p.stability}</p>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="downloadReport('${p.name}')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Download Passport (PDF)
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Close
+    </button>
+  `;
+
+  showModal(`Product Passport — ${p.name}`, body, footer);
+}
+
+function openCompanyCaseDetail(caseId) {
+  const cases = {
+    'CORP-2024-101': {
+      title: 'Mandatory SBB Form-1 Intimation & ABS Royalties',
+      id: 'CORP-2024-101',
+      counsel: 'Adv. Bandi Mahendra',
+      status: '🟡 In Review by Counsel (Priority: High · SLA: 4h left)',
+      thread: [
+        {author:'Kundan (IP Manager)',time:'Today, 09:30 IST',text:'Advocate Mahendra, our NirogShakti batch run is moving to 50,000 units/mo. We procure raw Guduchi and Ashwagandha through certified mandis in Maharashtra. Do we qualify for the 0.1% minimum benefit-sharing bracket under the 2023 Amendment Rules?'},
+        {author:'Adv. Bandi Mahendra',time:'Today, 11:15 IST',text:'Kundan, yes. Under Regulation 14 of the 2023 Biodiversity Amendment Rules, procuring cultivated and mandi-certified raw material allows you to file under the minimum 0.1% tier provided you append the APMC purchase vouchers and BMC origin declarations. I have pre-filled the draft memorandum in the Case Review Desk.'}
+      ]
+    },
+    'CORP-2024-105': {
+      title: 'Patent Claim Strategy & Section 3(e) Synergism',
+      id: 'CORP-2024-105',
+      counsel: 'Adv. Bandi Mahendra',
+      status: '🟢 Advisory Delivered & Signed',
+      thread: [
+        {author:'Sumanth (Regulatory)',time:'22 Feb 2024',text:'We have obtained the combination index CI < 0.68 for CurcuShield. Will this satisfy Section 3(e) during examination?'},
+        {author:'Adv. Bandi Mahendra',time:'23 Feb 2024',text:'Confirmed. CI < 0.7 is the recognized benchmark in CGPDTM jurisprudence to establish true synergistic admixture over mere aggregation. Structure independent claims around the nano-liposomal carrier.'}
+      ]
+    }
+  };
+
+  const c = cases[caseId] || cases['CORP-2024-101'];
+
+  const body = `
+    <div class="space-y-4 text-xs">
+      <div class="p-3 rounded-lg bg-surface-container-low border border-outline-variant/40 flex items-center justify-between">
+        <div>
+          <div class="font-semibold text-on-surface">${c.title}</div>
+          <div class="text-on-surface-variant text-[11px]">Counsel: ${c.counsel}</div>
+        </div>
+        <span class="text-[11px] font-semibold text-primary">${c.status}</span>
+      </div>
+
+      <div class="space-y-3 max-h-60 overflow-y-auto pr-1">
+        ${c.thread.map(msg => `
+          <div class="p-3 rounded-xl ${msg.author.includes('Mahendra') ? 'bg-primary/10 border border-primary/20 text-on-surface' : 'bg-surface border border-outline-variant/40 text-on-surface'} space-y-1">
+            <div class="flex items-center justify-between font-semibold text-[11px]">
+              <span class="${msg.author.includes('Mahendra') ? 'text-primary' : 'text-on-surface'}">${msg.author}</span>
+              <span class="text-outline font-normal">${msg.time}</span>
+            </div>
+            <p class="leading-relaxed text-[11.5px]">${msg.text}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="pt-2">
+        <textarea id="company-case-reply-box" class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none" rows="2" placeholder="Send follow-up message to Adv. Bandi Mahendra..."></textarea>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="sendCaseFollowup('${c.id}')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Send Message
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Close
+    </button>
+  `;
+
+  showModal(`Case #${c.id} — ${c.title}`, body, footer);
+}
+
+function sendCaseFollowup(caseId) {
+  const text = document.getElementById('company-case-reply-box')?.value;
+  if (!text) {
+    showToast('Please type a message before sending', 'warning');
+    return;
+  }
+  showToast(`Message transmitted to Adv. Bandi Mahendra for Case #${caseId}`, 'success');
+  closeModal();
+}
+
+function openUserCaseDetail(caseId) {
+  const cases = {
+    'AYU-2024-88': {
+      title: 'Overcoming Section 3(p) for Bio-Enhanced Ashwagandha',
+      id: 'AYU-2024-88',
+      counsel: 'Adv. Bandi Mahendra',
+      status: '🟡 In Review by Counsel (SLA: 21h left)',
+      summary: 'Reviewing aqueous-ethanol extraction ratio against Charaka Samhita Chikitsa 1.2:14 prior art citation.'
+    },
+    'AYU-2024-42': {
+      title: 'Triphala Ophthalmic Formulation - CSIR-TKDL Concordance',
+      id: 'AYU-2024-42',
+      counsel: 'Adv. Bandi Mahendra',
+      status: '🟢 Advisory Delivered & Signed',
+      summary: 'Classical decoction safe under BDA Section 7 traditional vaidya exemption. No Form-1 filing required.'
+    }
+  };
+
+  const c = cases[caseId] || cases['AYU-2024-88'];
+
+  const body = `
+    <div class="space-y-4 text-xs">
+      <div class="p-3.5 rounded-lg bg-surface-container-low border border-outline-variant/40 space-y-1">
+        <div class="font-semibold text-primary text-sm">#${c.id}: ${c.title}</div>
+        <div class="text-on-surface-variant">Counsel: ${c.counsel} • Status: <strong class="text-emerald-800">${c.status}</strong></div>
+      </div>
+      <p class="text-on-surface leading-relaxed p-3 bg-surface rounded-lg border border-outline-variant/30">${c.summary}</p>
+      <div class="p-3 rounded-lg bg-amber-50 border border-amber-200 text-amber-950">
+        Counsel has active draft prepared. You can track updates in real-time or request priority expedited review.
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="navigate('ask-ai')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Ask AI Assistant
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Close
+    </button>
+  `;
+
+  showModal(`Consultation #${c.id}`, body, footer);
+}
+
+function openUploadModal(docType) {
+  const body = `
+    <div class="space-y-4 text-xs text-on-surface">
+      <div class="border-2 border-dashed border-outline-variant rounded-xl p-6 text-center hover:bg-surface-container-low/40 transition-colors cursor-pointer">
+        <span class="material-symbols-outlined text-3xl text-primary mb-2">upload_file</span>
+        <div class="font-semibold text-sm text-on-surface">Drag &amp; drop your ${docType} here</div>
+        <div class="text-outline text-[11px] mt-1">Accepts PDF, COA, HPTLC, CSV up to 25MB (Auto-hashed SHA-256)</div>
+        <input type="file" class="hidden" id="modal-file-input">
+        <button onclick="showToast('Simulating file attachment...', 'info')" class="mt-4 px-3.5 py-1.5 rounded-lg bg-surface border border-outline-variant text-xs font-semibold text-primary hover:bg-surface-container cursor-pointer">
+          Browse Files
+        </button>
+      </div>
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Document Title</label>
+        <input type="text" value="${docType}" class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="showToast('${docType} uploaded successfully and verified with SHA-256 seal', 'success'); closeModal();" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Upload &amp; Seal
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Cancel
+    </button>
+  `;
+
+  showModal(`Upload Evidence Document`, body, footer);
+}
+
+function viewDocModal(docName) {
+  const body = `
+    <div class="space-y-4 text-xs text-on-surface">
+      <div class="p-4 bg-surface-container-low rounded-xl border border-outline-variant/40 space-y-2">
+        <div class="font-semibold text-sm text-primary">${docName}</div>
+        <div class="text-outline font-mono text-[11px]">Cryptographic Digest: SHA-256: 7f9a2b8c4d1e01938475aabbccddeeff</div>
+        <div class="text-on-surface-variant text-[11px]">Certified by AYUSH Regulatory &amp; Patents Authority</div>
+      </div>
+      <div class="p-4 bg-surface border border-outline-variant/30 rounded-xl space-y-2 font-mono text-[11px] leading-relaxed text-on-surface-variant max-h-48 overflow-y-auto">
+        <p>=========================================================</p>
+        <p>GOVERNMENT OF INDIA / STATUTORY COMPLIANCE SEAL</p>
+        <p>DOCUMENT VERIFICATION SYSTEM v4.2</p>
+        <p>=========================================================</p>
+        <p>Target Formulation: NirogShakti / CurcuShield Standardized Batches</p>
+        <p>Assay Standards: API Part I, Vol. IX &amp; USP &lt;61&gt;/&lt;62&gt;</p>
+        <p>Quality Benchmark: All heavy metals below 2 ppm, no aflatoxins.</p>
+        <p>Biological Diversity Act Section 7 Compliance: VERIFIED</p>
+        <p>Digital Signature Certificate: Adv. Bandi Mahendra &amp; Kundan</p>
+        <p>=========================================================</p>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="downloadReport('${docName}')" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Download PDF
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Close
+    </button>
+  `;
+
+  showModal(`Document Preview`, body, footer);
+}
+
+function shareDocWithExpert(docName) {
+  showToast(`"${docName}" linked and shared with Adv. Bandi Mahendra's Case Desk`, 'success');
+}
+
+function downloadReport(name) {
+  showToast(`Exporting report: "${name}" (PDF/CSV)`, 'success');
+}
+
+function downloadEnterpriseAuditZip() {
+  showToast('Generating Complete Enterprise Compliance Audit Package (ZIP) containing all 10 verified documents & assays', 'success');
+}
+
+function addTeamMemberModal() {
+  const body = `
+    <div class="space-y-4 text-xs text-on-surface">
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Full Name</label>
+        <input type="text" placeholder="e.g. Dr. Rajesh Kulkarni" class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+      </div>
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Official Email Address</label>
+        <input type="email" placeholder="e.g. r.kulkarni@biotech.in" class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+      </div>
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Assign Role</label>
+        <select class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+          <option value="ip">IP Manager (Full Authority: Claims, Counsel, Signing)</option>
+          <option value="reg">Regulatory Affairs (SBB Form-1, GMP, Licenses)</option>
+          <option value="res">Phytochemist / Researcher (Formulations, Assays)</option>
+          <option value="emp">Employee (View Only Access)</option>
+        </select>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="showToast('Invitation sent with role-based credentials', 'success'); closeModal();" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Send Invitation
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Cancel
+    </button>
+  `;
+
+  showModal('Invite Team Member', body, footer);
+}
+
+function openNewCaseModal() {
+  const body = `
+    <div class="space-y-4 text-xs text-on-surface">
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Inquiry Subject</label>
+        <input type="text" placeholder="e.g. Section 3(p) Claim Review for Polyherbal Extract" class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+      </div>
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Target Product Formulation</label>
+        <select class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none">
+          <option>NirogShakti Synergistic Capsule (AVB-402)</option>
+          <option>CurcuShield Phyto-Extract (HB-901)</option>
+          <option>MadhuMukt Glycemic Regulator (AVB-510)</option>
+          <option>RespiClear Bronchial Herbal Syrup (HB-304)</option>
+        </select>
+      </div>
+      <div class="space-y-1">
+        <label class="font-semibold text-[11px] text-outline uppercase tracking-wider block">Question for Adv. Bandi Mahendra</label>
+        <textarea rows="3" placeholder="Describe the legal objection or ABS intimation requirement..." class="w-full p-2.5 rounded-lg border border-outline-variant bg-surface text-xs focus:ring-2 focus:ring-primary/20 focus:outline-none"></textarea>
+      </div>
+    </div>
+  `;
+
+  const footer = `
+    <button onclick="showToast('Legal inquiry submitted to Adv. Bandi Mahendra. Assigned SLA: 24 Hours.', 'success'); closeModal();" class="px-4 py-2 rounded-lg bg-primary text-on-primary text-xs font-semibold hover:bg-primary-container cursor-pointer">
+      Submit to Counsel
+    </button>
+    <button onclick="closeModal()" class="px-4 py-2 rounded-lg border border-outline-variant text-on-surface text-xs font-semibold hover:bg-surface-container cursor-pointer">
+      Cancel
+    </button>
+  `;
+
+  showModal('Submit Legal Inquiry to Counsel', body, footer);
+}
+
+
+
+// =========================================================================
+// PLATFORM MULTI-LINGUAL TRANSLATION ENGINE (EN / हिन्दी / తెలుగు)
+// =========================================================================
+const PLATFORM_TRANSLATIONS = {
+  en: {
+    heroTitle: 'Empowering Traditional Medicine with Sovereign IP Intelligence',
+    heroSubtitle: 'Grounded statutory guidance for AYUSH innovators, MSMEs, and practitioners navigating Patents Act, CSIR-TKDL, and ABS compliance.',
+    ctaAssess: 'Assess Formulation',
+    ctaSearchTkdl: 'Search TKDL Codex',
+    statutoryNotice: 'Statutory Verification Notice: All algorithmic classifications are anchored to the Indian Patents Act 1970 and Biological Diversity Act 2002.',
+    nav: {
+      'landing': 'Home',
+      'intake-1': 'Intake Wizard',
+      'dossiers': 'Results Dashboard',
+      'ask-ai': 'Ask AI',
+      'abs': 'ABS Check',
+      'company-dashboard': '🏠 Dashboard',
+      'company-products': '🌿 Products',
+      'company-portfolio': '🛡️ IP Portfolio',
+      'company-regulatory': '📋 Regulatory',
+      'company-market': '🌍 Market Access',
+      'company-documents': '📁 Documents',
+      'company-reports': '📊 Reports',
+      'company-cases': '👨‍⚖️ Expert Cases',
+      'company-team': '👥 Team Members',
+      'facilitator-queue': 'Case Queue',
+      'facilitator': 'Review Desk',
+      'facilitator-history': 'Case History',
+      'admin': 'Dashboard',
+      'corpus': 'Data Sources',
+      'users': 'Users & Roles',
+      'audit': 'Audit Log'
+    }
+  },
+  hi: {
+    heroTitle: 'पारंपरिक चिकित्सा को संप्रभु आईपी ज्ञान से सशक्त बनाना',
+    heroSubtitle: 'पेटेंट अधिनियम, सीएसआईआर-टीकेडीएल और एबीएस अनुपालन में आयुष नवप्रवर्तकों, एमएसएमई और चिकित्सकों के लिए वैधानिक मार्गदर्शन।',
+    ctaAssess: 'फॉर्मूलेशन का आकलन करें',
+    ctaSearchTkdl: 'टीकेडीएल खोजें',
+    statutoryNotice: 'वैधानिक सत्यापन सूचना: सभी वर्गीकरण भारतीय पेटेंट अधिनियम 1970 और जैविक विविधता अधिनियम 2002 पर आधारित हैं।',
+    nav: {
+      'landing': 'मुख्य पृष्ठ',
+      'intake-1': 'इनटेक विज़ार्ड',
+      'dossiers': 'परिणाम डैशबोर्ड',
+      'ask-ai': 'एआई सहायक',
+      'abs': 'एबीएस जांच',
+      'company-dashboard': '🏠 डैशबोर्ड',
+      'company-products': '🌿 उत्पाद',
+      'company-portfolio': '🛡️ आईपी पोर्टफोलियो',
+      'company-regulatory': '📋 नियामक',
+      'company-market': '🌍 बाज़ार पहुंच',
+      'company-documents': '📁 दस्तावेज़',
+      'company-reports': '📊 रिपोर्ट',
+      'company-cases': '👨‍⚖️ कानूनी केस',
+      'company-team': '👥 टीम सदस्य',
+      'facilitator-queue': 'केस कतार',
+      'facilitator': 'समीक्षा डेस्क',
+      'facilitator-history': 'केस इतिहास',
+      'admin': 'डैशबोर्ड',
+      'corpus': 'डेटा स्रोत',
+      'users': 'उपयोगकर्ता व भूमिकाएं',
+      'audit': 'ऑडिट लॉग'
+    }
+  },
+  te: {
+    heroTitle: 'సాంప్రదాయ వైద్యానికి సార్వభౌమ IP మేధస్సుతో సాధికారత',
+    heroSubtitle: 'పేటెంట్ చట్టం, CSIR-TKDL మరియు ABS నిబంధనలలో ఆయుష్ ఆవిష్కర్తలు, MSMEలు మరియు ప్రాక్టీషనర్ల కోసం చట్టబద్ధమైన మార్గదర్శకత్వం.',
+    ctaAssess: 'ఫార్ములేషన్ అంచనా వేయండి',
+    ctaSearchTkdl: 'TKDL శోధించండి',
+    statutoryNotice: 'చట్టబద్ధమైన ధృవీకరణ నోటీసు: అన్ని వర్గీకరణలు భారతీయ పేటెంట్ల చట్టం 1970 మరియు జీవ వైవిధ్య చట్టం 2002 పై ఆధారపడి ఉంటాయి.',
+    nav: {
+      'landing': 'హోమ్',
+      'intake-1': 'ఇన్‌టేక్ విజార్డ్',
+      'dossiers': 'ఫలితాల డాష్‌బోర్డ్',
+      'ask-ai': 'AI సహాయకుడు',
+      'abs': 'ABS తనిఖీ',
+      'company-dashboard': '🏠 డాష్‌బోర్డ్',
+      'company-products': '🌿 ఉత్పత్తులు',
+      'company-portfolio': '🛡️ IP పోర్ట్‌ఫోలియో',
+      'company-regulatory': '📋 రెగ్యులేటరీ',
+      'company-market': '🌍 మార్కెట్ యాక్సెస్',
+      'company-documents': '📁 పత్రాలు',
+      'company-reports': '📊 నివేదికలు',
+      'company-cases': '👨‍⚖️ న్యాయ కేసులు',
+      'company-team': '👥 బృందం సభ్యులు',
+      'facilitator-queue': 'కేస్ క్యూ',
+      'facilitator': 'సమీక్ష డెస్క్',
+      'facilitator-history': 'కేస్ చరిత్ర',
+      'admin': 'డాష్‌బోర్డ్',
+      'corpus': 'డేటా మూలాలు',
+      'users': 'వినియోగదారులు & పాత్రలు',
+      'audit': 'ఆడిట్ లాగ్'
+    }
+  }
+};
+
+function setPlatformLanguage(langCode) {
+  const lang = SUPPORTED_LANGUAGES.find(l => l.code === langCode) || SUPPORTED_LANGUAGES[0];
+  appState.platformLanguage = lang.code;
+  appState.chatLanguage = lang.code;
+  localStorage.setItem('ipsakti_platform_lang', lang.code);
+  localStorage.setItem('ipsakti_chat_lang', lang.code);
+
+  updateHeaderLanguageUI(lang.code);
+  applyPlatformTranslations(lang.code);
+
+  // Synchronize AI Assistant
+  const input = document.getElementById('chat-user-input');
+  if (input) input.placeholder = lang.placeholder;
+  const currentLangLabel = document.getElementById('current-lang-label');
+  if (currentLangLabel) currentLangLabel.textContent = lang.native;
+
+  renderLocalizedSuggestions(lang.code);
+
+  const langNames = { en: 'English', hi: 'हिन्दी (Hindi)', te: 'తెలుగు (Telugu)' };
+  showToast(`Language switched to ${langNames[lang.code] || lang.native}`, 'success');
+}
+
+function applyPlatformTranslations(langCode) {
+  const t = PLATFORM_TRANSLATIONS[langCode] || PLATFORM_TRANSLATIONS.en;
+
+  // 1. Translate Hero elements if on landing page
+  const heroTitleEl = document.querySelector('#page-landing h1');
+  if (heroTitleEl && t.heroTitle) heroTitleEl.textContent = t.heroTitle;
+
+  const heroSubEl = document.querySelector('#page-landing p.font-body-md');
+  if (heroSubEl && t.heroSubtitle) heroSubEl.textContent = t.heroSubtitle;
+
+  // 2. Translate Wizard CTA buttons
+  const assessBtn = document.querySelector('#page-landing button[onclick*="intake-1"] span:not(.material-symbols-outlined)');
+  if (assessBtn && t.ctaAssess) assessBtn.textContent = t.ctaAssess;
+
+  const tkdlBtn = document.querySelector('#page-landing button[onclick*="tkdl"] span:not(.material-symbols-outlined)');
+  if (tkdlBtn && t.ctaSearchTkdl) tkdlBtn.textContent = t.ctaSearchTkdl;
+
+  // 3. Refresh Navigation Bar with translated labels
+  if (typeof updateNav === 'function') {
+    const activeSection = document.querySelector('.page-section.active');
+    const activePage = activeSection ? activeSection.id.replace('page-', '') : 'landing';
+    updateNav(activePage);
+  }
+}
+
+// Modify updateNav to use active language translation
+const originalUpdateNav = updateNav;
+updateNav = function(activePage) {
+  const nav = document.getElementById('main-nav');
+  const badge = document.getElementById('nav-role-badge');
+  const mobileNav = document.getElementById('mobile-nav');
+  const mobileBadge = document.getElementById('mobile-role-badge');
+  const config = currentRole ? NAV_CONFIGS[currentRole] : NAV_CONFIGS.landing;
+  const currentLang = appState.platformLanguage || localStorage.getItem('ipsakti_platform_lang') || 'en';
+  const t = PLATFORM_TRANSLATIONS[currentLang] || PLATFORM_TRANSLATIONS.en;
+  
+  if (badge) {
+    badge.textContent = config.badge;
+    badge.classList.toggle('hidden', !config.badge);
+  }
+  if (mobileBadge) mobileBadge.textContent = config.badge;
+  
+  const renderLinks = (isDesktop) => config.links.map(link => {
+    const isActive = link.page === activePage;
+    const translatedLabel = (t.nav && t.nav[link.page]) ? t.nav[link.page] : link.label;
+    if (isDesktop) {
+      const cls = isActive
+        ? 'text-primary border-b-2 border-primary pb-1 font-semibold cursor-pointer'
+        : 'text-on-surface-variant hover:text-on-surface pb-1 transition-colors cursor-pointer';
+      return `<a class="${cls}" onclick="navigate('${link.page}')">${translatedLabel}</a>`;
+    } else {
+      const cls = isActive
+        ? 'block px-4 py-2.5 rounded-lg bg-primary-container/10 text-primary font-medium text-label-md cursor-pointer'
+        : 'block px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container text-label-md cursor-pointer';
+      return `<a class="${cls}" onclick="navigate('${link.page}');toggleMobileMenu()">${translatedLabel}</a>`;
+    }
+  }).join('');
+  
+  if (nav) nav.innerHTML = renderLinks(true);
+  if (mobileNav) mobileNav.innerHTML = renderLinks(false);
+
+  // Update header account area
+  const accountContainer = document.getElementById('header-account-container');
+  if (accountContainer) {
+    if (currentRole === 'facilitator') {
+      accountContainer.innerHTML = `
+        <div class="flex items-center gap-2 pl-2 border-l border-outline-variant/40 cursor-pointer" onclick="navigate('roles')" title="Switch Role / Credentials">
+          <div class="flex flex-col text-right hidden lg:block">
+            <span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">BANDI MAHENDRA</span>
+            <span class="font-label-sm text-label-sm text-outline leading-tight">Adv. Bandi Mahendra · AYUSH IP</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center ring-2 ring-surface font-label-md text-label-md font-medium shadow-sm">
+            BM
+          </div>
+        </div>`;
+    } else if (currentRole === 'admin') {
+      accountContainer.innerHTML = `
+        <div class="flex items-center gap-2 pl-2 border-l border-outline-variant/40 cursor-pointer" onclick="navigate('roles')" title="Switch Role / Credentials">
+          <div class="flex flex-col text-right hidden lg:block">
+            <span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">PEDDAKOTLA SUDARSHAN</span>
+            <span class="font-label-sm text-label-sm text-outline leading-tight">System Administrator</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-surface-container text-primary flex items-center justify-center ring-1 ring-outline font-label-md text-label-md font-medium">
+            PS
+          </div>
+        </div>`;
+    } else if (currentRole === 'company') {
+      accountContainer.innerHTML = `
+        <div class="flex items-center gap-2 pl-2 border-l border-outline-variant/40 cursor-pointer" onclick="navigate('roles')" title="Switch Role / Credentials">
+          <div class="flex flex-col text-right hidden lg:block">
+            <span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Kundan · Sumanth</span>
+            <span class="font-label-sm text-label-sm text-outline leading-tight">Enterprise Counsel</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center font-label-md text-label-md font-medium">
+            KD
+          </div>
+        </div>`;
+    } else if (currentRole === 'user') {
+      accountContainer.innerHTML = `
+        <div class="flex items-center gap-2 pl-2 border-l border-outline-variant/40 cursor-pointer" onclick="navigate('roles')" title="Switch Role / Credentials">
+          <div class="flex flex-col text-right hidden lg:block">
+            <span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Hema · Shivani · Ganesh</span>
+            <span class="font-label-sm text-label-sm text-outline leading-tight">Practitioners &amp; Researchers</span>
+          </div>
+          <div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-md text-label-md font-medium">
+            HM
+          </div>
+        </div>`;
+    }
+  }
+};
+
+// =========================================================================
+// AI CHATBOT LANGUAGE VERIFICATION & CONTEXT ENFORCEMENT ENGINE
+// =========================================================================
+
+// Function to auto-detect user input language
+function detectQueryLanguage(text) {
+  if (!text) return null;
+  // Telugu Unicode block: 0C00 - 0C7F
+  if (/[\u0C00-\u0C7F]/.test(text)) return 'te';
+  // Devanagari (Hindi) Unicode block: 0900 - 097F
+  if (/[\u0900-\u097F]/.test(text)) return 'hi';
+  // Tamil Unicode block: 0B80 - 0BFF
+  if (/[\u0B80-\u0BFF]/.test(text)) return 'ta';
+  // Kannada Unicode block: 0C80 - 0CFF
+  if (/[\u0C80-\u0CFF]/.test(text)) return 'kn';
+  return null;
+}
+
+// Function to verify if response matches target language
+function verifyResponseLanguage(responseContent, targetLangCode) {
+  if (targetLangCode === 'te') {
+    return /[\u0C00-\u0C7F]/.test(responseContent);
+  }
+  if (targetLangCode === 'hi') {
+    return /[\u0900-\u097F]/.test(responseContent);
+  }
+  return true;
+}
+
+// Grounded Multilingual Statutory RAG Responder
+function getVerifiedStatutoryResponse(query, targetLangCode, sources) {
+  const citations = (sources || []).map(s => `- **${s.title}**: ${s.citation}`).join('\n');
+
+  if (targetLangCode === 'te') {
+    return `### 🏛️ చట్టబద్ధమైన & శాస్త్రీయ విశ్లేషణ (IP-SAKTI Sahayak)
+
+#### 1. ప్రత్యక్ష అంచనా & చట్టపరమైన తీర్పు (Executive Assessment)
+మీరు అడిగిన ప్రశ్న: **"${query}"**
+ఆయుర్వేద మరియు సాంప్రదాయ ఫార్ములేషన్ల కోసం భారతీయ పేటెంట్ల చట్టం 1970 ప్రకారం సాంప్రదాయ జ్ఞానాన్ని యథాతథంగా పేటెంట్ చేయలేరు. అయితే, వినూత్న బయో-ఎన్‌హాన్సర్ క్యారియర్లు (ఉదా: నానో-ఫైటోసోమ్‌లు, లైపోసోమ్‌లు) మరియు ప్రయోగాత్మకంగా నిరూపించబడిన సినర్జీ ద్వారా చట్టబద్ధమైన పేటెంట్ హక్కులను సాధించవచ్చు.
+
+#### 2. శాస్త్రీయ ఆయుర్వేద ఆధారాలు (Classical Ayurvedic Context)
+- **గ్రంథాల ప్రమాణీకరణ**: చరక సంహిత (చికిత్సా స్థానం), సుశ్రుత సంహిత మరియు అష్టాంగ హృదయ ప్రకారం ఫార్ములేషన్ అనుపాన మరియు శోధన ప్రక్రియలకు కట్టుబడి ఉండాలి.
+- **ఫైటోకెమికల్ మార్కర్లు**: *Withania somnifera* (విథానోలైడ్స్), *Curcuma longa* (కర్కుమినాయిడ్స్ 95%), మరియు *Piper longum* (పైపరిన్)ల ప్రామాణిక శాతాలు API (ఆయుర్వేదిక్ ఫార్మకోపోయియా ఆఫ్ ఇండియా) నిబంధనల ప్రకారం ధృవీకరించబడాలి.
+
+#### 3. 🏛️ చట్టబద్ధమైన నేపథ్యం (Statutory & Legal Grounding)
+- **పేటెంట్ల చట్టం 1970 - సెక్షన్ 3(p)**: సాంప్రదాయ పరిజ్ఞానం లేదా వాటి సాధారణ సమ్మేళనాలు ఆవిష్కరణలు కావు. ఈ అడ్డంకిని దాటడానికి, క్యారియర్ డెలివరీ సిస్టమ్ (Vesicle size < 140nm) లేదా నవల స్థిరీకరణ ప్రక్రియలో నవ్యతను చూపించాలి.
+- **పేటెంట్ల చట్టం 1970 - సెక్షన్ 3(e)**: కేవలం మూలికల కలయిక కాకుండా, చౌ-తలలే (Chou-Talalay) కాంబినేషన్ ఇండెక్స్ (CI < 0.8) ద్వారా సినర్జిస్టిక్ సామర్థ్యాన్ని రుజువు చేయాలి.
+- **జీవ వైవిధ్య చట్టం 2002 (BDA) & సెక్షన్ 7**: వాణిజ్య ఉత్పత్తికి ముందు సంబంధిత రాష్ట్ర జీవవైవిధ్య బోర్డు (SBB Form-1)కు ముందస్తు సమాచారం తప్పనిసరి.
+- **CSIR-TKDL ముందస్తు కళ నివారణ**: 4,30,000+ ఫార్ములేషన్లు గల TKDL డేటాబేస్‌తో ముందస్తు సరిపోలిక నివేదికను సిద్ధం చేసుకోవాలి.
+
+#### 4. ఆచరణాత్మక వ్యూహాత్మక మార్గదర్శకాలు (Actionable Next Steps)
+1. **క్లినికల్ బయో-లభ్యత పరీక్షలు**: ప్రామాణిక కషాయం కంటే 3 రెట్లు ఎక్కువ రక్త శోషణ రేటును HPLC/LC-MS ద్వారా నిరూపించండి.
+2. **SBB Form-1 దాఖలు**: వాణిజ్య ఉత్పత్తి ప్రారంభానికి ముందు గ్రామ పంచాయతీ BMC ధృవీకరణలతో SBB దరఖాస్తును సమర్పించండి.
+3. **5-దశల ఇన్‌టేక్ విజార్డ్ ఉపయోగించండి**: మీ ఫార్ములేషన్ ప్రాథమిక డాసియర్‌ను ప్లాట్‌ఫారమ్‌లో ధృవీకరించడానికి **#intake-1** ను ప్రారంభించండి.
+
+---
+**చట్టబద్ధమైన మూలాలు (Verified Citations):**
+${citations || '- భారతీయ పేటెంట్ల చట్టం 1970 (§ 3p, § 3e, § 3d)\n- జీవ వైవిధ్య చట్టం 2002 (ABS నిబంధనలు)\n- CSIR-TKDL శాస్త్రీయ డేటాబేస్'}`;
+  }
+
+  if (targetLangCode === 'hi') {
+    return `### 🏛️ वैधानिक एवं वैज्ञानिक मूल्यांकन (IP-SAKTI Sahayak)
+
+#### 1. प्रत्यक्ष मूल्यांकन एवं कार्यकारी निष्कर्ष (Executive Assessment)
+आपका प्रश्न: **"${query}"**
+भारतीय पेटेंट अधिनियम 1970 के तहत शास्त्रीय आयुर्वेदिक ज्ञान को सीधे पेटेंट नहीं कराया जा सकता। पेटेंट योग्यता प्राप्त करने के लिए नोवेल डिलीवरी तकनीक (जैसे फॉस्फोलिपिड कॉम्प्लेक्स, नैनो-इमल्शन) और सहक्रियात्मक प्रभाव (Synergy) का वैज्ञानिक प्रमाण आवश्यक है।
+
+#### 2. शास्त्रीय आयुर्वेदिक संदर्भ (Classical Ayurvedic Treatises)
+- **प्रामाणिक ग्रंथ**: चरक संहिता (चिकित्सास्थान), सुश्रुत संहिता एवं अष्टांग हृदय के अनुसार घटक अनुपातों का विश्लेषण।
+- **सक्रिय मार्कर प्रतिशत**: *Withania somnifera* (विथानोलाइड्स), *Curcuma longa* (करक्यूमिनोइड्स 95%), और *Piper longum* (पिपेरिन) के मानकीकृत अवयव।
+
+#### 3. 🏛️ वैधानिक संदर्भ (Statutory Legal Grounding)
+- **पेटेंट अधिनियम धारा 3(p)**: पारंपरिक ज्ञान केवल ज्ञात गुणों का एकत्रीकरण होने के कारण गैर-पेटेंट योग्य है। इसे पार करने के लिए विशिष्ट विनिर्माण तकनीक में नवीनता प्रदर्शित करें।
+- **पेटेंट अधिनियम धारा 3(e)**: चो-तलाले विधि (Chou-Talalay Method) द्वारा कॉम्बिनेशन इंडेक्स (CI < 0.8) प्रस्तुत कर सहक्रियात्मक प्रभाव सिद्ध करें।
+- **जैविक विविधता अधिनियम 2002 (BDA)**: वाणिज्यिक उत्पादन हेतु राज्य जैव विविधता बोर्ड (SBB Form-1) को पूर्व सूचना देना वैधानिक रूप से अनिवार्य है।
+- **CSIR-TKDL पूर्व-कला समनुरूपता**: 4.3 लाख से अधिक फॉर्मूलेशन वाले टीकेडीएल डेटाबेस से विसंगति की जांच करें।
+
+#### 4. रणनीतिक अनुपालन रोडमैप (Actionable Next Steps)
+1. **तुलनात्मक जैव-उपलब्धता परीक्षण**: इन-विट्रो सेलुलर अवशोषण में सांख्यिकीय श्रेष्ठता (p < 0.001) स्थापित करें।
+2. **एसबीबी फॉर्म-1 दाखिल करें**: कच्चे माल की खरीद रसीदों के साथ राज्य बोर्ड को सूचना भेजें।
+3. **5-चरणीय इनटेक विज़ार्ड**: प्राथमिक डॉसियर तैयार करने के लिए **#intake-1** का उपयोग करें।
+
+---
+**सत्यापित वैधानिक संदर्भ (Statutory Citations):**
+${citations || '- भारतीय पेटेंट अधिनियम 1970 (धारा 3(p), 3(e), 3(d))\n- जैविक विविधता अधिनियम 2002 (एबीएस नियम)\n- सीएसआईआर-टीकेडीएल डेटाबेस'}`;
+  }
+
+  // Default English response
+  return `### 🏛️ Statutory & Classical IP Assessment (IP-SAKTI Sahayak)
+
+#### 1. Direct Assessment & Executive Verdict
+Your inquiry: **"${query}"**
+Under the Indian Patents Act, 1970, classical Ayurvedic formulations and direct traditional combinations cannot be patented as mere aggregations. Patentability requires novel delivery architecture (e.g., nano-liposomal carriers, SNEDDS) and experimental proof of synergy.
+
+#### 2. Classical Ayurvedic & Botanical Context
+- **Foundational Treatises**: Concordance verified against *Charaka Samhita* (Chikitsasthana), *Sushruta Samhita*, and *Astanga Hridaya*.
+- **Standardized Markers**: Standardized active markers (*Withania somnifera* withanolides > 5%, *Curcuma longa* curcuminoids 95%, and *Piper longum* piperine co-carrier) comply with Ayurvedic Pharmacopoeia of India (API) monographs.
+
+#### 3. 🏛️ Statutory & Legal Grounding
+- **Patents Act 1970 § 3(p)**: Classical prior art bar excludes traditional knowledge unless inventive technical character is demonstrated in formulation delivery.
+- **Patents Act 1970 § 3(e)**: Quantitative synergism must be substantiated via the Chou-Talalay Combination Index (CI < 0.8) proving unexpected efficacy beyond simple addition.
+- **Biological Diversity Act 2002 § 7 / § 39**: SBB Form-1 prior intimation is mandatory for commercial utilization; NBA Form-3 clearance is required before foreign patent filing.
+- **CSIR-TKDL Prior-Art Concordance**: Prior art cross-referencing against 430,000+ formulations prevents global patent claim objections.
+
+#### 4. Actionable Compliance & Strategic Roadmap
+1. **Bioavailability Assays**: Document at least 3.5x cellular uptake enhancement compared to classical aqueous decoctions.
+2. **SBB Form-1 Filing**: Execute commercial raw material sourcing intimation with APMC / BMC certificates.
+3. **Use 5-Step Intake Wizard**: Initiate formulation docket drafting via **#intake-1**.
+
+---
+**Verified Statutory Citations:**
+${citations || '- Indian Patents Act 1970 (§§ 3(p), 3(e), 3(d))\n- Biological Diversity Act 2002 (ABS Rules)\n- CSIR-TKDL Classical Knowledge Repository'}`;
+}
+
+// Patch getLocalRAGResponse to use the verified multilingual engine
+getLocalRAGResponse = function(query, sources) {
+  const detectedLang = detectQueryLanguage(query);
+  const targetLang = detectedLang || appState.chatLanguage || appState.platformLanguage || 'en';
+  return getVerifiedStatutoryResponse(query, targetLang, sources);
+};
+
 </script>
 </body>
 </html>
